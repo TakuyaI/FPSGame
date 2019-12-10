@@ -4,6 +4,7 @@ class GameCamera;
 #include "Player.h"
 #include "Enemy.h"
 #include "GameCamera.h"
+#include "Bullet.h"
 class Gun : public IGameObject
 {
 public:
@@ -30,6 +31,7 @@ private:
 	Player* m_player;
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;
+	Bullet* m_bullet;
 
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotation = CQuaternion::Identity();
@@ -40,6 +42,7 @@ private:
 	CQuaternion m_rot = CQuaternion::Identity();
 
 	CVector3 m_toTarget = CVector3::Zero();
-	CVector3 m_Pos = CVector3::Zero();
+	CVector3 m_Pos = { 15.0f, -8.0f, 10.0f };
+	CVector3 m_gunLocalPosition = { 15.0f, -8.0f, 10.0f };
 };
 

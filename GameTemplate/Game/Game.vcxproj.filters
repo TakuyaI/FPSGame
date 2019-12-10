@@ -118,6 +118,7 @@
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -213,6 +214,7 @@
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -225,5 +227,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\background.fbx" />
+    <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
   </ItemGroup>
 </Project>

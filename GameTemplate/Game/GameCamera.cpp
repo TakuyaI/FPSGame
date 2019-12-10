@@ -49,30 +49,40 @@ void GameCamera::ToTarget()
 void GameCamera::Update()
 {
 	m_position = m_player->GetPosition();
-	m_position.y += 100.0f;
+	
+	
+	if (m_lockOnTargetFlug != true) {
+		m_angle2 = g_pad->GetRStickYF() * -2.0f;
+		m_angle = g_pad->GetRStickXF() * 2.0f;
+	}
+
+		//YŽ²Žü‚è‚Ì‰ñ“]B
+		//m_angle = g_pad->GetRStickXF() * 2.0f;
+		m_rotation.SetRotationDeg(CVector3::AxisY(), m_angle);
+		m_rotation.Multiply(m_toTargetPos);
+
+		m_rotation.Multiply(m_cameraOffset);
+
+		//XŽ²Žü‚è‚Ì‰ñ“]B
+		//m_angle2 = g_pad->GetRStickYF() * -2.0f;
+		CVector3 axisX;
+		axisX.Cross(CVector3::AxisY(), m_toTargetPos);
+		axisX.Normalize();
+		m_rotation.SetRotationDeg(axisX, m_angle2);
+		m_rotation.Multiply(m_toTargetPos);
 
 	
-	//YŽ²Žü‚è‚Ì‰ñ“]B
-	m_angle = g_pad->GetRStickXF() * 2.0f;
-	m_rotation.SetRotationDeg(CVector3::AxisY(), m_angle);
-	m_rotation.Multiply(m_toTargetPos);
-	//XŽ²Žü‚è‚Ì‰ñ“]B
-	m_angle2 = g_pad->GetRStickYF() * -2.0f;
-	CVector3 axisX;
-	axisX.Cross(CVector3::AxisY(), m_toTargetPos);
-	axisX.Normalize();
-	m_rotation.SetRotationDeg(axisX, m_angle2);
-	m_rotation.Multiply(m_toTargetPos);
+	m_rotation.Multiply(m_cameraOffset);
+	m_position += m_cameraOffset;
 
-	m_flug = false;
+
 	CVector3 cameraForward = m_target - m_position;
 	m_toTarget = cameraForward;
 	cameraForward.Normalize();
 	//‚à‚µYƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚ç(’·‰Ÿ‚µ)A“G‚ðƒ^[ƒQƒbƒg‚·‚éB
 	if (g_pad->IsPress(enButtonLB1)) {
 		if (m_enemyGen->GetFlug() != 0) {
-			m_flug = true;
-
+			m_lockOnTargetFlug = true;
 			/*CVector3 cameraForward = m_target - m_position;
 			m_toTarget = cameraForward;
 			cameraForward.Normalize();*/
@@ -85,11 +95,13 @@ void GameCamera::Update()
 			float angle = acos(d);
 
 			if (fabsf(angle) < CMath::DegToRad(50.0f)) {
-
 				ToTarget();
-
 			}
 		}
+		
+	}
+	else {
+		m_lockOnTargetFlug = false;
 	}
 	
 	m_target = m_position + m_toTargetPos;

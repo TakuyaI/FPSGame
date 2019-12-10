@@ -16,7 +16,7 @@ EnemyGenerator::~EnemyGenerator()
 Enemy* EnemyGenerator::GetEnemy()
 {
 	if (m_flug != 0) {
-		if (m_gameCam->GetFlug() != true) {
+		if (m_gameCam->LockOnTargetFlug() != true) {
 			m_playerPos = m_player->GetPosition();
 			for (int i = 0; i < m_enemyNum; i++) {
 				CVector3 leg = m_playerPos - m_enemy[i]->GetPosition();

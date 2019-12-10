@@ -11,7 +11,6 @@ public:
 
 private:
 	SkinModel m_model;
-	PhysicsStaticObject m_PSO;
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotaiton = CQuaternion::Identity();
 };

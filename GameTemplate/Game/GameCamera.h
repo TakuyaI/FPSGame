@@ -29,6 +29,10 @@ public:
 	{
 		return m_position;
 	}
+	CVector3 GetToTargetPos()
+	{
+		return m_toTargetPos;
+	}
 
 	void SetPlayer(Player* pl)
 	{
@@ -47,9 +51,9 @@ public:
 		return m_target;
 	}
 
-	bool GetFlug()
+	bool LockOnTargetFlug()
 	{
-		return m_flug;
+		return m_lockOnTargetFlug;
 	}
 	
 	CVector3 GetToTarget()
@@ -73,6 +77,9 @@ private:
 	float m_angle = 0.0f;                             //âÒì]ÅB
 	float m_angle2 = 0.0f;
 	CQuaternion m_rotation;
-	bool m_flug = false;
+	bool m_lockOnTargetFlug = false;
+
+	CVector3 m_cameraOffset = { 0.0f, 100.0f, 0.0f };
+
 };
 

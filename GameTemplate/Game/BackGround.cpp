@@ -14,8 +14,6 @@ BackGround::~BackGround()
 
 void BackGround::Update()
 {
-	//m_PSO.CreateMeshObject(m_model, m_position, m_rotaiton);
-
 	m_model.UpdateWorldMatrix(m_position, m_rotaiton, CVector3::One() * 10.0f);
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),

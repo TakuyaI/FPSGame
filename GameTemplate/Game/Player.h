@@ -25,7 +25,10 @@ public:
 	{
 		return m_position;
 	}
-
+	bool GetJumpFlug()
+	{
+		return m_jumpFlag;
+	}
 	void SetGameCamera(GameCamera* gc)
 	{
 		m_gameCamera = gc;
