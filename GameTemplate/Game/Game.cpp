@@ -18,7 +18,6 @@ Game::Game()
 	m_enemyGen->SetPlayer(m_player);
 	m_enemyGen->SetGameCamera(m_gameCam);
 	m_gameCam->SetEnemyGenerator(m_enemyGen);
-	
 	m_gun->SetPlayer(m_player);
 	m_gun->SetEenmy(m_enemyGen->GetEnemy());
 	m_gun->SetGameCamera(m_gameCam);

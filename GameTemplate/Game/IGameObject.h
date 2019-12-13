@@ -26,7 +26,18 @@ public:
 		return isReqDelete; 
 	}
 
+	void SetA(int aa)
+	{
+		a = aa;
+	}
+	int GetA()
+	{
+		return a;
+	}
+
 private:
 	bool isReqDelete = false;//íœƒtƒ‰ƒOB
+protected:
+	int a = 0;
 };
 

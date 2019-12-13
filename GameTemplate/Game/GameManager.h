@@ -28,11 +28,12 @@ public:
 	template<class T>
 	T* NewGameObject()
 	{
-		T* newObj = new T;
+		T* newObj = new T();
 		m_goList.push_back(newObj);
 		return newObj;
 	}
-	
+
+
 	void DeleteGameObject(IGameObject* go)
 	{
 		//リストから探して、見つかったら削除する。

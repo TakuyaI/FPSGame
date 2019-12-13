@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GameCamera.h"
-
+#include "GameManager.h"
 
 
 GameCamera::GameCamera()
@@ -49,7 +49,7 @@ void GameCamera::ToTarget()
 void GameCamera::Update()
 {
 	m_position = m_player->GetPosition();
-	
+	CVector3 toCameraPosOld = m_toTargetPos;
 	
 	if (m_lockOnTargetFlug != true) {
 		m_angle2 = g_pad->GetRStickYF() * -2.0f;
@@ -57,14 +57,12 @@ void GameCamera::Update()
 	}
 
 		//Y軸周りの回転。
-		//m_angle = g_pad->GetRStickXF() * 2.0f;
 		m_rotation.SetRotationDeg(CVector3::AxisY(), m_angle);
 		m_rotation.Multiply(m_toTargetPos);
 
 		m_rotation.Multiply(m_cameraOffset);
 
 		//X軸周りの回転。
-		//m_angle2 = g_pad->GetRStickYF() * -2.0f;
 		CVector3 axisX;
 		axisX.Cross(CVector3::AxisY(), m_toTargetPos);
 		axisX.Normalize();
@@ -77,8 +75,8 @@ void GameCamera::Update()
 
 
 	CVector3 cameraForward = m_target - m_position;
-	m_toTarget = cameraForward;
 	cameraForward.Normalize();
+	m_toTarget = cameraForward;
 	//もしYボタンを押したら(長押し)、敵をターゲットする。
 	if (g_pad->IsPress(enButtonLB1)) {
 		if (m_enemyGen->GetFlug() != 0) {
@@ -103,7 +101,7 @@ void GameCamera::Update()
 	else {
 		m_lockOnTargetFlug = false;
 	}
-	
+
 	m_target = m_position + m_toTargetPos;
 	
 	g_camera3D.SetTarget(m_target);
