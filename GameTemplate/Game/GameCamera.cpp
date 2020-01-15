@@ -8,6 +8,8 @@ GameCamera::GameCamera()
 	g_camera3D.SetNear(10.0f);
 	g_camera3D.SetFar(10000.0f);
 	m_toTargetPos = { 0.0f, 0.0f, 1000.0f };
+	//m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+	m_enemy = g_goMgr.FindGameObject<Enemy>(enemy);
 }
 
 
@@ -48,9 +50,10 @@ void GameCamera::ToTarget()
 
 void GameCamera::Update()
 {
+	m_player = g_goMgr.FindGameObject<Player>(player);
 	m_position = m_player->GetPosition();
 	CVector3 toCameraPosOld = m_toTargetPos;
-	
+	CVector3 cameraOffsetOld = m_cameraOffset;
 	if (m_lockOnTargetFlug != true) {
 		m_angle2 = g_pad->GetRStickYF() * -2.0f;
 		m_angle = g_pad->GetRStickXF() * 2.0f;
@@ -79,7 +82,9 @@ void GameCamera::Update()
 	m_toTarget = cameraForward;
 	//もしYボタンを押したら(長押し)、敵をターゲットする。
 	if (g_pad->IsPress(enButtonLB1)) {
-		if (m_enemyGen->GetFlug() != 0) {
+		m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+		if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
+			m_enemy = m_enemyGen->GetClosestEnemyToPlayer();
 			m_lockOnTargetFlug = true;
 			/*CVector3 cameraForward = m_target - m_position;
 			m_toTarget = cameraForward;
@@ -100,6 +105,19 @@ void GameCamera::Update()
 	}
 	else {
 		m_lockOnTargetFlug = false;
+	}
+
+	CVector3 toPosDir = m_toTargetPos;
+	toPosDir.Normalize();
+	if (toPosDir.y < -0.5f) {
+		//カメラが上向きすぎ。
+		m_toTargetPos = toCameraPosOld;
+		m_cameraOffset = cameraOffsetOld;
+	}
+	else if (toPosDir.y > 0.8f) {
+		//カメラが下向きすぎ。
+		m_toTargetPos = toCameraPosOld;
+		m_cameraOffset = cameraOffsetOld;
 	}
 
 	m_target = m_position + m_toTargetPos;

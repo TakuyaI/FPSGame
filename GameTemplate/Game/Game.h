@@ -2,6 +2,8 @@
 class Gun;
 class GameCamera;
 class EnemyGenerator;
+class Sprite;
+class GunGenerator;
 #include "IGameObject.h"
 #include "Player.h"
 #include "BackGround.h"
@@ -17,6 +19,7 @@ public:
 
 	void Update();
 
+
 private:
 	Player* m_player;
 	BackGround* m_backGro;
@@ -24,5 +27,7 @@ private:
 	Enemy* m_enemy;
 	EnemyGenerator* m_enemyGen;
 	Gun* m_gun;
+	GunGenerator* m_gunGen;
+	Sprite* m_sprite;
 };
 

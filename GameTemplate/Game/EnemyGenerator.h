@@ -13,26 +13,35 @@ public:
 	EnemyGenerator();
 	~EnemyGenerator();
 
-	void SetGameCamera(GameCamera* gc)
+	int GetEnemyOccurrenceFlug()
 	{
-		m_gameCam = gc;
+		return m_enemyOccurrenceFlug;
 	}
-
-	void SetPlayer(Player* pl)
+	CVector3 GetEnemyInitPos()
 	{
-		m_player = pl;
+		return m_enemyInitPos;
 	}
-
-	int GetFlug()
+	void SetEnemyNum(int enemynum)
 	{
-		return m_flug;
+		m_enemyNum = enemynum;
 	}
-
-	Enemy* GetEnemy();
-
+	int GetEnemyNum()
+	{
+		return m_enemyNum;
+	}
+	void SetAttackFlug(bool flug)
+	{
+		m_attackFlug = flug;
+	}
+	bool GetAttackFlug()
+	{
+		return m_attackFlug;
+	}
+	
+	Enemy* GetClosestEnemyToPlayer(); //PlayerÇ∆1î‘ãﬂÇ¢EnemyÅB
 	void Update();
 private:
-	Enemy * m_enemy[5];
+	Enemy * m_enemy[50];
 	Gun* m_gun;
 	GameCamera* m_gameCam;
 	Game* m_game;
@@ -42,11 +51,12 @@ private:
 	float m_kyori = 1000000.0f;
 	int n = 0;
 
-	int m_flug = 0;
+	bool m_enemyOccurrenceFlug = false;
 	int m_timer = 0;
 	int m_enemyNum = 0;
-	int m_enemyMax = 5;
-	CVector3 pos = { 0.0f, 0.0f, 300.0f };
+	const int m_enemyMax = 50;
+	CVector3 m_enemyInitPos = { 0.0f, 0.0f, 300.0f };
 	int t = 0;
+	bool m_attackFlug = false;
 };
 

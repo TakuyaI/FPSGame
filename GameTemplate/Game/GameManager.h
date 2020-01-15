@@ -1,4 +1,5 @@
 #pragma once
+#include <time.h>
 #include "IGameObject.h"
 #include "RenderTarget.h"
 #include "Sprite.h"
@@ -26,13 +27,24 @@ public:
 	/// ゲームオブジェクトを追加。
 	/// </summary>
 	template<class T>
-	T* NewGameObject()
+	T* NewGameObject(const int num)
 	{
 		T* newObj = new T();
 		m_goList.push_back(newObj);
+		newObj->SetObjectNum(num);
 		return newObj;
 	}
 
+	template<class T>
+	T* FindGameObject(const int num)
+	{
+		for (auto go : m_goList) {
+			if (go->GetObjectNum() == num) {
+				T* p = dynamic_cast<T*>(go);
+				return p;
+			}
+		}
+	}
 
 	void DeleteGameObject(IGameObject* go)
 	{
@@ -48,7 +60,23 @@ public:
 			}
 		}
 	}
-	
+	/// <summary>
+	/// ランダムで数値を出す。
+	/// </summary>
+	/// 0からnum番目までの数値を出す。<param name="num"></param>
+	/// <returns></returns>
+	int Rand(int num) 
+	{
+		srand((unsigned int)time(0));
+		rand(); rand(); rand(); rand();
+
+		int rand1 = rand() % num;
+		return rand1;
+	}
+	float Lerp(float lowest, float highest)
+	{
+		return lowest + Rand(highest - lowest);
+	}
 private:
 	std::list <IGameObject*> m_goList; //可変長配列。
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。

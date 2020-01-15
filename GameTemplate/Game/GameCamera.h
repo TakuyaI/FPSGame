@@ -2,6 +2,7 @@
 class Game;
 class Player;
 class EnemyGenerator;
+class Enemy;
 #include "IGameObject.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -34,18 +35,6 @@ public:
 		return m_toTargetPos;
 	}
 
-	void SetPlayer(Player* pl)
-	{
-		m_player = pl;
-	}
-	void SetEnemy(Enemy* en)
-	{
-		m_enemy = en;
-	}
-	void SetEnemyGenerator(EnemyGenerator* enemyGen)
-	{
-		m_enemyGen = enemyGen;
-	}
 	CVector3 GetTargetPos()
 	{
 		return m_target;
@@ -69,6 +58,7 @@ private:
 	Enemy* m_enemy;
 	EnemyGenerator* m_enemyGen;
 	Gun* m_gun;
+	Game* m_game;
 
 	CVector3 m_toTargetPos = CVector3::Zero();
 	CVector3 m_enemyPos = CVector3::Zero();

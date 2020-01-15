@@ -1,15 +1,33 @@
 #include "stdafx.h"
 #include "Gun.h"
+#include "GunGenerator.h"
 #include "GameManager.h"
 
-
+//銃の情報。
+struct GunInformation {
+	const int RIFLE_INTERVAL_TIME = 1;     //ライフルバレットのインターバルタイム。
+	const int SHOTGUN_INTERVAL_TIME = 10;  //ショットガンバレットのインターバルタイム。
+	const float RIFLE_MOVE_SPEED = 100.0f; //ライフルバレットの速度。
+	const float SHOTGUN_MOVE_SPEED = 50.0f; //ショットガンバレットの速度。
+};
 Gun::Gun()
 {
-	m_model.Init(L"Assets/modelData/riful.cmo");
-	//m_bullet = g_goMgr.NewGameObject<Bullet>();
-
+	GunInformation gunInf;
+	GunNumber gunNum;
+	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
+	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
+		m_model.Init(L"Assets/modelData/riful.cmo");
+		m_bulletIntervalTime = gunInf.RIFLE_INTERVAL_TIME;
+		m_bulletMoveSpeed = gunInf.RIFLE_MOVE_SPEED;
+	}
+	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
+		m_model.Init(L"Assets/modelData/gun2.cmo");
+		m_bulletIntervalTime = gunInf.SHOTGUN_INTERVAL_TIME;
+		m_bulletMoveSpeed = gunInf.SHOTGUN_MOVE_SPEED;
+	}
+	int a = m_gunGen->GetNextNum();
+	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 }
-
 
 Gun::~Gun()
 {
@@ -19,7 +37,7 @@ void Gun::Update()
 {
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.y = 0.0f;
-	//pos.Normalize();
+	
 	m_angle = CMath::RadToDeg(atan2(pos.x, pos.z));// acos(pos.Dot(CVector3::Front())));
 
 	pos = m_gameCam->GetToTargetPos();
@@ -44,20 +62,23 @@ void Gun::Update()
 
 	m_position += m_Pos;
 
-	/*m_bulletPos = m_position;
-	
-	m_bullet->SetPosition(m_bulletPos);*/
 
 	if (g_pad->IsPress(enButtonRB1)) {
-		m_bullet = g_goMgr.NewGameObject<Bullet>();
-		m_bullet->SetPosition(m_position);
-		CVector3 v = m_gameCam->GetTargetPos() - m_position;
-		v.Normalize();
-		m_bulletPos = v * 100.0f;
-		m_bullet->SetMoveSpeed(m_bulletPos);
+		m_bulletIntervalTimer++;
+		if (m_bulletIntervalTimer >= m_bulletIntervalTime) {
+			m_bullet = g_goMgr.NewGameObject<Bullet>(bullet);
+			m_bullet->SetPosition(m_position);
+			CVector3 v = m_gameCam->GetTargetPos() - m_position;
+			v.Normalize();
+			m_bulletPos = v * m_bulletMoveSpeed;
+			m_bullet->SetMoveSpeed(m_bulletPos);
+			m_bulletIntervalTimer = 0;
+			m_shootingBulletFlug = true;
+		}
 	}
-	
-
+	else {
+		m_shootingBulletFlug = false;
+	}
 
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 	m_model.Draw(

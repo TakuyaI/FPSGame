@@ -26,18 +26,30 @@ public:
 		return isReqDelete; 
 	}
 
-	void SetA(int aa)
+	void SetObjectNum(int objectNum)
 	{
-		a = aa;
+		m_objectNum = objectNum;
 	}
-	int GetA()
+	int GetObjectNum()
 	{
-		return a;
+		return m_objectNum;
 	}
 
 private:
 	bool isReqDelete = false;//íœƒtƒ‰ƒOB
+	int m_objectNum = 0;
 protected:
-	int a = 0;
+
+	const enum objectNum {
+		background,
+		bullet,
+		enemy,
+		enemygenerator,
+		game,
+		gamecamera,
+		gun,
+		player,
+		gungenerator
+	};
 };
 

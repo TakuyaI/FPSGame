@@ -163,7 +163,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 		lig += max(0.0f, dot(In.Normal, dligDirection[i].xyz * -1.0f)) * dligColor[i];
 	}
 	
-	
+	lig += float3(0.2f, 0.2f, 0.2f);
 	float4 final;
 	final.xyz = albedo.xyz *lig;
 	return float4(final.xyz, 1.0f);

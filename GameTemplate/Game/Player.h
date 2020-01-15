@@ -1,4 +1,6 @@
 #pragma once
+//class EnemyGenerator;
+//class Enemy;
 #include "character/CharacterController.h"
 #include "IGameObject.h"
 #include "GameCamera.h"
@@ -25,22 +27,38 @@ public:
 	{
 		return m_position;
 	}
+	void SetMoveSpeed(CVector3 movespeed)
+	{
+		m_moveSpeed = movespeed;
+	}
+	CVector3 GetMoveSpeed()
+	{
+		return m_moveSpeed;
+	}
 	bool GetJumpFlug()
 	{
 		return m_jumpFlag;
 	}
-	void SetGameCamera(GameCamera* gc)
+	void SetPushAwayFlug(bool t)
 	{
-		m_gameCamera = gc;
+		m_pushAwayFlug = t;
+	}
+	bool GetPushAwayFlug()
+	{
+		return m_pushAwayFlug;
 	}
 private:
 	GameCamera* m_gameCamera;
+	EnemyGenerator* m_enemyGen;
+	Enemy* m_enemy;
 
 	CVector3 m_position = CVector3::Zero(); //座標。
 	SkinModel m_model;						//スキンモデル。
 	float ySpeed = 0.0f;                    //重力。
-	CVector3 m_moveSpeed = CVector3::Zero();//
+	CVector3 m_moveSpeed = CVector3::Zero();//ムーブスピード。
 	CharacterController m_charaCon;         //キャラクターコントローラー。
 	bool m_jumpFlag = false;                     //ジャンプフラグ。
 	float m_playerSpeed = 20.0f;            //Playerのスピード。
+	int a = 0;
+	bool m_pushAwayFlug = false;
 };

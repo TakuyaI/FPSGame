@@ -119,6 +119,7 @@
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="GunGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -215,6 +216,7 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="GunGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -228,5 +230,11 @@
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\background.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
+    <MeshContentTask Include="Assets\modelData\bk.fbx" />
+    <MeshContentTask Include="Assets\modelData\gun2.fbx" />
+    <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\aka.png" />
   </ItemGroup>
 </Project>

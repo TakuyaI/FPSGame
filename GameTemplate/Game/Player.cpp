@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "GameManager.h"
+#include "EnemyGenerator.h"
+#include "Enemy.h"
 
-
-const float PLAYER_CONTROLLER_RADIUS = 150.0f;
+const float PLAYER_CONTROLLER_RADIUS = 30.0f;
 const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
 
 Player::Player()
@@ -14,6 +16,8 @@ Player::Player()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);
+	
+	//m_gameCamera = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 }
 
 
@@ -23,6 +27,7 @@ Player::~Player()
 
 void Player::Update()
 {
+	m_gameCamera = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 	//視点から注視点に向かって伸びるベクトルを求める。
 	CVector3 cameraDir = m_gameCamera->GetTarget() -
 		                 m_gameCamera->GetPosition();
@@ -71,6 +76,25 @@ void Player::Update()
 		m_moveSpeed.y = 0.0f;
 		if (m_jumpFlag != false) {
 			m_jumpFlag = false;
+		}
+	}
+
+	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+	if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
+		//Enemyが出現した。
+		m_enemy = g_goMgr.FindGameObject<Enemy>(enemy);
+		if (m_enemyGen->GetAttackFlug() != false) {
+			//Enemyが攻撃してきた。
+			//つかまれているから、Playerは動けない。
+			m_moveSpeed = CVector3::Zero();
+			if (g_pad->IsTrigger(enButtonY)) {
+				a++;
+				if (a >= 5) {
+					//Yボタンを5回押した。
+					m_pushAwayFlug = true;
+					a = 0;
+				}
+			}
 		}
 	}
 
