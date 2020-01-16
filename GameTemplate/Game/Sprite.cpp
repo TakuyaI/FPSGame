@@ -159,6 +159,7 @@ void Sprite::InitSamplerState()
 }
 void Sprite::InitCommon(float w, float h)
 {
+	CVector2 m_size = CVector2::Zero();
 	m_size.x = w;
 	m_size.y = h;
 	//頂点バッファの初期化。

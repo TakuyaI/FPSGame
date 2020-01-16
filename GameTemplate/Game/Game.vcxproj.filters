@@ -233,6 +233,8 @@
     <MeshContentTask Include="Assets\modelData\bk.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
+    <MeshContentTask Include="Assets\modelData\sniper.fbx" />
+    <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\sprite\aka.png" />

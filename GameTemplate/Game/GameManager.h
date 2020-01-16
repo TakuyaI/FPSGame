@@ -61,9 +61,9 @@ public:
 		}
 	}
 	/// <summary>
-	/// ランダムで数値を出す。
+	/// ランダムで数値を返す。
 	/// </summary>
-	/// 0からnum番目までの数値を出す。<param name="num"></param>
+	///<param name="num"> 0からnum番目までの数値を出す。</param>
 	/// <returns></returns>
 	int Rand(int num) 
 	{
@@ -73,6 +73,12 @@ public:
 		int rand1 = rand() % num;
 		return rand1;
 	}
+	/// <summary>
+	/// 一定範囲内の数値をランダムで返す。
+	/// </summary>
+	/// <param name="lowest">範囲の最小値</param>
+	/// <param name="highest">範囲の最大値</param>
+	/// <returns></returns>
 	float Lerp(float lowest, float highest)
 	{
 		return lowest + Rand(highest - lowest);

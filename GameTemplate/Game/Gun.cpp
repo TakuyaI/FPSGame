@@ -7,8 +7,10 @@
 struct GunInformation {
 	const int RIFLE_INTERVAL_TIME = 1;     //ライフルバレットのインターバルタイム。
 	const int SHOTGUN_INTERVAL_TIME = 10;  //ショットガンバレットのインターバルタイム。
+	const int SNIPER_INTERVAL_TIME = 20;  //スナイパーバレットのインターバルタイム。
 	const float RIFLE_MOVE_SPEED = 100.0f; //ライフルバレットの速度。
 	const float SHOTGUN_MOVE_SPEED = 50.0f; //ショットガンバレットの速度。
+	const float SNIPER_MOVE_SPEED = 200.0f; //スナイパーバレットの速度。
 };
 Gun::Gun()
 {
@@ -24,6 +26,11 @@ Gun::Gun()
 		m_model.Init(L"Assets/modelData/gun2.cmo");
 		m_bulletIntervalTime = gunInf.SHOTGUN_INTERVAL_TIME;
 		m_bulletMoveSpeed = gunInf.SHOTGUN_MOVE_SPEED;
+	}
+	else if (m_gunGen->GetNextNum() == gunNum.SNIPER_NUMBER) {
+		m_model.Init(L"Assets/modelData/sniper.cmo");
+		m_bulletIntervalTime = gunInf.SNIPER_INTERVAL_TIME;
+		m_bulletMoveSpeed = gunInf.SNIPER_MOVE_SPEED;
 	}
 	int a = m_gunGen->GetNextNum();
 	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);

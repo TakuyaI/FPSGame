@@ -192,6 +192,8 @@
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\riful.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
+    <MeshContentTask Include="Assets\modelData\sniper.fbx" />
+    <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>

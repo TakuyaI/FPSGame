@@ -21,13 +21,21 @@ public:
 	{
 		return m_enemyInitPos;
 	}
-	void SetEnemyNum(int enemynum)
+	void SetEnemyArrayNum(int enemynum)
 	{
-		m_enemyNum = enemynum;
+		m_enemyArrayNum = enemynum;
 	}
-	int GetEnemyNum()
+	int GetEnemyArrayNum()
 	{
-		return m_enemyNum;
+		return m_enemyArrayNum;
+	}
+	void SetEnemyNumber(int num)
+	{
+		m_enemyNumber = num;
+	}
+	int GetEnemyNumber()
+	{
+		return m_enemyNumber;
 	}
 	void SetAttackFlug(bool flug)
 	{
@@ -37,8 +45,9 @@ public:
 	{
 		return m_attackFlug;
 	}
-	
+	void DeleteEnemy();
 	Enemy* GetClosestEnemyToPlayer(); //Playerと1番近いEnemy。
+	Enemy* GetClosestEnemyToBullet(CVector3 bulletPos);//Bulletと1番近いEnemy。
 	void Update();
 private:
 	Enemy * m_enemy[50];
@@ -46,17 +55,19 @@ private:
 	GameCamera* m_gameCam;
 	Game* m_game;
 	Player* m_player;
+	Bullet* m_bullet;
 
 	CVector3 m_playerPos = CVector3::Zero();
 	float m_kyori = 1000000.0f;
-	int n = 0;
-
+	int m_enToPlNum = 0;//Playerと1番近いEnemyの配列ナンバー。
+	int m_enToBuNum = 0;//Bulletと1番近いEnemyの配列ナンバー。
 	bool m_enemyOccurrenceFlug = false;
 	int m_timer = 0;
-	int m_enemyNum = 0;
-	const int m_enemyMax = 50;
+	int m_enemyArrayNum = 0; //Enemyの配列ナンバー。
+	const int m_enemyMax = 3;
 	CVector3 m_enemyInitPos = { 0.0f, 0.0f, 300.0f };
 	int t = 0;
 	bool m_attackFlug = false;
+	int m_enemyNumber = 0;  //Enemyの数。
 };
 

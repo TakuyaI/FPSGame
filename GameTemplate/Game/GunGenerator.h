@@ -7,9 +7,16 @@ class GameCamera;
 /// </summary>
 struct GunNumber
 {
-	const int RIFLE_NUMBER = 0;
+	const enum {
+		RIFLE_NUMBER,
+		SHOTGUN_NUMBER,
+		SNIPER_NUMBER,
+		END_NUMBER
+	};
+	/*const int RIFLE_NUMBER = 0;
 	const int SHOTGUN_NUMBER = 1;
-	const int END_NUMBER = 2;
+	const int SNIPER_NUMBER = 2;
+	const int END_NUMBER = 3;*/
 };
 
 class GunGenerator : public IGameObject

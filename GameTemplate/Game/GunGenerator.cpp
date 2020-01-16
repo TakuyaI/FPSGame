@@ -4,16 +4,8 @@
 #include "Gun.h"
 #include "GameCamera.h"
 
-//struct GunNumber 
-//{
-//	const int RIFLE_NUMBER = 0;
-//	const int SHOTGUN_NUMBER = 1;
-//	const int END_NUMBER = 2;
-//};
-
 GunGenerator::GunGenerator()
 {
-
 }
 GunGenerator::~GunGenerator()
 {
