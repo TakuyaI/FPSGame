@@ -35,6 +35,10 @@ public:
 	{
 		return m_shootingBulletFlug;
 	}
+	CQuaternion GetRotation()
+	{
+		return m_rotation;
+	}
 private:
 	SkinModel m_model;
 	Player* m_player;

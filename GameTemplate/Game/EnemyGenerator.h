@@ -64,7 +64,7 @@ private:
 	bool m_enemyOccurrenceFlug = false;
 	int m_timer = 0;
 	int m_enemyArrayNum = 0; //Enemyの配列ナンバー。
-	const int m_enemyMax = 3;
+	const int m_enemyMax = 30;
 	CVector3 m_enemyInitPos = { 0.0f, 0.0f, 300.0f };
 	int t = 0;
 	bool m_attackFlug = false;

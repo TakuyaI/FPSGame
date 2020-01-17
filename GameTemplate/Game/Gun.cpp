@@ -5,7 +5,7 @@
 
 //銃の情報。
 struct GunInformation {
-	const int RIFLE_INTERVAL_TIME = 1;     //ライフルバレットのインターバルタイム。
+	const int RIFLE_INTERVAL_TIME = 5;     //ライフルバレットのインターバルタイム。
 	const int SHOTGUN_INTERVAL_TIME = 10;  //ショットガンバレットのインターバルタイム。
 	const int SNIPER_INTERVAL_TIME = 20;  //スナイパーバレットのインターバルタイム。
 	const float RIFLE_MOVE_SPEED = 100.0f; //ライフルバレットの速度。
@@ -32,7 +32,6 @@ Gun::Gun()
 		m_bulletIntervalTime = gunInf.SNIPER_INTERVAL_TIME;
 		m_bulletMoveSpeed = gunInf.SNIPER_MOVE_SPEED;
 	}
-	int a = m_gunGen->GetNextNum();
 	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 }
 

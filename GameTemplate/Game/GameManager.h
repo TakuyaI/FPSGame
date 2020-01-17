@@ -67,10 +67,31 @@ public:
 	/// <returns></returns>
 	int Rand(int num) 
 	{
-		srand((unsigned int)time(0));
+		//srand((unsigned int)time(nullptr));
 		rand(); rand(); rand(); rand();
+		int ran = 0;
+		if (aa % 4 == 0) {
+			ran = rand();
+			aa++;
+		}
+		else if (aa % 4 == 1) {
+			ran = rand();
+			aa++;
+		}
+		else if (aa % 4 == 2) {
+			ran = rand();
+			aa++;
+		}
+		else if (aa % 4 == 3) {
+			ran = rand();
+			aa++;
+		}
+		else {
+			ran = rand();
+			aa++;
+		}
 
-		int rand1 = rand() % num;
+		int rand1 = ran % num;
 		return rand1;
 	}
 	/// <summary>
@@ -91,6 +112,7 @@ private:
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	bool m_flug = false;
+	int aa = 0;
 };
 //外部からアクセスするので、extern宣言も必要。
 extern GameManager g_goMgr;

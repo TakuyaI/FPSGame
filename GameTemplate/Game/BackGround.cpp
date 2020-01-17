@@ -4,7 +4,6 @@
 BackGround::BackGround()
 {
 	m_model.Init(L"Assets/modelData/bk.cmo");
-	//m_a.CreateMeshObject(m_model, m_position, m_rotaiton);
 }
 
 

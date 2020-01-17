@@ -1,6 +1,6 @@
 #pragma once
 #include "IGameObject.h"
-#include "physics\PhysicsStaticObject.h"
+
 class BackGround : public IGameObject
 {
 public:
@@ -14,6 +14,5 @@ private:
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotaiton = CQuaternion::Identity();
 	int a = 0;
-	PhysicsStaticObject m_a;
 };
 

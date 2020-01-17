@@ -81,21 +81,6 @@
     <ClCompile Include="graphics\Camera.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="physics\RigidBody.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\Physics.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\MeshCollider.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\CapsuleCollider.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\PhysicsStaticObject.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
     <ClCompile Include="character\CharacterController.cpp">
       <Filter>character</Filter>
     </ClCompile>
@@ -120,6 +105,26 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GunGenerator.cpp" />
+    <ClCompile Include="system\physics\CapsuleCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="system\physics\MeshCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="system\physics\Physics.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="system\physics\PhysicsStaticObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="system\physics\RigidBody.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\CapsuleCollider.cpp" />
+    <ClCompile Include="physics\MeshCollider.cpp" />
+    <ClCompile Include="physics\Physics.cpp" />
+    <ClCompile Include="physics\PhysicsStaticObject.cpp" />
+    <ClCompile Include="physics\RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -173,27 +178,6 @@
     <ClInclude Include="graphics\Camera.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="physics\RigidBody.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\Physics.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\ICollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\MeshCollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CapsuleCollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CollisionAttr.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\PhysicsStaticObject.h">
-      <Filter>physics</Filter>
-    </ClInclude>
     <ClInclude Include="character\CharacterController.h">
       <Filter>character</Filter>
     </ClInclude>
@@ -217,6 +201,34 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GunGenerator.h" />
+    <ClInclude Include="system\physics\CapsuleCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\CollisionAttr.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\ICollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\MeshCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\Physics.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\PhysicsStaticObject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="system\physics\RigidBody.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\CapsuleCollider.h" />
+    <ClInclude Include="physics\CollisionAttr.h" />
+    <ClInclude Include="physics\ICollider.h" />
+    <ClInclude Include="physics\MeshCollider.h" />
+    <ClInclude Include="physics\Physics.h" />
+    <ClInclude Include="physics\PhysicsStaticObject.h" />
+    <ClInclude Include="physics\RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -35,5 +35,6 @@ private:
 	CVector3 m_moveSpeed = CVector3::Zero();
 	int m_timer = 0;
 	bool m_deleteEenmyFlug = false;
+	int m_bulletPower = 0;
 };
 
