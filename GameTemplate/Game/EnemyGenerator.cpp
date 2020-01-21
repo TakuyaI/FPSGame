@@ -94,3 +94,7 @@ void EnemyGenerator::Update()
 	}
 
 }
+void EnemyGenerator::Render()
+{
+
+}

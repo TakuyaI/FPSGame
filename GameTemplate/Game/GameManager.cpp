@@ -54,20 +54,38 @@ void GameManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D
 }
 void GameManager::Update()
 {
-	
-	
-		////描画開始。
-		//g_graphicsEngine->BegineRender();
-		//フレームバッファののレンダリングターゲットをバックアップしておく。
-		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-		d3dDeviceContext->OMGetRenderTargets(
-			1,
-			&m_frameBufferRenderTargetView,
-			&m_frameBufferDepthStencilView
-		);
-		//ビューポートもバックアップを取っておく。
-		unsigned int numViewport = 1;
-		d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
+		//登録されているゲームオブジェクトの更新処理を呼ぶ。
+		for (auto go : m_goList) {
+			go->Update();
+		}
+
+	for (auto it = m_goList.begin(); it != m_goList.end();) {
+		if ((*it)->IsReqDelete()) {
+			//削除リクエストを受けているので、削除する。
+			delete *it;
+			it = m_goList.erase(it);
+		}
+		else {
+			//リクエストを受けていない。
+			it++;
+		}
+	}
+}
+
+void GameManager::Render()
+{
+	////描画開始。
+	//g_graphicsEngine->BegineRender();
+	//フレームバッファののレンダリングターゲットをバックアップしておく。
+	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	d3dDeviceContext->OMGetRenderTargets(
+		1,
+		&m_frameBufferRenderTargetView,
+		&m_frameBufferDepthStencilView
+	);
+	//ビューポートもバックアップを取っておく。
+	unsigned int numViewport = 1;
+	d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
 
 	{
 		//レンダリングターゲットをメインに変更する。
@@ -77,16 +95,12 @@ void GameManager::Update()
 		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		m_mainRenderTarget.ClearRenderTarget(clearColor);
 
-
-		
-
 		//登録されているゲームオブジェクトの更新処理を呼ぶ。
 		for (auto go : m_goList) {
-			go->Update();
+			go->Render();
 		}
 	}
-	
-		
+
 	{
 		//レンダリングターゲットをフレームバッファに戻す。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -104,19 +118,4 @@ void GameManager::Update()
 		m_frameBufferDepthStencilView->Release();
 	}
 
-	
-
-	//g_graphicsEngine->EndRender();
-
-	for (auto it = m_goList.begin(); it != m_goList.end();) {
-		if ((*it)->IsReqDelete()) {
-			//削除リクエストを受けているので、削除する。
-			delete *it;
-			it = m_goList.erase(it);
-		}
-		else {
-			//リクエストを受けていない。
-			it++;
-		}
-	}
 }

@@ -58,11 +58,15 @@ void Bullet::Update()
 	}
 	m_timer++;
 	m_position += m_moveSpeed;
-	if (m_timer >= 10) {
+	if (m_timer >= 5) {
 		g_goMgr.DeleteGameObject(this);
 	}
 	m_gun = g_goMgr.FindGameObject<Gun>(gun);
 	m_model.UpdateWorldMatrix(m_position, m_gun->GetRotation(), CVector3::One());
+	
+}
+void Bullet::Render()
+{
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()

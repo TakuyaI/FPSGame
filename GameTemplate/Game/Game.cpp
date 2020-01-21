@@ -21,8 +21,8 @@ Game::~Game()
 
 void Game::Update()
 {
-	/*int a = g_goMgr.Rand(10);
-	int b = g_goMgr.Rand(10);
-	int c = rand();
-	int d = rand();*/
+}
+void Game::Render()
+{
+
 }

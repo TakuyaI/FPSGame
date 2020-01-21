@@ -20,6 +20,16 @@ Enemy::Enemy()
 		ENEMY_CONTROLLER_HEIGHT,
 		m_initPos
 	);
+	if (g_goMgr.Rand(2) == 0) {
+		m_enemyHp = 50;
+	}
+	else if (g_goMgr.Rand(2) == 1) {
+		m_enemyHp = 70;
+	}
+	else if (g_goMgr.Rand(2) == 2) {
+		m_enemyHp = 100;
+	}
+
 	m_player = g_goMgr.FindGameObject<Player>(player);
 }
 
@@ -108,6 +118,10 @@ void Enemy::Update()
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	
+}
+void Enemy::Render()
+{
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()

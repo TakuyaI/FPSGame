@@ -13,10 +13,6 @@ struct GunNumber
 		SNIPER_NUMBER,
 		END_NUMBER
 	};
-	/*const int RIFLE_NUMBER = 0;
-	const int SHOTGUN_NUMBER = 1;
-	const int SNIPER_NUMBER = 2;
-	const int END_NUMBER = 3;*/
 };
 
 class GunGenerator : public IGameObject
@@ -24,7 +20,16 @@ class GunGenerator : public IGameObject
 public:
 	GunGenerator();
 	~GunGenerator();
-
+	/// <summary>
+	/// 銃の弾数。
+	/// </summary>
+	/// <returns></returns>
+	int GetGunAmmo();
+	/// <summary>
+	/// 銃の連射弾数。
+	/// </summary>
+	/// <returns></returns>
+	int GetGunBlaze();
 	void SetNextNum(int num)
 	{
 		m_nextnum = num;
@@ -34,10 +39,16 @@ public:
 		return m_nextnum;
 	}
 	void Update();
-
+	void Render();
 	Gun* m_gun;
 	GameCamera* m_gameCam;
 	int m_nextnum = 0;
 	bool a = false;
+	int  m_rifleAmmo = 200;             //ライフルの弾数。
+	int  m_shotgunAmmo = 12;           //ショットガンの弾数。
+	int  m_sniperAmmo = 20;             //スナイパーの弾数。
+	int m_rifulBlaze = 50;              //ライフルの連射弾数。
+	int m_shotgunBlaze = 3;            //ショットガンの連射弾数。  
+	int m_sniperBlaze = 4;              //スナイパーの連射弾数。
 };
 

@@ -10,6 +10,7 @@ public:
 	~Bullet();
 
 	void Update();
+	void Render();
 
 	void SetPosition(CVector3 pos)
 	{

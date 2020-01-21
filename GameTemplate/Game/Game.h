@@ -18,7 +18,7 @@ public:
 	~Game();
 
 	void Update();
-
+	void Render();
 
 private:
 	Player* m_player;

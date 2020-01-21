@@ -13,6 +13,7 @@ public:
 	void Attack();
 
 	void Update();
+	void Render();
 
 	void SetPosition(CVector3 pos)
 	{

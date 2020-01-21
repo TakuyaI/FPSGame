@@ -16,8 +16,6 @@ Player::Player()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);
-	
-	//m_gameCamera = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 }
 
 
@@ -102,12 +100,12 @@ void Player::Update()
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One() * 1.0f);
-	/*m_model.Draw(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);*/
-}
-void Player::Draw()
-{
 	
+}
+void Player::Render()
+{
+	/*m_model.Draw(
+	g_camera3D.GetViewMatrix(),
+	g_camera3D.GetProjectionMatrix()
+	);*/
 }

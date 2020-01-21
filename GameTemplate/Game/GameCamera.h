@@ -16,6 +16,7 @@ public:
 	void ToTarget();
 
 	void Update();
+	void Render();
 	/// <summary>
 	/// ’‹“_‚ÌÀ•W‚ğæ“¾B
 	/// </summary>

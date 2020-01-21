@@ -8,6 +8,7 @@ public:
 	~BackGround();
 
 	void Update();
+	void Render();
 
 private:
 	SkinModel m_model;

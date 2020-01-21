@@ -14,6 +14,7 @@ public:
 	~Gun();
 
 	void Update();
+	void Render();
 
 	CVector3 Getpostion()
 	{
@@ -39,6 +40,14 @@ public:
 	{
 		return m_rotation;
 	}
+	int GetAmmo()
+	{
+		return m_ammo;
+	}
+	int GetBlaze()
+	{
+		return m_blaze;
+	}
 private:
 	SkinModel m_model;
 	Player* m_player;
@@ -58,6 +67,11 @@ private:
 	int m_bulletIntervalTime;
 	float m_bulletMoveSpeed;
 	int m_setNum = 0;
+	int m_ammo = 0; //弾数。
+	int m_blaze = 0;//連射弾数。
+	int m_usedBullet = 0; //使い終えた弾。
+	int m_maxBlaze = 0;//最大連射弾数。
+	int m_reloadTimer = 0;  //リロードタイム。
 	bool m_shootingBulletFlug = false; //弾を撃っているかどうか。
 };
 

@@ -23,6 +23,7 @@ public:
 	/// </summary>
 	void Update();
 	/// <summary>
+	void Render();
 	/// <summary>
 	/// ゲームオブジェクトを追加。
 	/// </summary>

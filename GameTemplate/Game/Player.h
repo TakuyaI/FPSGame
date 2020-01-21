@@ -11,7 +11,7 @@ public:
 	Player();
 	~Player();
 	void Update();
-	void Draw();
+	void Render();
 
 	/// <summary>
 	/// À•W‚ğİ’èB

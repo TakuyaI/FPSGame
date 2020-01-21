@@ -9,7 +9,7 @@ public:
 	/// <summary>
 	/// 描画。
 	/// </summary>
-	//virtual void Render() = 0;
+	virtual void Render() = 0;
 	virtual bool Start() { return true; };
 	/// <summary>
 	/// 削除リクエストを行う。

@@ -42,6 +42,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		g_goMgr.Update();
 		//物理エンジンの更新。
 		g_physics.Update();
+
+		g_goMgr.Render();
+
 		//カメラの更新。
 		g_camera3D.Update();
 		g_camera2D.Update();
