@@ -11,6 +11,7 @@ class GunGenerator;
 #include "Enemy.h"
 #include "EnemyGenerator.h"
 #include "Gun.h"
+#include "Sprite.h"
 class Game : public IGameObject
 {
 public:
@@ -18,7 +19,7 @@ public:
 	~Game();
 
 	void Update();
-	void Render();
+	void PostRender();
 
 private:
 	Player* m_player;
@@ -28,6 +29,9 @@ private:
 	EnemyGenerator* m_enemyGen;
 	Gun* m_gun;
 	GunGenerator* m_gunGen;
-	Sprite* m_sprite;
+	Sprite m_sprite;
+	CVector3 pos = CVector3::Zero();
+	CVector3 scale =CVector3::One();
+	CQuaternion m_rotation = CQuaternion::Identity();
 };
 

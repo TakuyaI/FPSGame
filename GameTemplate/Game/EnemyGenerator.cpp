@@ -63,8 +63,8 @@ void EnemyGenerator::Update()
 	if (m_enemyNumber <= 0) {
 		m_enemyOccurrenceFlug = false;
 	}
-	
-	/*if (m_enemyNumber < m_enemyMax) {
+/*
+	if (m_enemyNumber < m_enemyMax) {
 		m_timer++;
 		if (m_timer == 60) {
 			m_enemy[m_enemyArrayNum] = g_goMgr.NewGameObject<Enemy>(enemy);
@@ -92,9 +92,5 @@ void EnemyGenerator::Update()
 			m_timer = 0;
 		}
 	}
-
-}
-void EnemyGenerator::Render()
-{
-
+	
 }

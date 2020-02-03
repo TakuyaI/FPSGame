@@ -31,6 +31,7 @@ float4 PSMain(PSInput In) : SV_Target0
 	//テクスチャカラーをそのまま返す。
 
 	float4 color = colorTexture.Sample(Sampler, In.uv);
+	color.a *= alpha;
 	//モノクロ
 	/*float Y = 0.29900 * color.r + 0.58700 * color.b + 0.11400 * color.b;
 	color.r = Y;

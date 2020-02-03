@@ -122,6 +122,7 @@
     <ClCompile Include="GunGenerator.cpp" />
     <ClCompile Include="HID\Pad.cpp" />
     <ClCompile Include="IGameObject.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
     <ClCompile Include="main.cpp" />
@@ -146,6 +147,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="GunGenerator.h" />
     <ClInclude Include="HID\Pad.h" />
     <ClInclude Include="IGameObject.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="math\kMath.h" />
@@ -196,12 +199,14 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\background.fbx" />
     <MeshContentTask Include="Assets\modelData\bk.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
+    <MeshContentTask Include="Assets\modelData\item01.fbx" />
     <MeshContentTask Include="Assets\modelData\riful.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper.fbx" />
@@ -213,7 +218,24 @@
     <MeshContentTask Include="Assets\modelData\zombie01.fbx" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\sprite\aka.png" />
+    <ImageContentTask Include="Assets\sprite\gage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\aka.png" />
+    <ImageContentTask Include="Assets\sprite\kuro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\oamidori.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\zyuzi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\start.png" />
+    <ImageContentTask Include="Assets\sprite\title_test.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\st.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -49,7 +49,6 @@ public:
 	Enemy* GetClosestEnemyToPlayer(); //Player‚Æ1”Ô‹ß‚¢EnemyB
 	Enemy* GetClosestEnemyToBullet(CVector3 bulletPos);//Bullet‚Æ1”Ô‹ß‚¢EnemyB
 	void Update();
-	void Render();
 private:
 	Enemy * m_enemy[50];
 	Gun* m_gun;

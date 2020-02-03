@@ -43,6 +43,27 @@ public:
 	{
 		return m_enemyHp;
 	}
+	CharacterController CharaCon()
+	{
+		return m_charaCon;
+	}
+	float GetEnemyAttackPow()
+	{
+		return m_enemyAttackPow;
+	}
+	float GetDamage()
+	{
+		return m_damage;
+	}
+	void SetDamageFlug(bool damageFlug)
+	{
+		m_damageFlug = damageFlug;
+	}
+	bool GetDamageFlug()
+	{
+		return m_damageFlug;
+	}
+
 private:
 	SkinModel m_model;                                //スキンモデル。
 	Player* m_player;                                 //Playerのインスタンス。
@@ -59,5 +80,10 @@ private:
 	float m_pushAwaySpeed = 100.0f;                   //突き放されるスペード。
 	bool m_endPushAwayflug = false;                   //突き放し終えたかどうか。
 	int m_enemyHp = 50;                               //EnemyのHP。
+	float m_playerHp = 100.0f;
+	int m_AttackTimer = 0;
+	float m_enemyAttackPow = 10.0f;
+	float m_damage = 0.0f;
+	bool m_damageFlug = false;
 };
 

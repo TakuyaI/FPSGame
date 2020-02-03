@@ -60,6 +60,18 @@ void Enemy::Attack()
 {
 	m_attackFlug = true;
 	enemyGen->SetAttackFlug(true);
+
+	m_AttackTimer++;
+	if (m_AttackTimer >= 30) {
+		m_damage = m_enemyAttackPow / m_playerHp;
+		m_player->SetDamage(m_damage);
+		//m_player->SetRedDamage(m_damage);
+		m_damageFlug = true;
+		m_player->SetDamageFlug(m_damageFlug);
+		m_damageFlug = false;
+		m_AttackTimer = 0;
+	}
+
 	if (m_player->GetPushAwayFlug() != false) {
 		CVector3 toEenmyVec = m_toPlayerVec * -1.0f;
 		toEenmyVec.Normalize();
@@ -116,7 +128,6 @@ void Enemy::Update()
 	}
 
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
-
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 	
 }

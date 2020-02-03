@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "Game.h"
+#include "Title.h"
 #include "GameManager.h"
 #include "level/Level.h"
 
@@ -25,7 +26,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	/*g_camera2D.Update();*/
 
-	g_goMgr.NewGameObject<Game>(100);
+	g_goMgr.NewGameObject<Title>(100);
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)

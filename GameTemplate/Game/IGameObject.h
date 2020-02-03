@@ -9,7 +9,9 @@ public:
 	/// <summary>
 	/// 描画。
 	/// </summary>
-	virtual void Render() = 0;
+	virtual void Render() {}
+	virtual void PostRender() {}
+
 	virtual bool Start() { return true; };
 	/// <summary>
 	/// 削除リクエストを行う。
@@ -49,7 +51,8 @@ protected:
 		gamecamera,
 		gun,
 		player,
-		gungenerator
+		gungenerator,
+		item
 	};
 };
 

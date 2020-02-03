@@ -159,7 +159,6 @@ void Sprite::InitSamplerState()
 }
 void Sprite::InitCommon(float w, float h)
 {
-	CVector2 m_size = CVector2::Zero();
 	m_size.x = w;
 	m_size.y = h;
 	//頂点バッファの初期化。
@@ -182,7 +181,7 @@ void Sprite::Init(const wchar_t* texFilePath, float w, float h)
 	InitCommon(w, h);
 
 	//テクスチャをロード。
-	DirectX::CreateDDSTextureFromFileEx(
+	HRESULT hr = DirectX::CreateDDSTextureFromFileEx(
 		g_graphicsEngine->GetD3DDevice(),	//D3Dデバイス。
 		texFilePath,						//読み込む画像データのファイルパス。
 		0,

@@ -1,5 +1,6 @@
 #pragma once
 class Enemy;
+class Item;
 //class GunGenerator;
 #include "IGameObject.h"
 #include "Gun.h"
@@ -31,11 +32,13 @@ private:
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
+	Item* m_item;
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
 	int m_timer = 0;
 	bool m_deleteEenmyFlug = false;
 	int m_bulletPower = 0;
+	float m_bulletAccuracy = 0.0f;
 };
 

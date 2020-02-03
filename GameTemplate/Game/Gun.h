@@ -2,11 +2,13 @@
 class GameCamera;
 class Bullet;
 class GunGenerator;
+class Sprite;
 #include "IGameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "GameCamera.h"
 #include "Bullet.h"
+#include "Sprite.h"
 class Gun : public IGameObject
 {
 public:
@@ -15,6 +17,7 @@ public:
 
 	void Update();
 	void Render();
+	void PostRender();
 
 	CVector3 Getpostion()
 	{
@@ -48,6 +51,10 @@ public:
 	{
 		return m_blaze;
 	}
+	bool GetReloadFlug()
+	{
+		return m_reloadFlug;
+	}
 private:
 	SkinModel m_model;
 	Player* m_player;
@@ -71,7 +78,16 @@ private:
 	int m_blaze = 0;//連射弾数。
 	int m_usedBullet = 0; //使い終えた弾。
 	int m_maxBlaze = 0;//最大連射弾数。
-	int m_reloadTimer = 0;  //リロードタイム。
+	float m_reaction = 0.0f;   //銃の反動。
+	int m_reloadTimer = 0;  //リロードタイマー。
+	int m_reloadTime = 0;  //リロードタイム。
+	bool m_reloadFlug = false; //リロードしているかどうか。
 	bool m_shootingBulletFlug = false; //弾を撃っているかどうか。
+
+
+
+	Sprite m_sprite;
+	CVector3 pos = CVector3::Zero();
+	CVector3 scale = { 0.6f, 0.1f, 1.0f };
 };
 

@@ -127,7 +127,3 @@ void GameCamera::Update()
 	g_camera3D.Update();
 
 }
-void GameCamera::Render()
-{
-
-}

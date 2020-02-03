@@ -74,7 +74,7 @@ void GameManager::Update()
 
 void GameManager::Render()
 {
-	////描画開始。
+	//描画開始。
 	//g_graphicsEngine->BegineRender();
 	//フレームバッファののレンダリングターゲットをバックアップしておく。
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -94,10 +94,22 @@ void GameManager::Render()
 		//メインレンダリングターゲットをクリアする。
 		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		m_mainRenderTarget.ClearRenderTarget(clearColor);
-
+		
 		//登録されているゲームオブジェクトの更新処理を呼ぶ。
 		for (auto go : m_goList) {
 			go->Render();
+		}
+		
+		ChangeRenderTarget(
+			d3dDeviceContext,
+			m_mainRenderTarget.GetRenderTargetView(),
+			nullptr,
+			&m_frameBufferViewports
+		);
+		
+		//2D
+		for (auto go : m_goList) {
+			go->PostRender();
 		}
 	}
 
