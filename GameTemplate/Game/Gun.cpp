@@ -8,9 +8,9 @@ struct GunInformation {
 	const int RIFLE_INTERVAL_TIME = 3;     //ライフルバレットのインターバルタイム。
 	const int SHOTGUN_INTERVAL_TIME = 20;  //ショットガンバレットのインターバルタイム。
 	const int SNIPER_INTERVAL_TIME = 30;  //スナイパーバレットのインターバルタイム。
-	const float RIFLE_MOVE_SPEED = 200.0f; //ライフルバレットの速度。
-	const float SHOTGUN_MOVE_SPEED = 150.0f; //ショットガンバレットの速度。
-	const float SNIPER_MOVE_SPEED = 400.0f; //スナイパーバレットの速度。
+	const float RIFLE_MOVE_SPEED = 400.0f; //ライフルバレットの速度。
+	const float SHOTGUN_MOVE_SPEED = 300.0f; //ショットガンバレットの速度。
+	const float SNIPER_MOVE_SPEED = 500.0f; //スナイパーバレットの速度。
 	const int RIFLE_BLAZE = 50;              //ライフル弾の連射弾数。
 	const int SHOTGUN_BLAZE = 10;              //ショットガン弾の連射弾数。
 	const int SNIPER_BLAZE = 4;              //スナイパー弾の連射弾数。

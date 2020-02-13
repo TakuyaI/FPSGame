@@ -69,34 +69,8 @@ public:
 	int Rand(int num) 
 	{
 		//srand((unsigned int)time(nullptr));
-		//rand(); rand(); rand(); rand();
-		int ran = 0;
-		if (aa % 4 == 0) {
-			rand(); rand(); rand(); rand();
-			ran = rand();
-			aa++;
-		}
-		else if (aa % 4 == 1) {
-			rand(); rand(); rand(); rand();
-			ran = rand();
-			aa++;
-		}
-		else if (aa % 4 == 2) {
-			rand(); rand(); rand(); rand();
-			ran = rand();
-			aa++;
-		}
-		else if (aa % 4 == 3) {
-			rand(); rand(); rand(); rand();
-			ran = rand();
-			aa++;
-		}
-		else {
-			rand(); rand(); rand(); rand();
-			ran = rand();
-			aa++;
-		}
-
+		rand(); rand(); rand(); rand();
+		int ran = rand();
 		int rand1 = ran % (num + 1);
 		return rand1;
 	}

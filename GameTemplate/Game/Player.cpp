@@ -97,7 +97,7 @@ void Player::Update()
 				g_pad->IsTrigger(enButtonRight)) {
 				a++;
 				if (a >= 10) {
-					//Yボタンを5回押した。
+					//Yボタンを10回押した。
 					m_pushAwayFlug = true;
 					a = 0;
 				}

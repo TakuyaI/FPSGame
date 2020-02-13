@@ -1,4 +1,5 @@
 #pragma once
+class Player;
 #include "IGameObject.h"
 class Item : public IGameObject
 {
@@ -8,6 +9,7 @@ public:
 
 	void Update();
 	void Render();
+	void PostRender();
 
 	void SetPosition(CVector3 pos)
 	{
@@ -18,6 +20,7 @@ public:
 		return m_position;
 	}
 
+	Player* m_player;
 	SkinModel m_model;
 
 	CVector3 m_position = CVector3::Zero();
