@@ -24,6 +24,7 @@ void Game::Update()
 }
 void Game::PostRender()
 {
+
 	//m_rotation.SetRotationDeg(CVector3::AxisZ(), 30.0f);
 	//m_sprite.Update(
 	//	pos,
@@ -31,5 +32,14 @@ void Game::PostRender()
 	//	scale,
 	//	CVector2::Zero()
 	//);
+	t++;
+	if (t >= 60) {
+		a++;
+		t = 0;
+	}
+
 	m_sprite.Draw();
+	/*wchar_t text[256];
+	swprintf_s(text, L"%d aaaa",a);
+	m_font.Draw(text, { 100.0f, 100.0f }, {1.0f, 0.0f, 0.0f, 1.0f});*/
 }

@@ -10,8 +10,8 @@ Title::Title()
 	m_bgm.Play(true);
 
 
-	m_haikei.Init(L"Resource/sprite/title_test.dds", 1280.0f, 720.0f);
-	m_start.Init(L"Resource/sprite/st.dds", 128.0f, 72.0f);
+	m_haikei.Init(L"Resource/sprite/orengi.dds", 1280.0f, 720.0f);
+	m_start.Init(L"Resource/sprite/st.dds", 1280.0f, 720.0f);
 }
 
 
@@ -29,6 +29,12 @@ void Title::Update()
 }
 void Title::PostRender()
 {
+	m_start.Update(
+		{-1280.0f / 2.0f, -720.f / 2.0f, 0.0f},
+		CQuaternion::Identity(),
+		CVector3::One(),
+		CVector2::Zero()
+	);
 	m_haikei.Draw();
 	m_start.Draw();
 }

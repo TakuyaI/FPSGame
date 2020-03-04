@@ -45,6 +45,7 @@ protected:
 	const enum objectNum {
 		background,
 		bullet,
+		font,
 		enemy,
 		enemygenerator,
 		game,

@@ -116,7 +116,7 @@ void Enemy::Update()
 		//Enemy‚ğ“Ë‚«•ú‚µ‚½B
 		m_state = ENEMY_ATTACK;
 	}
-
+	
 	if (m_state == ENEMY_LOITERING){
 		Loitering();
 	}

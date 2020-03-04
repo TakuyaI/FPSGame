@@ -13,6 +13,7 @@ GameManager::~GameManager()
 
 void GameManager::Init()
 {
+	//InitTranslucentBlendState();
 	if (m_flug != true) {
 		//メインとなるレンダリングターゲットを作成する。
 		m_mainRenderTarget.Create(
@@ -31,6 +32,46 @@ void GameManager::Init()
 		m_flug = true;
 	}
 }
+
+void GameManager::InitTranslucentBlendState()
+{
+	//例のごとく、作成するブレンドステートの情報を設定する。
+	CD3D11_DEFAULT defaultSettings;
+	//デフォルトセッティングで初期化する。
+	CD3D11_BLEND_DESC blendDesc(defaultSettings);
+
+	//αブレンディングを有効にする。
+	blendDesc.RenderTarget[0].BlendEnable = true;
+
+	//ソースカラーのブレンディング方法を指定している。
+	//ソースカラーとはピクセルシェーダ―からの出力を指している。
+	//この指定では、ソースカラーをSRC(rgba)とすると、
+	//最終的なソースカラーは下記のように計算される。
+	//最終的なソースカラー = SRC.rgb × SRC.a・・・・・・　①
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+
+	//ディスティネーションカラーのブレンディング方法を指定している。
+	//ディスティネーションカラーとは、
+	//すでに描き込まれているレンダリングターゲットのカラーを指している。
+	//この指定では、ディスティネーションカラーをDEST(rgba)、
+	//ソースカラーをSRC(RGBA)とすると、最終的なディスティネーションカラーは
+	//下記のように計算される。
+	//最終的なディスティネーションカラー = DEST.rgb × (1.0f - SRC.a)・・・・・②
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+
+	//最終的にレンダリングターゲットに描き込まれるカラーの計算方法を指定している。
+	//この指定だと、①＋②のカラーが書き込まれる。
+	//つまり、最終的にレンダリングターゲットに描き込まれるカラーは
+	//SRC.rgb × SRC.a + DEST.rgb × (1.0f - SRC.a)
+	//となる。
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+	//この設定で、ブレンドステートを作成すると
+	//半透明合成を行えるブレンドステートが作成できる。
+	auto d3dDevice = g_graphicsEngine->GetD3DDevice();
+	d3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
+}
+
 void GameManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
 {
 	ChangeRenderTarget(
@@ -86,7 +127,7 @@ void GameManager::Render()
 	//ビューポートもバックアップを取っておく。
 	unsigned int numViewport = 1;
 	d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
-
+	
 	{
 		//レンダリングターゲットをメインに変更する。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -112,7 +153,7 @@ void GameManager::Render()
 			go->PostRender();
 		}
 	}
-
+	
 	{
 		//レンダリングターゲットをフレームバッファに戻す。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -122,7 +163,9 @@ void GameManager::Render()
 			m_frameBufferDepthStencilView,
 			&m_frameBufferViewports
 		);
+		
 		m_copyMainRtToFrameBufferSprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+		
 		//ドロドロ
 		m_copyMainRtToFrameBufferSprite.Draw();
 

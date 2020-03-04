@@ -222,6 +222,11 @@ void Sprite::Draw()
 								//今回は32bitなので、DXGI_FORMAT_R32_UINTでいい。
 		0						//オフセット0でいい。
 	);
+	//ブレンドステートを設定
+	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());	
+	d3dDeviceContext->OMSetBlendState(state.NonPremultiplied(), nullptr, 0xFFFFFFFF);
+	d3dDeviceContext->OMSetDepthStencilState(state.DepthRead(), 0);
+	d3dDeviceContext->RSSetState(state.CullClockwise());
 	//シェーダーを設定。
 	d3dDeviceContext->VSSetShader(
 		(ID3D11VertexShader*)m_vs.GetBody(),

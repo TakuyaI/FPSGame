@@ -94,7 +94,7 @@ void Gun::Update()
 		//発射。
 		if (g_pad->IsPress(enButtonRB1)) {
 			//RB1を押した。
-			if (m_ammo > 0 && m_blaze > 0) {
+			if (/*m_ammo > 0 && */m_blaze > 0) {
 				//弾数が残っている。
 				m_bulletIntervalTimer++;
 				if (m_bulletIntervalTimer >= m_bulletIntervalTime) {
@@ -106,7 +106,7 @@ void Gun::Update()
 					m_bulletPos = v * m_bulletMoveSpeed;
 					m_bullet->SetMoveSpeed(m_bulletPos);
 					m_position += v * m_reaction;
-					m_ammo--;
+					//m_ammo--;
 					m_blaze--;
 					m_bulletIntervalTimer = 0;
 					m_shootingBulletFlug = true;
@@ -130,18 +130,22 @@ void Gun::Update()
 	if (m_reloadFlug != false) {
 		m_reloadTimer++;
 		if (m_reloadTimer > m_reloadTime) {
+			
 			//装填されている弾が最大でない。
-			if (m_ammo < m_maxBlaze) {
+			if (/*m_ammo < m_maxBlaze*/m_maxBlaze - m_blaze > m_ammo) {
 				//残り弾数が最大装填弾数より少ない。
 				//残りの弾数を装填する。
-				m_blaze = m_ammo;
+				m_blaze += m_ammo;
+				m_ammo = 0;
 				m_reloadFlug = false;
 				m_reloadTimer = 0;
 			}
 			else {
+				
 				//使った弾数分、装填する。
 				m_usedBullet = m_maxBlaze - m_blaze;
 				m_blaze += m_usedBullet;
+				m_ammo -= m_usedBullet;
 				m_reloadFlug = false;
 				m_reloadTimer = 0;
 			}
@@ -177,4 +181,25 @@ void Gun::PostRender()
 	else {
 		scale.x = 0.0f;
 	}
+
+	if (m_ammo <= 0) {
+		m_red = 1.0f;
+		m_green = 0.0f;
+		m_blue = 0.0f;
+	}
+	else if (m_maxBlaze / 2 >= m_ammo) {
+		m_red = 1.0f;
+		m_green = 1.0f;
+		m_blue = 0.0f;
+	}
+	else {
+		m_red = 1.0f;
+		m_green = 1.0f;
+		m_blue = 1.0f;
+	}
+
+
+	wchar_t text[256];
+	swprintf_s(text, L"%d  /  %d ", m_blaze, m_ammo);
+	m_font.Draw(text, { 100.0f, 100.0f }, { m_red, m_green, m_blue, 1.0f });
 }

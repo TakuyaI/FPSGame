@@ -12,16 +12,19 @@ class GunGenerator;
 #include "EnemyGenerator.h"
 #include "Gun.h"
 #include "Sprite.h"
+#include "FontRender.h"
 class Game : public IGameObject
 {
 public:
 	Game();
 	~Game();
 
+
 	void Update();
 	void PostRender();
 
 private:
+	FontRender m_font;
 	Player* m_player;
 	BackGround* m_backGro;
 	GameCamera* m_gameCam;
@@ -33,5 +36,8 @@ private:
 	CVector3 pos = CVector3::Zero();
 	CVector3 scale =CVector3::One();
 	CQuaternion m_rotation = CQuaternion::Identity();
+
+	int a = 0;
+	int t = 0;
 };
 

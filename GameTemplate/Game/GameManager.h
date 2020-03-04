@@ -15,6 +15,7 @@ public:
 	/// </summary>
 	~GameManager();
 	void Init();
+	void InitTranslucentBlendState();
 
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
@@ -91,6 +92,7 @@ private:
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
 	bool m_flug = false;
 	int aa = 0;
 };

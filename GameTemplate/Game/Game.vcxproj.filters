@@ -131,6 +131,7 @@
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
     <ClCompile Include="sound\WaveFileBank.cpp" />
+    <ClCompile Include="FontRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -241,6 +242,7 @@
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />
     <ClInclude Include="sound\WaveFileBank.h" />
+    <ClInclude Include="FontRender.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -270,5 +272,9 @@
     <ImageContentTask Include="Assets\sprite\title_test.png" />
     <ImageContentTask Include="Assets\sprite\start.png" />
     <ImageContentTask Include="Assets\sprite\st.png" />
+    <ImageContentTask Include="Assets\sprite\orengi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
   </ItemGroup>
 </Project>

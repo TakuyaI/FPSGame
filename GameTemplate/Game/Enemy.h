@@ -85,5 +85,7 @@ private:
 	float m_enemyAttackPow = 10.0f;
 	float m_damage = 0.0f;
 	bool m_damageFlug = false;
+
+	CVector3 m_targetPos = CVector3::Zero();
 };
 

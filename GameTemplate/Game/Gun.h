@@ -9,6 +9,7 @@ class Sprite;
 #include "GameCamera.h"
 #include "Bullet.h"
 #include "Sprite.h"
+#include "FontRender.h"
 class Gun : public IGameObject
 {
 public:
@@ -62,6 +63,7 @@ private:
 	GameCamera* m_gameCam;
 	Bullet* m_bullet;
 	GunGenerator* m_gunGen;
+	FontRender m_font;
 
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_Pos = { 15.0f, -8.0f, 10.0f };
@@ -89,5 +91,9 @@ private:
 	Sprite m_sprite;
 	CVector3 pos = CVector3::Zero();
 	CVector3 scale = { 0.6f, 0.1f, 1.0f };
+
+	float m_red = 0.0f;
+	float m_green = 0.0f;
+	float m_blue = 0.0f;
 };
 
