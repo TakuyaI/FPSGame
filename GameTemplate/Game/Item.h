@@ -1,4 +1,5 @@
 #pragma once
+class Game;
 class Player;
 #include "IGameObject.h"
 class Item : public IGameObject
@@ -21,6 +22,7 @@ public:
 	}
 
 	Player* m_player;
+	Game* m_game;
 	SkinModel m_model;
 
 	CVector3 m_position = CVector3::Zero();

@@ -2,6 +2,7 @@
 #include "Gun.h"
 #include "GunGenerator.h"
 #include "GameManager.h"
+#include "EnemyGenerator.h"
 
 //銃の情報。
 struct GunInformation {
@@ -23,10 +24,14 @@ struct GunInformation {
 };
 Gun::Gun()
 {
+	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
+	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
+	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+	m_player = g_goMgr.FindGameObject<Player>(player);
+
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
 	GunInformation gunInf;
 	GunNumber gunNum;
-	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
 		m_model.Init(L"Assets/modelData/riful.cmo");
 		m_bulletIntervalTime = gunInf.RIFLE_INTERVAL_TIME;
@@ -53,7 +58,7 @@ Gun::Gun()
 	}
 	m_ammo = m_gunGen->GetGunAmmo();
 	m_blaze = m_gunGen->GetGunBlaze();
-	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
+	
 }
 
 Gun::~Gun()
@@ -62,6 +67,7 @@ Gun::~Gun()
 
 void Gun::Update()
 {
+	//カメラのターゲットを代入。
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.y = 0.0f;
 	
@@ -89,8 +95,9 @@ void Gun::Update()
 
 	m_position += m_Pos;
 
-	if (m_reloadFlug != true) {
-		//リロード中は発射できない。
+	//弾を発射。
+	if (m_reloadFlug != true && m_enemyGen->GetAttackFlug() != true && m_player->GetDeathFlug() != true) {
+		//リロード中は発射できないかつ、敵が攻撃していないかつ、Playerが死んでいない。
 		//発射。
 		if (g_pad->IsPress(enButtonRB1)) {
 			//RB1を押した。
@@ -99,6 +106,7 @@ void Gun::Update()
 				m_bulletIntervalTimer++;
 				if (m_bulletIntervalTimer >= m_bulletIntervalTime) {
 					//一定間隔で弾を発射する。
+					m_shootingBulletFlug = true;
 					m_bullet = g_goMgr.NewGameObject<Bullet>(bullet);
 					m_bullet->SetPosition(m_position);
 					CVector3 v = m_gameCam->GetTargetPos() - m_position;
@@ -109,7 +117,7 @@ void Gun::Update()
 					//m_ammo--;
 					m_blaze--;
 					m_bulletIntervalTimer = 0;
-					m_shootingBulletFlug = true;
+					
 				}
 			}
 		}

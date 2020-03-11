@@ -215,6 +215,7 @@
     <MeshContentTask Include="Assets\modelData\background.fbx" />
     <MeshContentTask Include="Assets\modelData\bk.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
+    <MeshContentTask Include="Assets\modelData\enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\item01.fbx" />
     <MeshContentTask Include="Assets\modelData\riful.fbx" />
@@ -249,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
+    <ImageContentTask Include="Assets\sprite\gameover.png" />
     <ImageContentTask Include="Assets\sprite\orengi.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

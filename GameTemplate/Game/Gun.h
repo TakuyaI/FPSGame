@@ -2,6 +2,7 @@
 class GameCamera;
 class Bullet;
 class GunGenerator;
+class EnemyGenerator;
 class Sprite;
 #include "IGameObject.h"
 #include "Player.h"
@@ -63,6 +64,7 @@ private:
 	GameCamera* m_gameCam;
 	Bullet* m_bullet;
 	GunGenerator* m_gunGen;
+	EnemyGenerator* m_enemyGen;
 	FontRender m_font;
 
 	CVector3 m_position = CVector3::Zero();

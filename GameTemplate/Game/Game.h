@@ -22,6 +22,15 @@ public:
 
 	void Update();
 	void PostRender();
+	 
+	void SetFlug(bool flug)
+	{
+		m_flug = flug;
+	}
+	bool GetFlug()
+	{
+		return m_flug;
+	}
 
 private:
 	FontRender m_font;
@@ -33,11 +42,7 @@ private:
 	Gun* m_gun;
 	GunGenerator* m_gunGen;
 	Sprite m_sprite;
-	CVector3 pos = CVector3::Zero();
-	CVector3 scale =CVector3::One();
-	CQuaternion m_rotation = CQuaternion::Identity();
-
-	int a = 0;
-	int t = 0;
+	int m_gameOverTime = 0;
+	bool m_flug = false;
 };
 

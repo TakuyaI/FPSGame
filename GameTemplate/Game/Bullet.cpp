@@ -67,7 +67,7 @@ void Bullet::Update()
 					m_item->SetPosition(m_enemy->GetPosition());
 				}
 				//“G‚ğíœB
-				m_enemy->CharaCon().RemoveRigidBoby();
+				//m_enemy->CharaCon().RemoveRigidBoby();
 				g_goMgr.DeleteGameObject(m_enemy);
 				int enemyNum = m_enemyGen->GetEnemyNumber();
 				m_enemyGen->SetEnemyNumber(--enemyNum);

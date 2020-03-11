@@ -2,6 +2,11 @@
 class IGameObject
 {
 public:
+	virtual ~IGameObject()
+	{
+		//これが仮想デストラクタ。
+		//これを追加すると派生クラスのデストラクタが呼ばれるよ。
+	}
 	/// <summary>
 	/// 更新関数。
 	/// </summary>
@@ -53,7 +58,8 @@ protected:
 		gun,
 		player,
 		gungenerator,
-		item
+		item,
+		title
 	};
 };
 

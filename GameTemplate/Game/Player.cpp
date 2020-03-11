@@ -105,6 +105,10 @@ void Player::Update()
 		}
 	}
 
+	if (m_deathFlug != false) {
+		m_moveSpeed = CVector3::Zero();
+	}
+
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 
 	//ワールド行列の更新。
@@ -123,7 +127,9 @@ void Player::PostRender()
 {
 	{//HPバー。
 		m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
-
+		if (m_greenScale.x <= 0.0f) {
+			m_deathFlug = true;
+		}
 		if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
 			//敵が出現中。
 			if (m_damageFlug != false) {

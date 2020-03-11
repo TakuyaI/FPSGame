@@ -9,6 +9,7 @@ GunGenerator::GunGenerator()
 }
 GunGenerator::~GunGenerator()
 {
+	g_goMgr.DeleteGameObject(m_gun);
 }
 int GunGenerator::GetGunAmmo()
 {

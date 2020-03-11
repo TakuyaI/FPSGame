@@ -73,6 +73,10 @@ public:
 	{
 		return m_damageFlug;
 	}
+	bool GetDeathFlug()
+	{
+		return m_deathFlug;
+	}
 
 private:
 	GameCamera* m_gameCamera;
@@ -104,4 +108,5 @@ private:
 	
 	bool m_flug = false;
 	bool m_dashFlug = false;
+	bool m_deathFlug = false;
 };

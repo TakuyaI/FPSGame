@@ -5,6 +5,7 @@
 #include "Gun.h"
 #include "GunGenerator.h"
 #include "Player.h"
+#include "Game.h"
 
 
 
@@ -12,6 +13,7 @@ Item::Item()
 {
 	m_model.Init(L"Assets/modelData/item01.cmo");
 	m_player = g_goMgr.FindGameObject<Player>(player);
+	m_game = g_goMgr.FindGameObject<Game>(game);
 }
 
 
@@ -21,6 +23,9 @@ Item::~Item()
 
 void Item::Update()
 {
+	if (m_game->GetFlug() != false) {
+		g_goMgr.DeleteGameObject(this);
+	}
 	CVector3 v = m_position - m_player->GetPosition();
 	if (v.Length() <= 100.0) {
 		g_goMgr.DeleteGameObject(this);

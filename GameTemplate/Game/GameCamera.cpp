@@ -54,7 +54,8 @@ void GameCamera::Update()
 	m_position = m_player->GetPosition();
 	CVector3 toCameraPosOld = m_toTargetPos;
 	CVector3 cameraOffsetOld = m_cameraOffset;
-	if (m_lockOnTargetFlug != true) {
+	if (m_lockOnTargetFlug != true && m_player->GetDeathFlug() != true) {
+		//ターゲットをロックオンしていないかつ、Playerが死んでいない。
 		m_angle2 = g_pad->GetRStickYF() * -2.0f;
 		m_angle = g_pad->GetRStickXF() * 2.0f;
 	}
