@@ -29,7 +29,18 @@ Enemy::Enemy()
 	else if (g_goMgr.Rand(2) == 2) {
 		m_enemyHp = 100;
 	}
-
+	
+	//アニメーションクリップのロード。
+	m_animationClip[enAnimationCrip_stay].Load(L"Assets/animData/stay.tka");
+	m_animationClip[enAnimationCrip_run].Load(L"Assets/animData/run.tka");
+	m_animationClip[enAnimationCrip_attack].Load(L"Assets/animData/ata.tka");
+	//ループフラグを設定。
+	m_animationClip[enAnimationCrip_stay].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_run].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_attack].SetLoopFlag(true);
+	//アニメーションの初期化。
+	m_animation.Init(m_model, m_animationClip, enAnimationCrip_Num);
+	
 	m_player = g_goMgr.FindGameObject<Player>(player);
 }
 
@@ -40,15 +51,20 @@ Enemy::~Enemy()
 
 void Enemy::Loitering()
 {
+	//走るアニメーション。
+	m_animation.Play(enAnimationCrip_run);
 	m_targetPos = m_initPos;
 	CVector3 v = m_initPos - m_position;
 	if (v.Length() <= 15.0f) {
 		m_moveSpeed = CVector3::Zero();
 		m_position = m_initPos;
+		m_animation.Play(enAnimationCrip_stay);
 	}
 }
 void Enemy::Tracking()
 {
+	//走るアニメーション。
+	m_animation.Play(enAnimationCrip_run);
 	m_targetPos = m_player->GetPosition();
 }
 void Enemy::Attack()
@@ -57,6 +73,8 @@ void Enemy::Attack()
 	/*m_attackFlug = true;
 	m_enemyGen->SetAttackFlug(m_attackFlug);*/
 	m_enemyGen->SetAttackFlug(true);
+	//攻撃アニメーション。
+	m_animation.Play(enAnimationCrip_attack);
 
 	m_AttackTimer++;
 	if (m_AttackTimer >= 30) {
@@ -144,7 +162,7 @@ void Enemy::Update()
 	}
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
-	
+	m_animation.Update(1.0f / 30.0f);
 }
 void Enemy::Render()
 {

@@ -41,8 +41,8 @@ private:
 	EnemyGenerator* m_enemyGen;
 	Gun* m_gun;
 	GunGenerator* m_gunGen;
-	Sprite m_sprite;
 	int m_gameOverTime = 0;
 	bool m_flug = false;
+	Sprite m_sprite;
 };
 

@@ -2,6 +2,7 @@
 //class EnemyGenerator;
 #include "IGameObject.h"
 #include "Player.h"
+#include "graphics\animation\AnimationClip.h"
 class Enemy : public IGameObject
 {
 public:
@@ -88,5 +89,15 @@ private:
 
 	CVector3 m_toTargetVec = CVector3::Zero();
 	CVector3 m_targetPos = CVector3::Zero();
+
+	enum anim {
+		enAnimationCrip_stay,   //待機。
+		enAnimationCrip_run,    //走る。
+		enAnimationCrip_attack, //攻撃。
+		enAnimationCrip_Num     //アニメーションクリップの数。
+	};
+
+	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
+	Animation m_animation;                    //アニメーション。
 };
 

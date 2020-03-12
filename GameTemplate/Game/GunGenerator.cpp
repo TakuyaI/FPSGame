@@ -6,6 +6,7 @@
 
 GunGenerator::GunGenerator()
 {
+	m_sprite.Init(L"Resource/sprite/zyuzi.dds", 256.0f, 144.0f);
 }
 GunGenerator::~GunGenerator()
 {
@@ -72,4 +73,8 @@ void GunGenerator::Update()
 			}
 		}
 	}
+}
+void GunGenerator::PostRender()
+{
+	m_sprite.Draw();
 }

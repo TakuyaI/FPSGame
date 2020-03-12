@@ -1,6 +1,8 @@
 #pragma once
 class Gun;
 class GameCamera;
+class Sprite;
+#include "Sprite.h"
 #include "IGameObject.h"
 /// <summary>
 /// 銃の番号
@@ -39,6 +41,7 @@ public:
 		return m_nextnum;
 	}
 	void Update();
+	void PostRender();
 
 	Gun* m_gun;
 	GameCamera* m_gameCam;
@@ -50,5 +53,7 @@ public:
 	int m_rifulBlaze = 50;              //ライフルの連射弾数。
 	int m_shotgunBlaze = 10;            //ショットガンの連射弾数。  
 	int m_sniperBlaze = 4;              //スナイパーの連射弾数。
+
+	Sprite m_sprite;
 };
 
