@@ -23,7 +23,7 @@ Item::~Item()
 
 void Item::Update()
 {
-	if (m_game->GetFlug() != false) {
+	if (m_game->GetEndFlug() != false) {
 		g_goMgr.DeleteGameObject(this);
 	}
 	CVector3 v = m_position - m_player->GetPosition();

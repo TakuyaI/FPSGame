@@ -18,6 +18,7 @@ Bullet::Bullet()
 {
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
+	m_game = g_goMgr.FindGameObject<Game>(game);
 	GunNumber gunNum;
 	BulletInformation bulletInf;
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
@@ -67,8 +68,10 @@ void Bullet::Update()
 					m_item->SetPosition(m_enemy->GetPosition());
 				}
 				//“G‚ðíœB
-				//m_enemy->CharaCon().RemoveRigidBoby();
 				g_goMgr.DeleteGameObject(m_enemy);
+
+				m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
+				m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
 				int enemyNum = m_enemyGen->GetEnemyNumber();
 				m_enemyGen->SetEnemyNumber(--enemyNum);
 				int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();

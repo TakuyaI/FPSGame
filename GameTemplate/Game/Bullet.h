@@ -4,6 +4,7 @@ class Item;
 //class GunGenerator;
 #include "IGameObject.h"
 #include "Gun.h"
+#include "Game.h"
 class Bullet : public IGameObject
 {
 public:
@@ -33,6 +34,8 @@ private:
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
 	Item* m_item;
+	Game* m_game;
+
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_moveSpeed = CVector3::Zero();
@@ -40,5 +43,6 @@ private:
 	bool m_deleteEenmyFlug = false;
 	int m_bulletPower = 0;
 	float m_bulletAccuracy = 0.0f;
+	int m_knockDownEnemyNum = 0; //ì|ÇµÇ∑ìGÇÃêîÅB
 };
 

@@ -209,5 +209,5 @@ void Gun::PostRender()
 
 	wchar_t text[256];
 	swprintf_s(text, L"%d  /  %d ", m_blaze, m_ammo);
-	m_font.Draw(text, { 100.0f, 100.0f }, { m_red, m_green, m_blue, 1.0f });
+	m_font.Draw(text, { 100.0f, 600.0f }, { m_red, m_green, m_blue, 1.0f });
 }

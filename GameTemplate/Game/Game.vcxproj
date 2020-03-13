@@ -250,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
+    <ImageContentTask Include="Assets\sprite\gameclear.png" />
     <ImageContentTask Include="Assets\sprite\gameover.png" />
     <ImageContentTask Include="Assets\sprite\orengi.png" />
   </ItemGroup>
