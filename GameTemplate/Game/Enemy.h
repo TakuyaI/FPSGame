@@ -64,7 +64,14 @@ public:
 	{
 		return m_damageFlug;
 	}
-
+	void SetReceiveDamageFlug(bool receiveDamageFlug)
+	{
+		m_receiveDamageFlug = receiveDamageFlug;
+	}
+	void SetDeathFlug(bool deathflug)
+	{
+		m_death = deathflug;
+	}
 private:
 	SkinModel m_model;                                //スキンモデル。
 	Player* m_player;                                 //Playerのインスタンス。
@@ -85,19 +92,25 @@ private:
 	int m_AttackTimer = 0;
 	float m_enemyAttackPow = 10.0f;
 	float m_damage = 0.0f;
-	bool m_damageFlug = false;
-
+	bool m_damageFlug = false; //ダメージを与えたかどうか。
+	bool m_receiveDamageFlug = false; //ダメージを受けたかどうか。
+	int m_scaredTimer = 0; //怯む時間。
+	bool m_death = false; //死亡フラグ。
+	int m_deathAnimtime = 0; //死亡アニメーションタイム。
 	CVector3 m_toTargetVec = CVector3::Zero();
 	CVector3 m_targetPos = CVector3::Zero();
 
-	enum anim {
+	const enum anim {
 		enAnimationCrip_stay,   //待機。
 		enAnimationCrip_run,    //走る。
 		enAnimationCrip_attack, //攻撃。
+		enAnimationCrip_hirumu, //怯む。
+		enAnimationCrip_death,  //死亡。
 		enAnimationCrip_Num     //アニメーションクリップの数。
 	};
-
+	int m_animationFlug = 0;
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                    //アニメーション。
+
 };
 

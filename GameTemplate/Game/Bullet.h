@@ -43,6 +43,6 @@ private:
 	bool m_deleteEenmyFlug = false;
 	int m_bulletPower = 0;
 	float m_bulletAccuracy = 0.0f;
-	int m_knockDownEnemyNum = 0; //“|‚µ‚·“G‚Ì”B
+	int m_knockDownEnemyNum = 0; //“|‚·“G‚Ì”B
 };
 

@@ -61,14 +61,15 @@ void Bullet::Update()
 			m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
 			if (enemyhp <= 0) {
 				//敵のHPが0になった。
-				int a = g_goMgr.Rand(3);
-				if (a == 1) {
-					//確率でアイテムが出現。
-					m_item = g_goMgr.NewGameObject<Item>(item);
-					m_item->SetPosition(m_enemy->GetPosition());
-				}
+				//int a = g_goMgr.Rand(3);
+				//if (a == 1) {
+				//	//確率でアイテムが出現。
+				//	m_item = g_goMgr.NewGameObject<Item>(item);
+				//	m_item->SetPosition(m_enemy->GetPosition());
+				//}
 				//敵を削除。
-				g_goMgr.DeleteGameObject(m_enemy);
+				m_enemy->SetDeathFlug(true);
+				//g_goMgr.DeleteGameObject(m_enemy);
 
 				m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
 				m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
@@ -78,6 +79,7 @@ void Bullet::Update()
 				m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
 				m_enemyGen->DeleteEnemy();
 			}
+			m_enemy->SetReceiveDamageFlug(true);
 			g_goMgr.DeleteGameObject(this);
 		}
 	}
