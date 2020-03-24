@@ -25,6 +25,12 @@ public:
 	void Update();
 	/// <summary>
 	void Render();
+	void InitEffekseer();
+	Effekseer::Manager* GetEffekseerManager()
+	{
+		return m_effekseerManager;
+	}
+
 	/// <summary>
 	/// ゲームオブジェクトを追加。
 	/// </summary>
@@ -95,6 +101,12 @@ private:
 	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
 	bool m_flug = false;
 	int aa = 0;
+
+	Effekseer::Manager*	m_effekseerManager = nullptr;
+	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
+
+
+
 };
 //外部からアクセスするので、extern宣言も必要。
 extern GameManager g_goMgr;

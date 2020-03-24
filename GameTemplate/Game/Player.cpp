@@ -14,6 +14,8 @@ Player::Player()
 	m_redSprite.Init(L"Resource/sprite/aka.dds", 200.0f, 15.0f);
 	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
 	
+	
+
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
 	m_charaCon.Init(
@@ -134,6 +136,7 @@ void Player::PostRender()
 			//敵が出現中。
 			if (m_damageFlug != false) {
 				m_flug = true;
+			
 				m_greenScale.x -= m_damage;
 				m_redDamage += m_damage;
 				m_redDamage /= 2.0f;

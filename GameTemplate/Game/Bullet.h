@@ -5,6 +5,8 @@ class Item;
 #include "IGameObject.h"
 #include "Gun.h"
 #include "Game.h"
+#include "sound/SoundEngine.h"
+#include "sound/SoundSource.h"
 class Bullet : public IGameObject
 {
 public:
@@ -44,5 +46,7 @@ private:
 	int m_bulletPower = 0;
 	float m_bulletAccuracy = 0.0f;
 	int m_knockDownEnemyNum = 0; //ì|Ç∑ìGÇÃêîÅB
+
+	
 };
 

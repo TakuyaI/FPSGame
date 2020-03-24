@@ -109,4 +109,6 @@ private:
 	bool m_flug = false;
 	bool m_dashFlug = false;
 	bool m_deathFlug = false;
+
+	
 };

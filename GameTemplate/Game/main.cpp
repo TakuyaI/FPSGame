@@ -25,7 +25,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetFar(1000.0f);
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
 	/*g_camera2D.Update();*/
-
+	CSoundEngine soundEngine;
+	soundEngine.Init();
 	g_goMgr.NewGameObject<Title>(100);
 
 	//ゲームループ。
@@ -41,6 +42,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		}
 		g_goMgr.Init();
 		g_goMgr.Update();
+		soundEngine.Update();
 		//物理エンジンの更新。
 		g_physics.Update();
 

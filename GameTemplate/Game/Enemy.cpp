@@ -45,6 +45,12 @@ Enemy::Enemy()
 	//アニメーションの初期化。
 	m_animation.Init(m_model, m_animationClip, enAnimationCrip_Num);
 	
+	//サンプルのエフェクトをロードする。
+	m_sampleEffect = Effekseer::Effect::Create(g_goMgr.GetEffekseerManager(), (const EFK_CHAR*)L"Assets/effect/test02.efk");
+
+	m_bgm.Init(L"Assets/sound/bomb1.wav");
+	m_walk.Init(L"Assets/sound/walkS.wav");
+	m_damageS.Init(L"Assets/sound/damageS.wav");
 	m_player = g_goMgr.FindGameObject<Player>(player);
 }
 
@@ -89,6 +95,9 @@ void Enemy::Attack()
 		m_damage = m_enemyAttackPow / m_playerHp;
 		m_player->SetDamage(m_damage);
 		//m_player->SetRedDamage(m_damage);
+		m_damageS.Stop();
+		m_damageS.Play(false);
+
 		m_damageFlug = true;
 		m_player->SetDamageFlug(m_damageFlug);
 		m_damageFlug = false;
@@ -174,14 +183,23 @@ void Enemy::Update()
 	}
 	if (m_receiveDamageFlug != false) {
 		//ダメージを受けたら、一定時間怯む。
+		m_receiveDamageFlug = false;
 		m_animationFlug = enAnimationCrip_hirumu;
+		m_bgm.Stop();
+		m_bgm.Play(false);
 		//m_animation.Play(enAnimationCrip_hirumu);
+		//再生中のエフェクトを止める。
+		g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
+		//再生。
+		m_effectPos = m_position;
+		m_effectPos.y += 100.0f;
+		m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(m_sampleEffect, m_effectPos.x, m_effectPos.y, m_effectPos.z);
 		m_moveSpeed = CVector3::Zero();
-		m_scaredTimer++;
+		/*m_scaredTimer++;
 		if (m_scaredTimer >= 30) {
-			m_receiveDamageFlug = false;
+			
 			m_scaredTimer = 0;
-		}
+		}*/
 	}
 
 	if (m_death != false) {
@@ -197,6 +215,7 @@ void Enemy::Update()
 		m_animation.Play(enAnimationCrip_stay);
 	}
 	else if (m_animationFlug == enAnimationCrip_run) {
+
 		m_animation.Play(enAnimationCrip_run);
 	}
 	else if (m_animationFlug == enAnimationCrip_attack) {
@@ -209,6 +228,13 @@ void Enemy::Update()
 		m_animation.Play(enAnimationCrip_death);
 	}
 	m_animation.Update(1.0f / 30.0f);
+
+	if (m_animationFlug == enAnimationCrip_run) {
+		m_walk.Play(false);
+	}
+	else {
+		m_walk.Stop();
+	}
 
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());

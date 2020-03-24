@@ -59,6 +59,7 @@ public:
 	}
 private:
 	SkinModel m_model;
+	CSoundSource m_gunShot; //èeê∫ÇÃâπÅB
 	Player* m_player;
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;

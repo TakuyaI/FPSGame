@@ -16,6 +16,7 @@ struct BulletInformation {
 };
 Bullet::Bullet()
 {
+
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_game = g_goMgr.FindGameObject<Game>(game);
@@ -55,6 +56,7 @@ void Bullet::Update()
 		//弾から敵に向かって伸びるベクトル。
 		CVector3 v = enemyPos - m_position;
 		if (v.Length() <= m_bulletAccuracy) {
+			
 			//弾と敵の距離が一定値以下になった。
 			int enemyhp = m_enemy->GetEnemyHp();
 			//弾の威力に応じたダメージを敵に与える。

@@ -5,7 +5,7 @@
 
 Title::Title()
 {
-	m_soundEngine.Init();
+	//m_soundEngine.Init();
 	m_bgm.Init(L"Assets/sound/op.wav");
 	m_bgm.Play(true);
 
@@ -20,7 +20,7 @@ Title::~Title()
 }
 void Title::Update()
 {
-	m_soundEngine.Update();
+	//m_soundEngine.Update();
 	if (g_pad->IsPress(enButtonStart)) {
 		g_goMgr.NewGameObject<Game>(game);
 		m_bgm.Stop();

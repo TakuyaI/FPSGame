@@ -111,6 +111,12 @@ private:
 	int m_animationFlug = 0;
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                    //アニメーション。
+	Effekseer::Effect* m_sampleEffect = nullptr;
+	Effekseer::Handle m_playEffectHandle = -1;
+	CVector3 m_effectPos = CVector3::Zero();
 
+	CSoundSource m_bgm;
+	CSoundSource m_walk;
+	CSoundSource m_damageS;
 };
 

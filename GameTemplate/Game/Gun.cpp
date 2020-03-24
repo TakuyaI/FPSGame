@@ -34,6 +34,7 @@ Gun::Gun()
 	GunNumber gunNum;
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
 		m_model.Init(L"Assets/modelData/riful.cmo");
+		m_gunShot.Init(L"Assets/sound/raifulS.wav");
 		m_bulletIntervalTime = gunInf.RIFLE_INTERVAL_TIME;
 		m_bulletMoveSpeed = gunInf.RIFLE_MOVE_SPEED;
 		m_maxBlaze = gunInf.RIFLE_BLAZE;
@@ -42,6 +43,7 @@ Gun::Gun()
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
 		m_model.Init(L"Assets/modelData/gun2.cmo");
+		m_gunShot.Init(L"Assets/sound/shotgunS.wav");
 		m_bulletIntervalTime = gunInf.SHOTGUN_INTERVAL_TIME;
 		m_bulletMoveSpeed = gunInf.SHOTGUN_MOVE_SPEED;
 		m_maxBlaze = gunInf.SHOTGUN_BLAZE;
@@ -50,6 +52,7 @@ Gun::Gun()
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SNIPER_NUMBER) {
 		m_model.Init(L"Assets/modelData/sniper.cmo");
+		m_gunShot.Init(L"Assets/sound/sniperS.wav");
 		m_bulletIntervalTime = gunInf.SNIPER_INTERVAL_TIME;
 		m_bulletMoveSpeed = gunInf.SNIPER_MOVE_SPEED;
 		m_maxBlaze = gunInf.SNIPER_BLAZE;
@@ -117,7 +120,8 @@ void Gun::Update()
 					//m_ammo--;
 					m_blaze--;
 					m_bulletIntervalTimer = 0;
-					
+					m_gunShot.Stop();
+					m_gunShot.Play(false);
 				}
 			}
 		}
