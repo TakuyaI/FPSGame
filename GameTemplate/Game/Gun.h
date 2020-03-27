@@ -89,7 +89,9 @@ private:
 	bool m_reloadFlug = false; //リロードしているかどうか。
 	bool m_shootingBulletFlug = false; //弾を撃っているかどうか。
 
-
+	Effekseer::Effect* m_sampleEffect = nullptr;
+	Effekseer::Handle m_playEffectHandle = -1;
+	CVector3 m_effectPos = CVector3::Zero();
 
 	Sprite m_sprite;
 	CVector3 pos = CVector3::Zero();

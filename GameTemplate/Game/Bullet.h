@@ -4,7 +4,6 @@ class Item;
 //class GunGenerator;
 #include "IGameObject.h"
 #include "Gun.h"
-#include "Game.h"
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 class Bullet : public IGameObject

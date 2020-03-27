@@ -30,6 +30,12 @@ Gun::Gun()
 	m_player = g_goMgr.FindGameObject<Player>(player);
 
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
+	//サンプルのエフェクトをロードする。
+	m_sampleEffect = Effekseer::Effect::Create(
+		g_goMgr.GetEffekseerManager(),
+		(const EFK_CHAR*)L"Assets/effect/happou.efk"
+);
+
 	GunInformation gunInf;
 	GunNumber gunNum;
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
@@ -122,6 +128,20 @@ void Gun::Update()
 					m_bulletIntervalTimer = 0;
 					m_gunShot.Stop();
 					m_gunShot.Play(false);
+
+					//再生中のエフェクトを止める。
+					g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
+					//再生。
+					CVector3 effectPos = m_position;
+					pos = m_gameCam->GetToTargetPos();
+					pos.Normalize();
+					effectPos += pos * 100.0f;
+
+					m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(m_sampleEffect,
+						                                                     effectPos.x,
+						                                                     effectPos.y,
+						                                                     effectPos.z);
+
 				}
 			}
 		}
@@ -132,8 +152,8 @@ void Gun::Update()
 	
 
 	//リロード。
-	if (g_pad->IsTrigger(enButtonY)) {
-		//Yボタンを押した。
+	if (g_pad->IsTrigger(enButtonX)) {
+		//Xボタンを押した。
 		if (m_maxBlaze > m_blaze) {
 			m_reloadFlug = true;
 		}

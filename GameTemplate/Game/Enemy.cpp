@@ -11,9 +11,11 @@ const float ENEMY_CONTROLLER_HEIGHT = 100.0f;
 
 Enemy::Enemy()
 {
+	m_player = g_goMgr.FindGameObject<Player>(player);
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 
 	m_initPos = m_enemyGen->GetEnemyInitPos();
+	m_position = m_enemyGen->GetEnemyInitPos();
 	m_model.Init(L"Assets/modelData/enemy.cmo");
 	m_charaCon.Init(
 		ENEMY_CONTROLLER_RADIUS,
@@ -29,7 +31,6 @@ Enemy::Enemy()
 	else if (g_goMgr.Rand(2) == 2) {
 		m_enemyHp = 100;
 	}
-	
 	//アニメーションクリップのロード。
 	m_animationClip[enAnimationCrip_stay].Load(L"Assets/animData/stay.tka");
 	m_animationClip[enAnimationCrip_run].Load(L"Assets/animData/run.tka");
@@ -47,11 +48,10 @@ Enemy::Enemy()
 	
 	//サンプルのエフェクトをロードする。
 	m_sampleEffect = Effekseer::Effect::Create(g_goMgr.GetEffekseerManager(), (const EFK_CHAR*)L"Assets/effect/test02.efk");
-
+	//サウンドをロード。
 	m_bgm.Init(L"Assets/sound/bomb1.wav");
 	m_walk.Init(L"Assets/sound/walkS.wav");
 	m_damageS.Init(L"Assets/sound/damageS.wav");
-	m_player = g_goMgr.FindGameObject<Player>(player);
 }
 
 
@@ -63,38 +63,32 @@ void Enemy::Loitering()
 {
 	//走るアニメーション。
 	m_animationFlug = enAnimationCrip_run;
-	//m_animation.Play(enAnimationCrip_run);
 	m_targetPos = m_initPos;
 	CVector3 v = m_initPos - m_position;
-	if (v.Length() <= 15.0f) {
+	float fds = v.Length();
+	if (fds <= 15.0f) {
 		m_moveSpeed = CVector3::Zero();
 		m_position = m_initPos;
 		m_animationFlug = enAnimationCrip_stay;
-		//m_animation.Play(enAnimationCrip_stay);
 	}
 }
 void Enemy::Tracking()
 {
 	//走るアニメーション。
 	m_animationFlug = enAnimationCrip_run;
-	//m_animation.Play(enAnimationCrip_run);
 	m_targetPos = m_player->GetPosition();
 }
 void Enemy::Attack()
 {
 	m_targetPos = m_player->GetPosition();
-	/*m_attackFlug = true;
-	m_enemyGen->SetAttackFlug(m_attackFlug);*/
 	m_enemyGen->SetAttackFlug(true);
 	//攻撃アニメーション。
 	m_animationFlug = enAnimationCrip_attack;
-	//m_animation.Play(enAnimationCrip_attack);
 
 	m_AttackTimer++;
 	if (m_AttackTimer >= 30) {
 		m_damage = m_enemyAttackPow / m_playerHp;
 		m_player->SetDamage(m_damage);
-		//m_player->SetRedDamage(m_damage);
 		m_damageS.Stop();
 		m_damageS.Play(false);
 
@@ -113,8 +107,6 @@ void Enemy::Attack()
 			//Enemyが突き放し終えた。
 			m_pushAwaySpeed = 100.0f;
 			m_player->SetPushAwayFlug(false);
-			/*m_attackFlug = false;
-			m_enemyGen->SetAttackFlug(m_attackFlug);*/
 			m_endPushAwayflug = false;
 			m_enemyGen->SetAttackFlug(false);
 		}
@@ -130,8 +122,6 @@ void Enemy::Update()
 	m_toTargetVec.y = 0.0f;
 	m_toTargetVec.Normalize();
 
-	//CVector3 toEnemyDir = m_enemy->GetPosition() - m_position;
-	//toEnemyDir.Normalize();
 	CVector3 v = m_toPlayerVec;
 	v.Normalize();
 	float d = m_toTargetVec.Dot(v);
@@ -187,7 +177,6 @@ void Enemy::Update()
 		m_animationFlug = enAnimationCrip_hirumu;
 		m_bgm.Stop();
 		m_bgm.Play(false);
-		//m_animation.Play(enAnimationCrip_hirumu);
 		//再生中のエフェクトを止める。
 		g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 		//再生。
@@ -195,14 +184,10 @@ void Enemy::Update()
 		m_effectPos.y += 100.0f;
 		m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(m_sampleEffect, m_effectPos.x, m_effectPos.y, m_effectPos.z);
 		m_moveSpeed = CVector3::Zero();
-		/*m_scaredTimer++;
-		if (m_scaredTimer >= 30) {
-			
-			m_scaredTimer = 0;
-		}*/
 	}
 
 	if (m_death != false) {
+		//死亡。
 		m_moveSpeed = CVector3::Zero();
 		m_deathAnimtime++;
 		m_animationFlug = enAnimationCrip_death;

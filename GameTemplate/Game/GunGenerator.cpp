@@ -45,9 +45,9 @@ void GunGenerator::Update()
 		a = true;
 	}
 	if (m_gun->GetReloadFlug() != true) {
-		if (g_pad->IsTrigger(enButtonX)) {
-			//Xボタンで銃を切り替える。
-			m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
+		if (g_pad->IsTrigger(enButtonY)) {
+			//Yボタンで銃を切り替える。
+			//m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 			if (m_gun->GetShootingBulletFlug() != true) {
 				GunNumber gunNum;
 				if (m_nextnum == gunNum.RIFLE_NUMBER) {

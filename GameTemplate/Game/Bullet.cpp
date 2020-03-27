@@ -2,6 +2,7 @@
 #include "Bullet.h"
 #include "GameManager.h"
 #include "Enemy.h"
+#include "Game.h"
 #include "GameCamera.h"
 #include "GunGenerator.h"
 #include "EnemyGenerator.h"
@@ -46,6 +47,9 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	if (m_game->GetEndFlug() != false) {
+		g_goMgr.DeleteGameObject(this);
+	}
 	if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
 		//敵が出現している。
 		//弾と一番近い敵。
@@ -63,16 +67,9 @@ void Bullet::Update()
 			m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
 			if (enemyhp <= 0) {
 				//敵のHPが0になった。
-				//int a = g_goMgr.Rand(3);
-				//if (a == 1) {
-				//	//確率でアイテムが出現。
-				//	m_item = g_goMgr.NewGameObject<Item>(item);
-				//	m_item->SetPosition(m_enemy->GetPosition());
-				//}
 				//敵を削除。
 				m_enemy->SetDeathFlug(true);
-				//g_goMgr.DeleteGameObject(m_enemy);
-
+				//残りの数をマイナスする。
 				m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
 				m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
 				int enemyNum = m_enemyGen->GetEnemyNumber();

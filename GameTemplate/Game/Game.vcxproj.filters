@@ -31,6 +31,9 @@
     <Filter Include="system">
       <UniqueIdentifier>{48b58c60-bbe2-40d8-9d2f-e81d065b6820}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\sprite">
+      <UniqueIdentifier>{9048e869-ba2f-4152-aee2-2870ea67b8c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -105,26 +108,6 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="GunGenerator.cpp" />
-    <ClCompile Include="system\physics\CapsuleCollider.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="system\physics\MeshCollider.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="system\physics\Physics.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="system\physics\PhysicsStaticObject.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="system\physics\RigidBody.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="physics\CapsuleCollider.cpp" />
-    <ClCompile Include="physics\MeshCollider.cpp" />
-    <ClCompile Include="physics\Physics.cpp" />
-    <ClCompile Include="physics\PhysicsStaticObject.cpp" />
-    <ClCompile Include="physics\RigidBody.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
@@ -132,6 +115,28 @@
     <ClCompile Include="sound\WaveFile.cpp" />
     <ClCompile Include="sound\WaveFileBank.cpp" />
     <ClCompile Include="FontRender.cpp" />
+    <ClCompile Include="physics\SphereCollider.cpp" />
+    <ClCompile Include="physics\Physics.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\MeshCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsGhostObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\PhysicsStaticObject.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\RigidBody.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\BoxCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="physics\CapsuleCollider.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -208,34 +213,14 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GunGenerator.h" />
-    <ClInclude Include="system\physics\CapsuleCollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
     <ClInclude Include="system\physics\CollisionAttr.h">
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="system\physics\ICollider.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="system\physics\MeshCollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="system\physics\Physics.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="system\physics\PhysicsStaticObject.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="system\physics\RigidBody.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CapsuleCollider.h" />
     <ClInclude Include="physics\CollisionAttr.h" />
     <ClInclude Include="physics\ICollider.h" />
-    <ClInclude Include="physics\MeshCollider.h" />
-    <ClInclude Include="physics\Physics.h" />
-    <ClInclude Include="physics\PhysicsStaticObject.h" />
-    <ClInclude Include="physics\RigidBody.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="sound\SoundEngine.h" />
@@ -243,6 +228,28 @@
     <ClInclude Include="sound\WaveFile.h" />
     <ClInclude Include="sound\WaveFileBank.h" />
     <ClInclude Include="FontRender.h" />
+    <ClInclude Include="physics\SphereCollider.h" />
+    <ClInclude Include="physics\Physics.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\MeshCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsGhostObject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\PhysicsStaticObject.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\RigidBody.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\BoxCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\CapsuleCollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -254,30 +261,75 @@
     <MeshContentTask Include="Assets\modelData\riful.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\background.fbx" />
-    <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
-    <MeshContentTask Include="Assets\modelData\bk.fbx" />
-    <MeshContentTask Include="Assets\modelData\gun2.fbx" />
-    <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
-    <MeshContentTask Include="Assets\modelData\sniper.fbx" />
-    <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
-    <MeshContentTask Include="Assets\modelData\item01.fbx" />
-    <MeshContentTask Include="Assets\modelData\enemy.fbx" />
+    <MeshContentTask Include="Assets\modelData\background.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\bk.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\bullet_test.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\enemy.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\gun2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\item01.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\sniper.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\gage.png" />
-    <ImageContentTask Include="Assets\sprite\kuro.png" />
-    <ImageContentTask Include="Assets\sprite\aka.png" />
-    <ImageContentTask Include="Assets\sprite\oamidori.png" />
-    <ImageContentTask Include="Assets\sprite\zyuzi.png" />
-    <ImageContentTask Include="Assets\sprite\title_test.png" />
-    <ImageContentTask Include="Assets\sprite\start.png" />
-    <ImageContentTask Include="Assets\sprite\st.png" />
-    <ImageContentTask Include="Assets\sprite\orengi.png" />
-    <ImageContentTask Include="Assets\sprite\gameover.png" />
-    <ImageContentTask Include="Assets\sprite\gameclear.png" />
+    <ImageContentTask Include="Assets\sprite\gameclear.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\aka.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\gameover.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\item.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\kuro.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\oamidori.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\orengi.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\st.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\start.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\title_test.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\zyuzi.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\gage.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
+    <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
   </ItemGroup>
 </Project>

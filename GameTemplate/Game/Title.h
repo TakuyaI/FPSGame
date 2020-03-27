@@ -16,5 +16,6 @@ public:
 	Sprite m_haikei;
 	/*CSoundEngine m_soundEngine;*/
 	CSoundSource m_bgm;
+	CSoundSource m_cio;
 };
 

@@ -12,6 +12,7 @@
 Item::Item()
 {
 	m_model.Init(L"Assets/modelData/item01.cmo");
+	
 	m_player = g_goMgr.FindGameObject<Player>(player);
 	m_game = g_goMgr.FindGameObject<Game>(game);
 }
@@ -43,5 +44,5 @@ void Item::Render()
 }
 void Item::PostRender()
 {
-
+	
 }

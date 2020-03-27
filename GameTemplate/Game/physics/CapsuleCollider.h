@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "Physics/ICollider.h"
-
+//#include "Physics/ICollider.h"
+#include <physics\ICollider.h>
 
 class CapsuleCollider : public ICollider
 {

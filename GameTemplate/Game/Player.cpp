@@ -4,9 +4,19 @@
 #include "EnemyGenerator.h"
 #include "Enemy.h"
 
-
 const float PLAYER_CONTROLLER_RADIUS = 30.0f;
 const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
+void Player::InitGhost()
+{
+	//ゴーストのワイヤーフレーム表示を有効にする。
+	//PhysicsWorld().SetDebugDrawMode(btIDebugDraw::DBG_DrawWireframe);
+	//ボックス形状のゴーストを作成する。
+	m_ghost.CreateBox(
+		m_position,	//第一引数は座標。
+		CQuaternion::Identity(),		//第二引数は回転クォータニオン。
+		{ 500.0f, 500.0f, 500.0f }	//第三引数はボックスのサイズ。
+	);
+}
 
 Player::Player()
 {
@@ -14,7 +24,7 @@ Player::Player()
 	m_redSprite.Init(L"Resource/sprite/aka.dds", 200.0f, 15.0f);
 	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
 	
-	
+	m_position.y = 100.0f;
 
 	//cmoファイルの読み込み。
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
@@ -23,6 +33,7 @@ Player::Player()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);
+	InitGhost();
 }
 
 
@@ -76,10 +87,10 @@ void Player::Update()
 	m_moveSpeed.y -= 1.0f;
 	
 	m_position.y += m_moveSpeed.y;
-	if (m_position.y <= 0.0f) {
+	if (m_position.y <= -5.0f) {
 		//Playerの座標が0以下になったら、
 		//重力を0にする。
-		m_moveSpeed.y = 0.0f;
+		m_moveSpeed.y = -5.0f;
 		if (m_jumpFlag != false) {
 			m_jumpFlag = false;
 		}
@@ -106,6 +117,14 @@ void Player::Update()
 			}
 		}
 	}
+	flug = false;
+	//キャラクターとゴーストのあたり判定を行う。
+	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
+		if (m_ghost.IsSelf(contactObject) == true) {
+			//m_ghostObjectとぶつかった
+			flug = true;
+		}
+		});
 
 	if (m_deathFlug != false) {
 		m_moveSpeed = CVector3::Zero();
@@ -188,6 +207,9 @@ void Player::PostRender()
 		m_greenSprite.Draw();
 
 	}
-
-	
+	if (flug != false) {
+		wchar_t text[256];
+		swprintf_s(text, L"%d ", ds);
+		m_font.Draw(text, { 0.0f,0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+	}
 }

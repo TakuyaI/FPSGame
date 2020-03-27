@@ -6,12 +6,15 @@ class Sprite;
 #include "IGameObject.h"
 #include "GameCamera.h"
 #include "Sprite.h"
+#include "PhysicsGhostObject.h"
+#include "FontRender.h"
 class GameCamera;
 class Player:public IGameObject
 {
 public:
 	Player();
 	~Player();
+	void InitGhost();
 	void Update();
 	void Render();
 	void PostRender();
@@ -110,5 +113,8 @@ private:
 	bool m_dashFlug = false;
 	bool m_deathFlug = false;
 
-	
+	PhysicsGhostObject m_ghost;
+	FontRender m_font;
+	int ds = 0;
+	bool flug = false;
 };

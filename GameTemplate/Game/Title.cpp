@@ -7,6 +7,7 @@ Title::Title()
 {
 	//m_soundEngine.Init();
 	m_bgm.Init(L"Assets/sound/op.wav");
+	m_cio.Init(L"Assets/sound/gamestart.wav");
 	m_bgm.Play(true);
 
 
@@ -21,10 +22,13 @@ Title::~Title()
 void Title::Update()
 {
 	//m_soundEngine.Update();
-	if (g_pad->IsPress(enButtonStart)) {
+	if (GetAsyncKeyState('A')) {
 		g_goMgr.NewGameObject<Game>(game);
 		m_bgm.Stop();
 		g_goMgr.DeleteGameObject(this);
+	}
+	if (g_pad->IsPress(enButtonB)) {
+		m_cio.Play(false);
 	}
 }
 void Title::PostRender()

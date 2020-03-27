@@ -80,7 +80,7 @@ void EnemyGenerator::Update()
 			m_timer = 0;
 		}
 	}*/
-	
+	/*
 	if (m_enemyNumber < m_enemyMax) {
 	    m_timer++;
 		if (m_timer == ENEMY_OCCURRENCE_TIME) {
@@ -88,13 +88,11 @@ void EnemyGenerator::Update()
 			m_enemyInitPos.x = g_goMgr.Lerp(-2000.0f, 2000.0f);
 			m_enemyInitPos.z = g_goMgr.Lerp(-2000.0f, 2000.0f);
 			
-			m_enemy[m_enemyArrayNum]->SetPosition(m_enemyInitPos);
-			
 			m_enemyArrayNum++;
 			m_enemyNumber++;
 			m_enemyOccurrenceFlug = true;
 			m_timer = 0;
 		}
 	}
-	
+	*/
 }
