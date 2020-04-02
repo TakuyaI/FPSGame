@@ -188,6 +188,7 @@ void Enemy::Update()
 
 	if (m_death != false) {
 		//Ž€–SB
+		m_enemyGen->SetAttackFlug(false);
 		m_moveSpeed = CVector3::Zero();
 		m_deathAnimtime++;
 		m_animationFlug = enAnimationCrip_death;
@@ -220,7 +221,7 @@ void Enemy::Update()
 	else {
 		m_walk.Stop();
 	}
-
+	m_moveSpeed.y -= 10.0f;
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 	

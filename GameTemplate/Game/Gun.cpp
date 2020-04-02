@@ -72,6 +72,7 @@ Gun::Gun()
 
 Gun::~Gun()
 {
+	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 }
 
 void Gun::Update()
@@ -137,10 +138,12 @@ void Gun::Update()
 					pos.Normalize();
 					effectPos += pos * 100.0f;
 
-					m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(m_sampleEffect,
-						                                                     effectPos.x,
-						                                                     effectPos.y,
-						                                                     effectPos.z);
+					m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(
+						m_sampleEffect,
+						effectPos.x,
+						effectPos.y,
+						effectPos.z
+					);
 
 				}
 			}

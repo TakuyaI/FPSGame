@@ -4,14 +4,14 @@ class Item;
 //class GunGenerator;
 #include "IGameObject.h"
 #include "Gun.h"
-#include "sound/SoundEngine.h"
-#include "sound/SoundSource.h"
+#include "PhysicsGhostObject.h"
 class Bullet : public IGameObject
 {
 public:
 	Bullet();
 	~Bullet();
 
+	void InitGhost();
 	void Update();
 	void Render();
 
@@ -46,6 +46,6 @@ private:
 	float m_bulletAccuracy = 0.0f;
 	int m_knockDownEnemyNum = 0; //ì|Ç∑ìGÇÃêîÅB
 
-	
+	PhysicsGhostObject m_GhostObject;
 };
 

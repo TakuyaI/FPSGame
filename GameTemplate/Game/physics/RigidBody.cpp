@@ -9,8 +9,8 @@ RigidBody::~RigidBody()
 }
 void RigidBody::Release()
 {
-	delete rigidBody;
-	delete myMotionState;
+	if (rigidBody) { rigidBody.reset(); }
+	if (myMotionState) { myMotionState.reset(); }
 	rigidBody = nullptr;
 	myMotionState = nullptr;
 }
@@ -22,10 +22,10 @@ void RigidBody::Create(RigidBodyInfo& rbInfo)
 	transform.setIdentity();
 	transform.setOrigin(btVector3(rbInfo.pos.x, rbInfo.pos.y, rbInfo.pos.z));
 	transform.setRotation(btQuaternion(rbInfo.rot.x, rbInfo.rot.y, rbInfo.rot.z, rbInfo.rot.w));
-	myMotionState = new btDefaultMotionState;
+	myMotionState = std::make_unique<btDefaultMotionState>();
 	myMotionState->setWorldTransform(transform);
-	btRigidBody::btRigidBodyConstructionInfo btRbInfo(rbInfo.mass, myMotionState, rbInfo.collider->GetBody(), btVector3(0, 0, 0));
+	btRigidBody::btRigidBodyConstructionInfo btRbInfo(rbInfo.mass, myMotionState.get(), rbInfo.collider->GetBody(), btVector3(0, 0, 0));
 	//çÑëÃÇçÏê¨ÅB
-	rigidBody = new btRigidBody(btRbInfo);
+	rigidBody = std::make_unique<btRigidBody>(btRbInfo);
 
 }

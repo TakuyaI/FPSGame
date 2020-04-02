@@ -21,6 +21,7 @@ Bullet::Bullet()
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_game = g_goMgr.FindGameObject<Game>(game);
+	m_gun = g_goMgr.FindGameObject<Gun>(gun);
 	GunNumber gunNum;
 	BulletInformation bulletInf;
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
@@ -38,13 +39,22 @@ Bullet::Bullet()
 		m_bulletPower = bulletInf.SNIPER_BULLET_POWER;
 		m_bulletAccuracy = bulletInf.SNIPER_BULLET_ACCURACY;
 	}
+	InitGhost();
 }
 
 
 Bullet::~Bullet()
 {
 }
-
+void Bullet::InitGhost()
+{
+	//ボックス形状のゴーストを作成する。
+	m_GhostObject.CreateBox(
+		m_position,	//第一引数は座標。
+		CQuaternion::Identity(),		//第二引数は回転クォータニオン。
+		{ 50.0f, 50.0f, 500.0f }	//第三引数はボックスのサイズ。
+	);
+}
 void Bullet::Update()
 {
 	if (m_game->GetEndFlug() != false) {
@@ -54,31 +64,59 @@ void Bullet::Update()
 		//敵が出現している。
 		//弾と一番近い敵。
 		m_enemy = m_enemyGen->GetClosestEnemyToBullet(m_position);
-
+		CharacterController& m_chara = *m_enemy->CharaCon();
 		CVector3 enemyPos = m_enemy->GetPosition();
 		enemyPos.y += 100.0f;
 		//弾から敵に向かって伸びるベクトル。
 		CVector3 v = enemyPos - m_position;
-		if (v.Length() <= m_bulletAccuracy) {
-			
-			//弾と敵の距離が一定値以下になった。
-			int enemyhp = m_enemy->GetEnemyHp();
-			//弾の威力に応じたダメージを敵に与える。
-			m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
-			if (enemyhp <= 0) {
-				//敵のHPが0になった。
-				//敵を削除。
-				m_enemy->SetDeathFlug(true);
-				//残りの数をマイナスする。
-				m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
-				m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
-				int enemyNum = m_enemyGen->GetEnemyNumber();
-				m_enemyGen->SetEnemyNumber(--enemyNum);
-				int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();
-				m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
-				m_enemyGen->DeleteEnemy();
+		//if (v.Length() <= m_bulletAccuracy) {
+		//	
+		//	//弾と敵の距離が一定値以下になった。
+		//	int enemyhp = m_enemy->GetEnemyHp();
+		//	//弾の威力に応じたダメージを敵に与える。
+		//	m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
+		//	if (enemyhp <= 0) {
+		//		//敵のHPが0になった。
+		//		//敵を削除。
+		//		m_enemy->SetDeathFlug(true);
+		//		//残りの数をマイナスする。
+		//		m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
+		//		m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
+		//		int enemyNum = m_enemyGen->GetEnemyNumber();
+		//		m_enemyGen->SetEnemyNumber(--enemyNum);
+		//		int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();
+		//		m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
+		//		m_enemyGen->DeleteEnemy();
+		//	}
+		//	m_enemy->SetReceiveDamageFlug(true);
+		//	g_goMgr.DeleteGameObject(this);
+		//}
+		bool isContact = false;
+		g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
+			if (m_GhostObject.IsSelf(contactObject) == true) {
+				//m_ghostObjectとぶつかった
+				//弾と敵の距離が一定値以下になった。
+				int enemyhp = m_enemy->GetEnemyHp();
+				//弾の威力に応じたダメージを敵に与える。
+				m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
+				if (enemyhp <= 0) {
+					//敵のHPが0になった。
+					//敵を削除。
+					m_enemy->SetDeathFlug(true);
+					//残りの数をマイナスする。
+					m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
+					m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
+					int enemyNum = m_enemyGen->GetEnemyNumber();
+					m_enemyGen->SetEnemyNumber(--enemyNum);
+					int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();
+					m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
+					m_enemyGen->DeleteEnemy();
+				}
+				m_enemy->SetReceiveDamageFlug(true);
+				isContact = true;//g_goMgr.DeleteGameObject(this);
 			}
-			m_enemy->SetReceiveDamageFlug(true);
+			});
+		if (isContact) {
 			g_goMgr.DeleteGameObject(this);
 		}
 	}
@@ -87,9 +125,10 @@ void Bullet::Update()
 	if (m_timer >= 5) {
 		g_goMgr.DeleteGameObject(this);
 	}
-	m_gun = g_goMgr.FindGameObject<Gun>(gun);
+	m_GhostObject.SetPosition(m_position);
+	m_GhostObject.SetRotation(m_gun->GetRotation());
 	m_model.UpdateWorldMatrix(m_position, m_gun->GetRotation(), CVector3::One());
-	
+
 }
 void Bullet::Render()
 {

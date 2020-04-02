@@ -22,7 +22,7 @@ Title::~Title()
 void Title::Update()
 {
 	//m_soundEngine.Update();
-	if (GetAsyncKeyState('A')) {
+	if (g_pad->IsPress(enButtonA)) {
 		g_goMgr.NewGameObject<Game>(game);
 		m_bgm.Stop();
 		g_goMgr.DeleteGameObject(this);

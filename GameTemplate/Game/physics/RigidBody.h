@@ -16,8 +16,8 @@ struct RigidBodyInfo {
 //剛体クラス。
 class RigidBody
 {
-	btRigidBody*			rigidBody = nullptr;		//剛体。
-	btDefaultMotionState*	myMotionState = nullptr;	//モーションステート。
+	std::unique_ptr<btRigidBody>			rigidBody = nullptr;		//剛体。
+	std::unique_ptr<btDefaultMotionState>	myMotionState = nullptr;	//モーションステート。
 public:
 
 	~RigidBody();
@@ -25,7 +25,7 @@ public:
 	void Create(RigidBodyInfo& rbInfo);
 	btRigidBody* GetBody()
 	{
-		return rigidBody;
+		return rigidBody.get();
 	}
 };
 

@@ -44,9 +44,9 @@ public:
 	{
 		return m_enemyHp;
 	}
-	CharacterController CharaCon()
+	CharacterController* CharaCon()
 	{
-		return m_charaCon;
+		return &m_charaCon;
 	}
 	float GetEnemyAttackPow()
 	{
