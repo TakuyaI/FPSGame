@@ -22,6 +22,7 @@ Enemy::Enemy()
 		ENEMY_CONTROLLER_HEIGHT,
 		m_initPos
 	);
+	/*
 	if (g_goMgr.Rand(2) == 0) {
 		m_enemyHp = 50;
 	}
@@ -31,6 +32,7 @@ Enemy::Enemy()
 	else if (g_goMgr.Rand(2) == 2) {
 		m_enemyHp = 100;
 	}
+	*/
 	//アニメーションクリップのロード。
 	m_animationClip[enAnimationCrip_stay].Load(L"Assets/animData/stay.tka");
 	m_animationClip[enAnimationCrip_run].Load(L"Assets/animData/run.tka");

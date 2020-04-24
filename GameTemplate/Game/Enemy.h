@@ -2,6 +2,7 @@
 //class EnemyGenerator;
 #include "IGameObject.h"
 #include "Player.h"
+#include "Item.h"
 #include "graphics\animation\AnimationClip.h"
 class Enemy : public IGameObject
 {
@@ -75,7 +76,7 @@ public:
 private:
 	SkinModel m_model;                                //スキンモデル。
 	Player* m_player;                                 //Playerのインスタンス。
-	EnemyGenerator* m_enemyGen;                         //EnemyGeneratorのインスタンス。
+	EnemyGenerator* m_enemyGen;                       //EnemyGeneratorのインスタンス。
 
 	CVector3 m_moveSpeed = CVector3::Zero();          //ムーブスピード。
 	CVector3 m_position = CVector3::Zero();           //座標。

@@ -17,7 +17,7 @@ public:
 	virtual void Render() {}
 	virtual void PostRender() {}
 
-	virtual bool Start() { return true; };
+	//virtual bool Start() { return true; };
 	/// <summary>
 	/// 削除リクエストを行う。
 	/// </summary>
