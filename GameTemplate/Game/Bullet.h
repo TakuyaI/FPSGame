@@ -1,10 +1,12 @@
 #pragma once
 class Enemy;
 class Item;
-//class GunGenerator;
+class Game;
 #include "IGameObject.h"
-#include "Gun.h"
 #include "PhysicsGhostObject.h"
+#include "Rifle.h"
+#include "Shotgun.h"
+#include "Sniper.h"
 class Bullet : public IGameObject
 {
 public:
@@ -29,13 +31,15 @@ public:
 		m_moveSpeed = moveSpeed;
 	}
 private:
-	Gun * m_gun;
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
 	Item* m_item;
 	Game* m_game;
+	Rifle* m_rifle;
+	Shotgun* m_shotgun;
+	Sniper* m_sniper;
 
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();
@@ -45,7 +49,7 @@ private:
 	int m_bulletPower = 0;
 	float m_bulletAccuracy = 0.0f;
 	int m_knockDownEnemyNum = 0; //ì|Ç∑ìGÇÃêîÅB
-
+	CQuaternion m_rotation = CQuaternion::Identity();
 	PhysicsGhostObject m_GhostObject;
 };
 

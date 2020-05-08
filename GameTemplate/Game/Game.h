@@ -1,18 +1,18 @@
 #pragma once
-class Gun;
 class GameCamera;
 class EnemyGenerator;
 class Sprite;
 class GunGenerator;
+class ItemGenerator;
 #include "IGameObject.h"
 #include "Player.h"
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Enemy.h"
 #include "EnemyGenerator.h"
-#include "Gun.h"
 #include "Sprite.h"
 #include "FontRender.h"
+#include "ItemGenerator.h"
 class Game : public IGameObject
 {
 public:
@@ -46,8 +46,8 @@ private:
 	GameCamera* m_gameCam;
 	Enemy* m_enemy;
 	EnemyGenerator* m_enemyGen;
-	Gun* m_gun;
 	GunGenerator* m_gunGen;
+	ItemGenerator* m_itemGen;
 	
 	int m_gameOverTime = 0; //ゲームオーバーになってから、タイトル画面にもどるまでの時間。
 	int m_gameClearTime = 0;
@@ -56,6 +56,6 @@ private:
 	Sprite m_gameClearSprite; //ゲームクリアスプライト。
 	int m_knockDownEnemyNum = 10; //倒す敵の数。
 
-	Sprite m_itemS;
+	//Sprite m_itemS;
 };
 

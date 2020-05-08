@@ -55,11 +55,14 @@ protected:
 		enemygenerator,
 		game,
 		gamecamera,
-		gun,
 		player,
 		gungenerator,
 		item,
-		title
+		itemgenerator,
+		title,
+		rifle,
+		shotgun,
+		sniper,
 	};
 };
 

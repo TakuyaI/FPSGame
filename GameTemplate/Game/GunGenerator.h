@@ -2,8 +2,14 @@
 class Gun;
 class GameCamera;
 class Sprite;
+class Rifle;
+class Shotgun;
+class Sniper;
 #include "Sprite.h"
 #include "IGameObject.h"
+#include "Rifle.h"
+#include "Shotgun.h"
+#include "Sniper.h"
 /// <summary>
 /// 銃の番号
 /// </summary>
@@ -28,10 +34,18 @@ public:
 	/// <returns></returns>
 	int GetGunAmmo();
 	/// <summary>
-	/// 銃の連射弾数。
+	/// 銃の弾数を設定。
+	/// </summary>
+	/// <summary>
+	void SetGunAmmo(int ammo);
+	/// 銃の装填弾数。
 	/// </summary>
 	/// <returns></returns>
-	int GetGunBlaze();
+	int GetGunLoading();
+	/// <summary>
+	///銃の装填弾数を設定。 
+	/// </summary>
+	void SetGunLoading(int loading);
 	void SetNextNum(int num)
 	{
 		m_nextnum = num;
@@ -40,20 +54,36 @@ public:
 	{
 		return m_nextnum;
 	}
+	void SetReloadFlug(bool flug)
+	{
+		m_reloadFlug = flug;
+	}
+	void SetShootingBulletFlug(bool flug)
+	{
+		m_shootingBulletFlug = flug;
+	}
 	void Update();
 	void PostRender();
 
-	Gun* m_gun;
-	GameCamera* m_gameCam;
+
+	Rifle* m_rifle;
+	Shotgun* m_shotgun;
+	Sniper* m_sniper;
+
 	int m_nextnum = 0;
+	int m_num = 0;
 	bool a = false;
 	int  m_rifleAmmo = 200;             //ライフルの弾数。
 	int  m_shotgunAmmo = 60;           //ショットガンの弾数。
 	int  m_sniperAmmo = 20;             //スナイパーの弾数。
-	int m_rifulBlaze = 50;              //ライフルの連射弾数。
-	int m_shotgunBlaze = 10;            //ショットガンの連射弾数。  
-	int m_sniperBlaze = 4;              //スナイパーの連射弾数。
+	int m_rifulLoading = 50;              //ライフルの装填弾数。
+	int m_shotgunLoading = 10;            //ショットガンの装填弾数。  
+	int m_sniperLoading = 4;              //スナイパーの装填弾数。
 
+	float m_initGunFlug = false;
+	float m_gunChangeFlug = true;
+	bool m_reloadFlug = false;
+	bool m_shootingBulletFlug = false;
 	Sprite m_sprite;
 };
 

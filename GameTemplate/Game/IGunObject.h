@@ -4,22 +4,41 @@ class Bullet;
 class GunGenerator;
 class EnemyGenerator;
 class Sprite;
+class Player;
+class Enemy;
+#include "IGunObject.h"
 #include "IGameObject.h"
-#include "Player.h"
-#include "Enemy.h"
-#include "GameCamera.h"
-#include "Bullet.h"
 #include "Sprite.h"
 #include "FontRender.h"
-class Gun : public IGameObject
+class IGunObject : public IGameObject
 {
 public:
-	Gun();
-	~Gun();
+	IGunObject();
+	~IGunObject();
 
+	/// <summary>
+	/// 銃の更新
+	/// </summary>
+	/// <param name="position">座標</param>
+	/// <param name="rotation">回転</param>
+	/// <param name="scale">サイズ</param>
+	/// <param name="ammo">弾数</param>
+	/// <param name="loading">装填弾数</param>
+	/// <param name="maxLoading">最大装填弾数</param>
+	/// <param name="bulletIntervalTime">弾のインターバル</param>
+	/// <param name="bulletMoveSpeed">銃の速度</param>
+	/// <param name="reaction">発砲時の反動</param>
+	/// <param name="reloadTime">リロードにかかる時間</param>
+	void GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* scale, int* ammo, int* loading, int* maxLoading, int* bulletIntervalTime, float* bulletMoveSpeed, float* reaction, int* reloadTime, CSoundSource& gunshot);
+	/// <summary>
+	///　ポストレンダー。
+	/// </summary>
+	/// <param name="reloadTime">リロード時間。</param>
+	/// <param name="ammo">弾数。</param>
+	/// <param name="loading">装填弾数。</param>
+	/// <param name="maxLoading">最大装填弾数。</param>
+	void GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading);
 	void Update();
-	void Render();
-	void PostRender();
 
 	CVector3 Getpostion()
 	{
@@ -49,16 +68,16 @@ public:
 	{
 		return m_ammo;
 	}
-	int GetBlaze()
+	int GetLoading()
 	{
-		return m_blaze;
+		return m_loading;
 	}
 	bool GetReloadFlug()
 	{
 		return m_reloadFlug;
 	}
 private:
-	SkinModel m_model;
+	//SkinModel m_model;
 	CSoundSource m_gunShot; //銃声の音。
 	Player* m_player;
 	Enemy* m_enemy;
@@ -75,14 +94,14 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity();
 	float m_angle = 0.0f;
 	float m_angle2 = 0.0f;
-	int m_bulletIntervalTimer = 5;
+	int m_bulletIntervalTimer = 0;
 	int m_bulletIntervalTime;
 	float m_bulletMoveSpeed;
 	int m_setNum = 0;
 	int m_ammo = 0; //弾数。
-	int m_blaze = 0;//連射弾数。
+	int m_loading = 0;//装填弾数。
 	int m_usedBullet = 0; //使い終えた弾。
-	int m_maxBlaze = 0;//最大連射弾数。
+	int m_maxLoading = 0;//最大装填弾数。
 	float m_reaction = 0.0f;   //銃の反動。
 	int m_reloadTimer = 0;  //リロードタイマー。
 	int m_reloadTime = 0;  //リロードタイム。

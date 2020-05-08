@@ -3,7 +3,6 @@ class Gun;
 class GameCamera;
 #include "IGameObject.h"
 #include "Enemy.h"
-#include "Gun.h"
 #include "GameCamera.h"
 #include "Game.h"
 #include "Player.h"
@@ -58,7 +57,7 @@ private:
 	GameCamera* m_gameCam;
 	Game* m_game;
 	Player* m_player;
-	Bullet* m_bullet;
+	//Bullet* m_bullet;
 
 	CVector3 m_playerPos = CVector3::Zero();
 	float m_kyori = 1000000.0f;

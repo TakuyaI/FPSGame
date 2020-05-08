@@ -100,6 +100,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="IGunObject.cpp" />
+    <ClCompile Include="ItemGenerator.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
@@ -120,7 +122,6 @@
     <ClCompile Include="graphics\SkinModel.cpp" />
     <ClCompile Include="graphics\SkinModelDataManager.cpp" />
     <ClCompile Include="graphics\SkinModelEffect.cpp" />
-    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="GunGenerator.cpp" />
     <ClCompile Include="HID\Pad.cpp" />
     <ClCompile Include="IGameObject.cpp" />
@@ -137,6 +138,9 @@
     <ClCompile Include="physics\Physics.cpp" />
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
+    <ClCompile Include="Rifle.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
+    <ClCompile Include="Sniper.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
     <ClCompile Include="sound\WaveFile.cpp" />
@@ -154,6 +158,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="IGunObject.h" />
+    <ClInclude Include="ItemGenerator.h" />
     <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="character\CharacterController.h" />
@@ -175,7 +181,6 @@
     <ClInclude Include="graphics\SkinModelDataManager.h" />
     <ClInclude Include="graphics\SkinModelEffect.h" />
     <ClInclude Include="graphics\SkinModelShaderConst.h" />
-    <ClInclude Include="Gun.h" />
     <ClInclude Include="GunGenerator.h" />
     <ClInclude Include="HID\Pad.h" />
     <ClInclude Include="IGameObject.h" />
@@ -193,13 +198,14 @@
     <ClInclude Include="physics\Physics.h" />
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="physics\RigidBody.h" />
+    <ClInclude Include="Rifle.h" />
+    <ClInclude Include="Shotgun.h" />
+    <ClInclude Include="Sniper.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />
     <ClInclude Include="sound\WaveFile.h" />
     <ClInclude Include="sound\WaveFileBank.h" />
     <ClInclude Include="physics\SphereCollider.h" />
-    <ClInclude Include="system\physics\ICollider.h" />
-    <ClInclude Include="system\physics\CollisionAttr.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Sprite.h" />
@@ -246,6 +252,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
+    <Image Include="Assets\sprite\item_kaihuku.png" />
+    <ImageContentTask Include="Assets\sprite\item_danyaku.png" />
     <ImageContentTask Include="Assets\sprite\item.png" />
     <ImageContentTask Include="Assets\sprite\gameclear.png" />
     <ImageContentTask Include="Assets\sprite\gameover.png" />

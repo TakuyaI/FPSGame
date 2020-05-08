@@ -1,6 +1,7 @@
 #pragma once
 class Game;
 class Player;
+class ItemGenerator;
 //class Sprite;
 #include "IGameObject.h"
 #include "Sprite.h"
@@ -26,7 +27,8 @@ public:
 	Player* m_player;
 	Game* m_game;
 	SkinModel m_model;
-	
+	ItemGenerator* m_itemGen;
+
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotation = CQuaternion::Identity();
 };

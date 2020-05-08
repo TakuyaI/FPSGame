@@ -7,12 +7,13 @@ Game::Game()
 {
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
-	m_itemS.Init(L"Resource/sprite/item.dds", 320.0f, 180.0f);
+	//m_itemS.Init(L"Resource/sprite/item.dds", 320.0f, 180.0f);
 	m_player = g_goMgr.NewGameObject<Player>(player);
 	m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 	m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
 	m_enemyGen = g_goMgr.NewGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
+	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);
 }
 
 
@@ -54,13 +55,13 @@ void Game::Update()
 }
 void Game::PostRender()
 {
-	m_itemS.Update(
+	/*m_itemS.Update(
 		{ 0.0f, -250.0f, 0.0f },
 		CQuaternion::Identity(),
 		CVector3::One(),
 		{0.5f, 0.5f}
 	);
-	m_itemS.Draw();
+	m_itemS.Draw();*/
 	if (m_player->GetDeathFlug() != false) {
 		m_gameOverSprite.Draw();
 	}

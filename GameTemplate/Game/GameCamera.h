@@ -57,7 +57,6 @@ private:
 	Player* m_player;
 	Enemy* m_enemy;
 	EnemyGenerator* m_enemyGen;
-	Gun* m_gun;
 	Game* m_game;
 
 	CVector3 m_toTargetPos = CVector3::Zero();

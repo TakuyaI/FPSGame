@@ -21,23 +21,31 @@ Bullet::Bullet()
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_game = g_goMgr.FindGameObject<Game>(game);
-	m_gun = g_goMgr.FindGameObject<Gun>(gun);
 	GunNumber gunNum;
 	BulletInformation bulletInf;
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
 		m_model.Init(L"Assets/modelData/bullet_test.cmo");
 		m_bulletPower = bulletInf.RIFLE_BULLET_POWER;
 		m_bulletAccuracy = bulletInf.RIFLE_BULLET_ACCURACY;
+		m_rifle = g_goMgr.FindGameObject<Rifle>(rifle);
+		m_rotation = m_rifle->GetRotation();
+
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
 		m_model.Init(L"Assets/modelData/shotgun_bullet.cmo");
 		m_bulletPower = bulletInf.SHOTGUN_BULLET_POWER;
 		m_bulletAccuracy = bulletInf.SHOTGUN_BULLET_ACCURACY;
+		m_shotgun = g_goMgr.FindGameObject<Shotgun>(shotgun);
+		m_rotation = m_shotgun->GetRotation();
+
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SNIPER_NUMBER) {
 		m_model.Init(L"Assets/modelData/sniper_bullet.cmo");
 		m_bulletPower = bulletInf.SNIPER_BULLET_POWER;
 		m_bulletAccuracy = bulletInf.SNIPER_BULLET_ACCURACY;
+		m_sniper = g_goMgr.FindGameObject<Sniper>(sniper);
+		m_rotation = m_sniper->GetRotation();
+
 	}
 	InitGhost();
 }
@@ -126,8 +134,8 @@ void Bullet::Update()
 		g_goMgr.DeleteGameObject(this);
 	}
 	m_GhostObject.SetPosition(m_position);
-	m_GhostObject.SetRotation(m_gun->GetRotation());
-	m_model.UpdateWorldMatrix(m_position, m_gun->GetRotation(), CVector3::One());
+	m_GhostObject.SetRotation(m_rotation);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 
 }
 void Bullet::Render()

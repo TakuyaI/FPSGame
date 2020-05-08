@@ -57,7 +57,7 @@ void Player::Update()
 		CVector3::AxisY()
 	);
 
-	if (g_pad->IsPress(enButtonB)) {
+	if (g_pad->IsPress(enButtonLB3)) {
 		//Bボタン長押しでダッシュする。
 		if (m_jumpFlag != true) {
 			//ジャンプ中はダッシュできない。

@@ -195,6 +195,9 @@ void Enemy::Update()
 		m_deathAnimtime++;
 		m_animationFlug = enAnimationCrip_death;
 		if (m_deathAnimtime >= 60) {
+			m_item = g_goMgr.NewGameObject<Item>(item);
+			m_position.y += 50.0f;
+			m_item->SetPosition(m_position);
 			g_goMgr.DeleteGameObject(this);
 		}
 	}

@@ -102,7 +102,6 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="EnemyGenerator.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -137,6 +136,11 @@
     <ClCompile Include="physics\CapsuleCollider.cpp">
       <Filter>physics</Filter>
     </ClCompile>
+    <ClCompile Include="ItemGenerator.cpp" />
+    <ClCompile Include="IGunObject.cpp" />
+    <ClCompile Include="Rifle.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
+    <ClCompile Include="Sniper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -207,20 +211,11 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Gun.h" />
     <ClInclude Include="EnemyGenerator.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="GunGenerator.h" />
-    <ClInclude Include="system\physics\CollisionAttr.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="system\physics\ICollider.h">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="physics\CollisionAttr.h" />
-    <ClInclude Include="physics\ICollider.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="sound\SoundEngine.h" />
@@ -250,6 +245,17 @@
     <ClInclude Include="physics\CapsuleCollider.h">
       <Filter>physics</Filter>
     </ClInclude>
+    <ClInclude Include="ItemGenerator.h" />
+    <ClInclude Include="physics\CollisionAttr.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="physics\ICollider.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="IGunObject.h" />
+    <ClInclude Include="Rifle.h" />
+    <ClInclude Include="Shotgun.h" />
+    <ClInclude Include="Sniper.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -326,9 +332,15 @@
     <ImageContentTask Include="Assets\sprite\gage.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\item_danyaku.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\sprite\item_kaihuku.png">
       <Filter>Assets\sprite</Filter>
     </Image>
   </ItemGroup>

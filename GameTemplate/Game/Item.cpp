@@ -2,11 +2,10 @@
 #include "Item.h"
 #include "GameManager.h"
 #include "Enemy.h"
-#include "Gun.h"
 #include "GunGenerator.h"
 #include "Player.h"
 #include "Game.h"
-
+#include "ItemGenerator.h"
 
 
 Item::Item()
@@ -15,6 +14,7 @@ Item::Item()
 	
 	m_player = g_goMgr.FindGameObject<Player>(player);
 	m_game = g_goMgr.FindGameObject<Game>(game);
+	m_itemGen = g_goMgr.FindGameObject<ItemGenerator>(itemgenerator);
 }
 
 
@@ -31,7 +31,7 @@ void Item::Update()
 	if (v.Length() <= 100.0) {
 		g_goMgr.DeleteGameObject(this);
 	}
-	m_position.y = 50.0f;
+	//m_position.y = 50.0f;
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 }
 

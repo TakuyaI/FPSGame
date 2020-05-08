@@ -77,6 +77,7 @@ private:
 	SkinModel m_model;                                //スキンモデル。
 	Player* m_player;                                 //Playerのインスタンス。
 	EnemyGenerator* m_enemyGen;                       //EnemyGeneratorのインスタンス。
+	Item* m_item;                                     //Itemのインスタンス。
 
 	CVector3 m_moveSpeed = CVector3::Zero();          //ムーブスピード。
 	CVector3 m_position = CVector3::Zero();           //座標。

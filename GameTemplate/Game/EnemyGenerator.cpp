@@ -81,7 +81,7 @@ void EnemyGenerator::Update()
 		}
 	}
 	*/
-	
+	/*
 	if (m_enemyNumber < m_enemyMax) {
 	    m_timer++;
 		if (m_timer == ENEMY_OCCURRENCE_TIME) {
@@ -95,5 +95,5 @@ void EnemyGenerator::Update()
 			m_timer = 0;
 		}
 	}
-	
+	*/
 }

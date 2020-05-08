@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "GunGenerator.h"
 #include "GameManager.h"
-#include "Gun.h"
-#include "GameCamera.h"
+#include "Rifle.h"
+#include "Shotgun.h"
+#include "Sniper.h"
 
 GunGenerator::GunGenerator()
 {
@@ -10,7 +11,16 @@ GunGenerator::GunGenerator()
 }
 GunGenerator::~GunGenerator()
 {
-	g_goMgr.DeleteGameObject(m_gun);
+	GunNumber gunNum;
+	if (m_nextnum == gunNum.RIFLE_NUMBER) {
+		g_goMgr.DeleteGameObject(m_rifle);
+	}
+	else if (m_nextnum == gunNum.SHOTGUN_NUMBER) {
+		g_goMgr.DeleteGameObject(m_shotgun);
+	}
+	else if (m_nextnum == gunNum.SNIPER_NUMBER) {
+		g_goMgr.DeleteGameObject(m_sniper);
+	}
 }
 int GunGenerator::GetGunAmmo()
 {
@@ -25,51 +35,84 @@ int GunGenerator::GetGunAmmo()
 		return m_sniperAmmo;
 	}
 }
-int GunGenerator::GetGunBlaze()
+void GunGenerator::SetGunAmmo(int ammo)
+{
+	GunNumber gunNum;
+	if (m_num == gunNum.RIFLE_NUMBER) {
+		m_rifleAmmo = ammo;
+	}
+	else if (m_num == gunNum.SHOTGUN_NUMBER) {
+		m_shotgunAmmo = ammo;
+	}
+	else if (m_num == gunNum.SNIPER_NUMBER) {
+		m_sniperAmmo = ammo;
+	}
+}
+int GunGenerator::GetGunLoading()
 {
 	GunNumber gunNum;
 	if (m_nextnum == gunNum.RIFLE_NUMBER) {
-		return m_rifulBlaze;
+		return m_rifulLoading;
 	}
 	else if (m_nextnum == gunNum.SHOTGUN_NUMBER) {
-		return m_shotgunBlaze;
+		return m_shotgunLoading;
 	}
 	else if (m_nextnum == gunNum.SNIPER_NUMBER) {
-		return m_sniperBlaze;
+		return m_sniperLoading;
+	}
+}
+void GunGenerator::SetGunLoading(int loading)
+{
+	GunNumber gunNum;
+	if (m_num == gunNum.RIFLE_NUMBER) {
+		m_rifulLoading = loading;
+	}
+	else if (m_num == gunNum.SHOTGUN_NUMBER) {
+		m_shotgunLoading = loading;
+	}
+	else if (m_num == gunNum.SNIPER_NUMBER) {
+		m_sniperLoading = loading;
 	}
 }
 void GunGenerator::Update()
 {
-	if (a != true) {
-		m_gun = g_goMgr.NewGameObject<Gun>(gun);
-		a = true;
+	if (m_initGunFlug != true) {
+		//最初に装備する銃。
+		m_rifle = g_goMgr.NewGameObject<Rifle>(rifle);
+		m_initGunFlug = true;
+
 	}
-	if (m_gun->GetReloadFlug() != true) {
+	if (m_reloadFlug != true) {
 		if (g_pad->IsTrigger(enButtonY)) {
 			//Yボタンで銃を切り替える。
-			//m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
-			if (m_gun->GetShootingBulletFlug() != true) {
-				GunNumber gunNum;
-				if (m_nextnum == gunNum.RIFLE_NUMBER) {
-					m_rifleAmmo = m_gun->GetAmmo();
-					m_rifulBlaze = m_gun->GetBlaze();
-				}
-				else if (m_nextnum == gunNum.SHOTGUN_NUMBER) {
-					m_shotgunAmmo = m_gun->GetAmmo();
-					m_shotgunBlaze = m_gun->GetBlaze();
-				}
-				else if (m_nextnum == gunNum.SNIPER_NUMBER) {
-					m_sniperAmmo = m_gun->GetAmmo();
-					m_sniperBlaze = m_gun->GetBlaze();
-				}
+			if (m_shootingBulletFlug != true) {
 				//弾を発射していない。
-				g_goMgr.DeleteGameObject(m_gun);
+				m_num = m_nextnum;
 				m_nextnum++;
-
+				GunNumber gunNum;
 				if (m_nextnum >= gunNum.END_NUMBER) {
+					//m_nextnumが最後の番号に来たら、
+					//最初の番号に戻す。
 					m_nextnum = gunNum.RIFLE_NUMBER;
 				}
-				m_gun = g_goMgr.NewGameObject<Gun>(gun);
+				if (m_nextnum == gunNum.RIFLE_NUMBER) {
+					g_goMgr.DeleteGameObject(m_sniper);
+					m_rifle = g_goMgr.NewGameObject<Rifle>(rifle);
+					m_rifleAmmo = m_rifle->GetAmmo();
+					m_rifulLoading = m_rifle->GetBlaze();
+				}
+				else if (m_nextnum == gunNum.SHOTGUN_NUMBER) {
+					g_goMgr.DeleteGameObject(m_rifle);
+					m_shotgun = g_goMgr.NewGameObject<Shotgun>(shotgun);
+					m_shotgunAmmo = m_shotgun->GetAmmo();
+					m_shotgunLoading = m_shotgun->GetBlaze();
+				}
+				else if (m_nextnum == gunNum.SNIPER_NUMBER) {
+					g_goMgr.DeleteGameObject(m_shotgun);
+					m_sniper = g_goMgr.NewGameObject<Sniper>(sniper);
+					m_sniperAmmo = m_sniper->GetAmmo();
+					m_sniperLoading = m_sniper->GetBlaze();
+				}
 			}
 		}
 	}
