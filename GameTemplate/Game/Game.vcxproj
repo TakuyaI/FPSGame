@@ -100,6 +100,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="DogEnemy.cpp" />
+    <ClCompile Include="IEnemyObject.cpp" />
     <ClCompile Include="IGunObject.cpp" />
     <ClCompile Include="ItemGenerator.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
@@ -158,6 +160,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="DogEnemy.h" />
+    <ClInclude Include="IEnemyObject.h" />
     <ClInclude Include="IGunObject.h" />
     <ClInclude Include="ItemGenerator.h" />
     <ClInclude Include="physics\BoxCollider.h" />
@@ -220,6 +224,7 @@
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\item01.fbx" />
+    <MeshContentTask Include="Assets\modelData\player.fbx" />
     <MeshContentTask Include="Assets\modelData\riful.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper.fbx" />

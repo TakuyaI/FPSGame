@@ -47,7 +47,6 @@ Bullet::Bullet()
 		m_rotation = m_sniper->GetRotation();
 
 	}
-	InitGhost();
 }
 
 
@@ -63,6 +62,11 @@ void Bullet::InitGhost()
 		{ 50.0f, 50.0f, 500.0f }	//第三引数はボックスのサイズ。
 	);
 }
+bool Bullet::Start()
+{
+	InitGhost();
+	return true;
+}
 void Bullet::Update()
 {
 	if (m_game->GetEndFlug() != false) {
@@ -71,46 +75,26 @@ void Bullet::Update()
 	if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
 		//敵が出現している。
 		//弾と一番近い敵。
-		m_enemy = m_enemyGen->GetClosestEnemyToBullet(m_position);
-		CharacterController& m_chara = *m_enemy->CharaCon();
-		CVector3 enemyPos = m_enemy->GetPosition();
-		enemyPos.y += 100.0f;
+		auto closeEnemy = m_enemyGen->GetClosestEnemyToBullet(m_position);
+		CharacterController& m_chara = *closeEnemy->CharaCon();
+		//CVector3 enemyPos = m_enemy->GetPosition();
+		//enemyPos.y += 100.0f;
 		//弾から敵に向かって伸びるベクトル。
-		CVector3 v = enemyPos - m_position;
+		//CVector3 v = enemyPos - m_position;
 		//if (v.Length() <= m_bulletAccuracy) {
-		//	
-		//	//弾と敵の距離が一定値以下になった。
-		//	int enemyhp = m_enemy->GetEnemyHp();
-		//	//弾の威力に応じたダメージを敵に与える。
-		//	m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
-		//	if (enemyhp <= 0) {
-		//		//敵のHPが0になった。
-		//		//敵を削除。
-		//		m_enemy->SetDeathFlug(true);
-		//		//残りの数をマイナスする。
-		//		m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
-		//		m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
-		//		int enemyNum = m_enemyGen->GetEnemyNumber();
-		//		m_enemyGen->SetEnemyNumber(--enemyNum);
-		//		int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();
-		//		m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
-		//		m_enemyGen->DeleteEnemy();
-		//	}
-		//	m_enemy->SetReceiveDamageFlug(true);
-		//	g_goMgr.DeleteGameObject(this);
-		//}
+	//}
 		bool isContact = false;
 		g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
 			if (m_GhostObject.IsSelf(contactObject) == true) {
 				//m_ghostObjectとぶつかった
 				//弾と敵の距離が一定値以下になった。
-				int enemyhp = m_enemy->GetEnemyHp();
+				int enemyhp = closeEnemy->GetEnemyHp();
 				//弾の威力に応じたダメージを敵に与える。
-				m_enemy->SetEnemyHp(enemyhp - m_bulletPower);
+				closeEnemy->SetEnemyHp(enemyhp - m_bulletPower);
 				if (enemyhp <= 0) {
 					//敵のHPが0になった。
 					//敵を削除。
-					m_enemy->SetDeathFlug(true);
+					closeEnemy->SetDeathFlug(true);
 					//残りの数をマイナスする。
 					m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
 					m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
@@ -120,7 +104,7 @@ void Bullet::Update()
 					m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
 					m_enemyGen->DeleteEnemy();
 				}
-				m_enemy->SetReceiveDamageFlug(true);
+				closeEnemy->SetReceiveDamageFlug(true);
 				isContact = true;//g_goMgr.DeleteGameObject(this);
 			}
 			});

@@ -1,8 +1,5 @@
 #pragma once
-//class EnemyGenerator;
-//class Enemy;
 class Sprite;
-#include "character/CharacterController.h"
 #include "IGameObject.h"
 #include "GameCamera.h"
 #include "Sprite.h"
@@ -15,6 +12,7 @@ public:
 	Player();
 	~Player();
 	void InitGhost();
+	bool Start();
 	void Update();
 	void Render();
 	void PostRender();
@@ -31,6 +29,14 @@ public:
 	CVector3 GetPosition()
 	{
 		return m_position;
+	}
+	void SetRotation(CQuaternion rotation)
+	{
+		m_rotation = rotation;
+	}
+	CQuaternion GetRotation()
+	{
+		return m_rotation;
 	}
 	void SetMoveSpeed(CVector3 movespeed)
 	{
@@ -86,8 +92,9 @@ private:
 	EnemyGenerator* m_enemyGen;
 	Enemy* m_enemy;
 
-	CVector3 m_position = CVector3::Zero(); //座標。
 	SkinModel m_model;						//スキンモデル。
+	CVector3 m_position = CVector3::Zero(); //座標。
+	CQuaternion m_rotation = CQuaternion::Identity(); //回転。
 	float ySpeed = 0.0f;                    //重力。
 	CVector3 m_moveSpeed = CVector3::Zero();//ムーブスピード。
 	CharacterController m_charaCon;         //キャラクターコントローラー。
@@ -117,4 +124,8 @@ private:
 	FontRender m_font;
 	int ds = 0;
 	bool flug = false;
+
+
+
+	bool test = false;
 };

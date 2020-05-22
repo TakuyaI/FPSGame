@@ -3,7 +3,7 @@
 #include "GameManager.h"
 BackGround::BackGround()
 {
-	m_model.Init(L"Assets/modelData/bk.cmo");
+	m_model.Init(L"Assets/modelData/background.cmo");
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One()/* * 10.0f*/);
 
 	m_physicsStaticObject.CreateMeshObject(m_model, m_position, m_rotation);

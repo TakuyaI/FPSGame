@@ -8,12 +8,36 @@ Game::Game()
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
 	//m_itemS.Init(L"Resource/sprite/item.dds", 320.0f, 180.0f);
-	m_player = g_goMgr.NewGameObject<Player>(player);
-	m_backGro = g_goMgr.NewGameObject<BackGround>(background);
+	//m_player = g_goMgr.NewGameObject<Player>(player);
+	//m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 	m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
 	m_enemyGen = g_goMgr.NewGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
 	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);
+
+	m_level.Init(
+		L"Assets/level/stage_00.tkl",
+		[&](const LevelObjectData & object) {
+			if (wcscmp(object.name, L"player") == 0) {
+				m_player = g_goMgr.NewGameObject<Player>(player);
+				m_player->SetPosition(object.position);
+				m_player->SetRotation(object.rotation);
+				return true;
+			}
+			else if (wcscmp(object.name, L"enemy") == 0) {
+				m_enemy = g_goMgr.NewGameObject<Enemy>(enemy);
+				m_enemy->SetPosition(object.position);
+				m_enemy->SetRotation(object.rotation);
+				return true;
+			}
+			else if (wcscmp(object.name, L"background") == 0) {
+				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
+				m_backGro->SetPosition(object.position);
+				m_backGro->SetRotation(object.rotation);
+				return true;
+			}
+			return false;
+		});
 }
 
 
@@ -52,6 +76,10 @@ void Game::Update()
 		}
 	}
 
+}
+void Game::Render()
+{
+	m_level.Draw();
 }
 void Game::PostRender()
 {

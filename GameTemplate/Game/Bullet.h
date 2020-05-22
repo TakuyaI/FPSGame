@@ -14,6 +14,7 @@ public:
 	~Bullet();
 
 	void InitGhost();
+	bool Start();
 	void Update();
 	void Render();
 

@@ -47,6 +47,8 @@
 #include "sound/SoundEngine.h"
 #include "sound/SoundSource.h"
 
+#include "character/CharacterController.h"
+#include "level\Level.h"
 const float FRAME_BUFFER_W = 1280.0f;				//フレームバッファの幅。
 const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
 

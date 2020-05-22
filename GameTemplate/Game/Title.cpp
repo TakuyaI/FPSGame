@@ -19,10 +19,14 @@ Title::Title()
 Title::~Title()
 {
 }
+bool Title::Start()
+{
+	return true;
+}
 void Title::Update()
 {
 	//m_soundEngine.Update();
-	if (g_pad->IsPress(enButtonB)) {
+	if (g_pad->IsPress(enButtonB)/*GetAsyncKeyState('A')*/) {
 		g_goMgr.NewGameObject<Game>(game);
 		m_bgm.Stop();
 		g_goMgr.DeleteGameObject(this);

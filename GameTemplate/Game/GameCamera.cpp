@@ -48,9 +48,16 @@ void GameCamera::ToTarget()
 	}
 }
 
-void GameCamera::Update()
+bool GameCamera::Start()
 {
 	m_player = g_goMgr.FindGameObject<Player>(player);
+	CQuaternion pRot = m_player->GetRotation();
+	pRot.Multiply(m_toTargetPos);
+	return true;
+}
+void GameCamera::Update()
+{
+	//m_player = g_goMgr.FindGameObject<Player>(player);
 	m_position = m_player->GetPosition();
 	CVector3 toCameraPosOld = m_toTargetPos;
 	CVector3 cameraOffsetOld = m_cameraOffset;
@@ -83,30 +90,44 @@ void GameCamera::Update()
 	m_toTarget = cameraForward;
 	//もしYボタンを押したら(長押し)、敵をターゲットする。
 	if (g_pad->IsPress(enButtonLB1)) {
-		m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
-		if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
-			m_enemy = m_enemyGen->GetClosestEnemyToPlayer();
-			m_lockOnTargetFlug = true;
-			/*CVector3 cameraForward = m_target - m_position;
-			m_toTarget = cameraForward;
-			cameraForward.Normalize();*/
-
-			CVector3 toEnemyDir = m_enemy->GetPosition() - m_position;
-			toEnemyDir.Normalize();
-
-			float d = toEnemyDir.Dot(cameraForward);
-
-			float angle = acos(d);
-
-			if (fabsf(angle) < CMath::DegToRad(50.0f)) {
-				ToTarget();
-			}
+		if (m_count <= 1) {
+			//m_countが1以下になったらズームする。
+			m_toTargetPos.Normalize();
+			m_zoomV += m_toTargetPos * 50.0f;
+			m_count++;
 		}
+		m_lockOnTargetFlug = true;
+		//m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+		//if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
+		//	m_enemy = m_enemyGen->GetClosestEnemyToPlayer();
+		//	m_lockOnTargetFlug = true;
+		//	/*CVector3 cameraForward = m_target - m_position;
+		//	m_toTarget = cameraForward;
+		//	cameraForward.Normalize();*/
+
+		//	CVector3 toEnemyDir = m_enemy->GetPosition() - m_position;
+		//	toEnemyDir.Normalize();
+
+		//	float d = toEnemyDir.Dot(cameraForward);
+
+		//	float angle = acos(d);
+
+		//	if (fabsf(angle) < CMath::DegToRad(50.0f)) {
+		//		ToTarget();
+		//	}
+		//}
 		
 	}
 	else {
+		if (m_count > 0) {
+			//Yボタンを離して、m_countが0以上なら、戻る。
+			m_toTargetPos.Normalize();
+			m_zoomV += m_toTargetPos * -50.0f;
+			m_count--;
+		}
 		m_lockOnTargetFlug = false;
 	}
+	m_position += m_zoomV;
 
 	CVector3 toPosDir = m_toTargetPos;
 	toPosDir.Normalize();
@@ -122,7 +143,6 @@ void GameCamera::Update()
 	}
 
 	m_target = m_position + m_toTargetPos;
-	
 	g_camera3D.SetTarget(m_target);
 	g_camera3D.SetPosition(m_position);
 	g_camera3D.Update();

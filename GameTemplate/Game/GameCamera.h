@@ -15,6 +15,7 @@ public:
 
 	void ToTarget();
 
+	bool Start();
 	void Update();
 	/// <summary>
 	/// ’‹“_‚ÌÀ•W‚ğæ“¾B
@@ -71,5 +72,7 @@ private:
 
 	CVector3 m_cameraOffset = { 0.0f, 100.0f, 0.0f };
 
+	int m_count = 0;
+	CVector3 m_zoomV = CVector3::Zero();
 };
 

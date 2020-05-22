@@ -10,6 +10,23 @@ public:
 	void Update();
 	void Render();
 
+	void SetPosition(CVector3 position)
+	{
+		m_position = position;
+	}
+
+	CVector3 GetPosition()
+	{
+		return m_position;
+	}
+	void SetRotation(CQuaternion rotation)
+	{
+		m_rotation = rotation;
+	}
+	CQuaternion GetRotation() 
+	{
+		return m_rotation;
+	}
 private:
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();

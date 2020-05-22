@@ -40,10 +40,10 @@ public:
 	void GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading);
 	void Update();
 
-	CVector3 Getpostion()
+	/*CVector3 Getpostion()
 	{
 		return m_position;
-	}
+	}*/
 	void SetNum(int num)
 	{
 		m_setNum = num;
@@ -60,10 +60,10 @@ public:
 	{
 		return m_shootingBulletFlug;
 	}
-	CQuaternion GetRotation()
+	/*CQuaternion* GetRotation()
 	{
-		return m_rotation;
-	}
+		return &m_rotation;
+	}*/
 	int GetAmmo()
 	{
 		return m_ammo;
@@ -119,5 +119,7 @@ private:
 	float m_red = 0.0f;
 	float m_green = 0.0f;
 	float m_blue = 0.0f;
+
+	float sss = 0.0f;
 };
 

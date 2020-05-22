@@ -20,10 +20,10 @@ public:
 	{
 		return m_loading;
 	}
-	/*CQuaternion GetRotation()
+	CQuaternion GetRotation()
 	{
 	return m_rotation;
-	}*/
+	}
 private:
 
 	SkinModel m_model;

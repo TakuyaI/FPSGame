@@ -8,8 +8,6 @@ const float PLAYER_CONTROLLER_RADIUS = 30.0f;
 const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
 void Player::InitGhost()
 {
-	//ゴーストのワイヤーフレーム表示を有効にする。
-	//PhysicsWorld().SetDebugDrawMode(btIDebugDraw::DBG_DrawWireframe);
 	//ボックス形状のゴーストを作成する。
 	m_ghost.CreateBox(
 		m_position,	//第一引数は座標。
@@ -23,16 +21,14 @@ Player::Player()
 	m_greenSprite.Init(L"Resource/sprite/oamidori.dds", 200.0f, 15.0f);
 	m_redSprite.Init(L"Resource/sprite/aka.dds", 200.0f, 15.0f);
 	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
-	
-	m_position.y = 100.0f;
 
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/unityChan.cmo");
-	m_charaCon.Init(
+	m_model.Init(L"Assets/modelData/player.cmo");
+	/*m_charaCon.Init(
 		PLAYER_CONTROLLER_RADIUS,
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
-	);
+	);*/
 	InitGhost();
 }
 
@@ -40,9 +36,25 @@ Player::Player()
 Player::~Player()
 {
 }
-
+bool Player::Start()
+{
+	m_charaCon.Init(
+		PLAYER_CONTROLLER_RADIUS,
+		PLAYER_CONTROLLER_HEIGHT,
+		m_position
+	);
+	return true;
+}
 void Player::Update()
 {
+	/*if (test != true) {
+		m_charaCon.Init(
+			PLAYER_CONTROLLER_RADIUS,
+			PLAYER_CONTROLLER_HEIGHT,
+			m_position
+		);
+		test = true;
+	}*/
 	m_gameCamera = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 	//視点から注視点に向かって伸びるベクトルを求める。
 	CVector3 cameraDir = m_gameCamera->GetTarget() -
@@ -133,7 +145,7 @@ void Player::Update()
 	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
 
 	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One() * 1.0f);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.0f);
 	
 }
 void Player::Render()

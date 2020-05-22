@@ -56,13 +56,18 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 	*rotation = a;
 
 	*position = m_gameCam->GetPosition();
-
+	if (m_gameCam->LockOnTargetFlug() != false) {
+		m_gunLocalPosition = { 0.0f, -10.0f, 10.0f };
+	}
+	else {
+		m_gunLocalPosition = { 15.0f, -8.0f, 10.0f };
+	}
 	CQuaternion PosRot;
 	m_Pos = m_gunLocalPosition;
 	PosRot.SetRotationDeg(CVector3::AxisY(), m_angle);
-	PosRot.Multiply(m_Pos);
-
-	*position += m_Pos;
+	PosRot.Multiply(m_gunLocalPosition);
+	
+	*position += m_gunLocalPosition;
 
 	//弾を発射。
 	if (m_reloadFlug != true && m_enemyGen->GetAttackFlug() != true && m_player->GetDeathFlug() != true) {
@@ -88,7 +93,7 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 					m_bulletIntervalTimer = 0;
 					gunshot.Stop();
 					gunshot.Play(false);
-
+					
 					//再生中のエフェクトを止める。
 					g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 					//再生。
@@ -103,7 +108,7 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 						effectPos.y,
 						effectPos.z
 					);
-
+					
 				}
 			}
 		}

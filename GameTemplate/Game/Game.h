@@ -21,6 +21,7 @@ public:
 
 
 	void Update();
+	void Render();
 	void PostRender();
 	 
 	void SetEndFlug(bool flug)
@@ -56,6 +57,9 @@ private:
 	Sprite m_gameClearSprite; //ゲームクリアスプライト。
 	int m_knockDownEnemyNum = 10; //倒す敵の数。
 
+
+	Level m_level;
+	std::vector<Enemy*> m_enemyList;
 	//Sprite m_itemS;
 };
 

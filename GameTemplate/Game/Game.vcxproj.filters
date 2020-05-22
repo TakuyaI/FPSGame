@@ -141,6 +141,8 @@
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Sniper.cpp" />
+    <ClCompile Include="IEnemyObject.cpp" />
+    <ClCompile Include="DogEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -256,6 +258,8 @@
     <ClInclude Include="Rifle.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Sniper.h" />
+    <ClInclude Include="IEnemyObject.h" />
+    <ClInclude Include="DogEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -292,6 +296,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\player.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

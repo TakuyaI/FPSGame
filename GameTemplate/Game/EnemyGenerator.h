@@ -1,11 +1,13 @@
 #pragma once
 class Gun;
 class GameCamera;
+class DogEnemy;
 #include "IGameObject.h"
 #include "Enemy.h"
 #include "GameCamera.h"
 #include "Game.h"
 #include "Player.h"
+#include "DogEnemy.h"
 class EnemyGenerator : public IGameObject
 {
 public:
@@ -52,12 +54,12 @@ public:
 	Enemy* GetClosestEnemyToBullet(CVector3 bulletPos);
 	void Update();
 private:
-	Enemy * m_enemy[50];
+	Enemy * m_enemy[10];
 	Gun* m_gun;
 	GameCamera* m_gameCam;
 	Game* m_game;
 	Player* m_player;
-	//Bullet* m_bullet;
+	DogEnemy* m_dogEenmy[10];
 
 	CVector3 m_playerPos = CVector3::Zero();
 	float m_kyori = 1000000.0f;

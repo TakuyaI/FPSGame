@@ -6,7 +6,6 @@ const float RESET_KYORI = 1000000.0f; //適当にでかい数値を入れておく。
 const int ENEMY_OCCURRENCE_TIME = 60; //敵が出現するまでの時間。
 EnemyGenerator::EnemyGenerator()
 {
-
 }
 
 
@@ -63,7 +62,6 @@ Enemy* EnemyGenerator::GetClosestEnemyToBullet(CVector3 bulletPos)
 
 void EnemyGenerator::Update()
 {
-
 	if (m_enemyNumber <= 0) {
 		m_enemyOccurrenceFlug = false;
 	}
@@ -72,7 +70,7 @@ void EnemyGenerator::Update()
 		m_timer++;
 		if (m_timer == ENEMY_OCCURRENCE_TIME) {
 			m_enemy[m_enemyArrayNum] = g_goMgr.NewGameObject<Enemy>(enemy);
-			m_enemy[m_enemyArrayNum]->SetPosition(m_enemyInitPos);
+			//m_enemy[m_enemyArrayNum]->SetPosition(m_enemyInitPos);
 			m_enemyInitPos.x += 300.0f;
 			m_enemyArrayNum++;
 			m_enemyNumber++;
@@ -94,6 +92,21 @@ void EnemyGenerator::Update()
 			m_enemyOccurrenceFlug = true;
 			m_timer = 0;
 		}
+	}
+	*/
+
+	/*
+	if (m_enemyNumber < m_enemyMax) {
+	m_timer++;
+	if (m_timer == ENEMY_OCCURRENCE_TIME) {
+		m_dogEenmy[m_enemyArrayNum] = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
+	    //m_enemy[m_enemyArrayNum] = g_goMgr.NewGameObject<Enemy>(enemy);
+	    m_enemyInitPos.x += 300.0f;
+	    m_enemyArrayNum++;
+	    m_enemyNumber++;
+	    m_enemyOccurrenceFlug = true;
+	    m_timer = 0;
+	}
 	}
 	*/
 }

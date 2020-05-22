@@ -80,9 +80,18 @@ void GameManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D
 }
 void GameManager::Update()
 {
+	//登録されているゲームオブジェクトのSatrt関数1回を呼ぶ。
+	for (auto go : m_goList) {
+		if (go->GetmStartEndFlug() != true) {
+			go->Start();
+			go->SetStartEndFlug(true);
+		}
+	}
 		//登録されているゲームオブジェクトの更新処理を呼ぶ。
 		for (auto go : m_goList) {
-			go->Update();
+			if (go->GetmStartEndFlug() != false) {
+				go->Update();
+			}
 		}
 
 		//Effekseerカメラ行列を設定。
