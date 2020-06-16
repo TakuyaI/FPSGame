@@ -12,12 +12,12 @@ public:
 	/// 更新関数。
 	/// </summary>
 	virtual void Update() = 0;
+	virtual void SetRegistShadowCaster() {}
 	/// <summary>
 	/// 描画。
 	/// </summary>
 	virtual void Render() {}
 	virtual void PostRender() {}
-
 	//virtual bool Start() { return true; };
 	/// <summary>
 	/// 削除リクエストを行う。

@@ -6,15 +6,6 @@
 
 const float PLAYER_CONTROLLER_RADIUS = 30.0f;
 const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
-void Player::InitGhost()
-{
-	//ボックス形状のゴーストを作成する。
-	m_ghost.CreateBox(
-		m_position,	//第一引数は座標。
-		CQuaternion::Identity(),		//第二引数は回転クォータニオン。
-		{ 500.0f, 500.0f, 500.0f }	//第三引数はボックスのサイズ。
-	);
-}
 
 Player::Player()
 {
@@ -29,7 +20,6 @@ Player::Player()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);*/
-	InitGhost();
 }
 
 
@@ -43,18 +33,12 @@ bool Player::Start()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);
+	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	return true;
 }
 void Player::Update()
 {
-	/*if (test != true) {
-		m_charaCon.Init(
-			PLAYER_CONTROLLER_RADIUS,
-			PLAYER_CONTROLLER_HEIGHT,
-			m_position
-		);
-		test = true;
-	}*/
+	
 	m_gameCamera = g_goMgr.FindGameObject<GameCamera>(gamecamera);
 	//視点から注視点に向かって伸びるベクトルを求める。
 	CVector3 cameraDir = m_gameCamera->GetTarget() -
@@ -87,56 +71,49 @@ void Player::Update()
 	m_moveSpeed += cameraDirX * g_pad->GetLStickXF()* -m_playerSpeed;
 	m_moveSpeed += cameraDir * g_pad->GetLStickYF()* m_playerSpeed;
 
-	if (g_pad->IsTrigger(enButtonA)) {
-		if (m_jumpFlag != true) {
-			//m_jumpFlagが0ならジャンプできる。
-			m_moveSpeed.y = 20.0f;
-			//m_jumpFlagに1を代入して、
-			//空中でジャンプできないようにする。
-			m_jumpFlag = true;
-		}
-	}
+	//if (g_pad->IsTrigger(enButtonA)) {
+	//	if (m_jumpFlag != true) {
+	//		//m_jumpFlagが0ならジャンプできる。
+	//		m_moveSpeed.y = 20.0f;
+	//		//m_jumpFlagに1を代入して、
+	//		//空中でジャンプできないようにする。
+	//		m_jumpFlag = true;
+	//	}
+	//}
 	m_moveSpeed.y -= 1.0f;
 	
 	m_position.y += m_moveSpeed.y;
-	if (m_position.y <= -5.0f) {
-		//Playerの座標が0以下になったら、
-		//重力を0にする。
-		m_moveSpeed.y = -5.0f;
-		if (m_jumpFlag != false) {
-			m_jumpFlag = false;
-		}
-	}
+	//if (m_position.y <= -5.0f) {
+	//	//Playerの座標が0以下になったら、
+	//	//重力を0にする。
+	//	m_moveSpeed.y = -5.0f;
+	//	if (m_jumpFlag != false) {
+	//		m_jumpFlag = false;
+	//	}
+	//}
 
-	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
-	if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
+	//if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
 		//Enemyが出現した。
-		m_enemy = g_goMgr.FindGameObject<Enemy>(enemy);
-		if (m_enemyGen->GetAttackFlug() != false) {
+		if (m_stopFlug != false) {
 			//Enemyが攻撃してきた。
 			//つかまれているから、Playerは動けない。
 			m_moveSpeed = CVector3::Zero();
+			//十字ボタンを連打したら、脱出する。
 			if (g_pad->IsTrigger(enButtonUp) ||
 				g_pad->IsTrigger(enButtonDown) ||
 				g_pad->IsTrigger(enButtonLeft) ||
 				g_pad->IsTrigger(enButtonRight)) {
 				a++;
 				if (a >= 10) {
-					//Yボタンを10回押した。
+					//十字ボタンを10回押した。
 					m_pushAwayFlug = true;
+					m_stopFlug = false;
 					a = 0;
 				}
 			}
 		}
-	}
-	flug = false;
-	//キャラクターとゴーストのあたり判定を行う。
-	g_physics.ContactTest(m_charaCon, [&](const btCollisionObject& contactObject) {
-		if (m_ghost.IsSelf(contactObject) == true) {
-			//m_ghostObjectとぶつかった
-			flug = true;
-		}
-		});
+	//}
+	
 
 	if (m_deathFlug != false) {
 		m_moveSpeed = CVector3::Zero();
@@ -146,11 +123,15 @@ void Player::Update()
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.0f);
-	
+}
+void Player::SetRegistShadowCaster()
+{
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Player::Render()
 {
 	/*m_model.Draw(
+	enRenderMode_Normal,
 	g_camera3D.GetViewMatrix(),
 	g_camera3D.GetProjectionMatrix()
 	);*/
@@ -163,7 +144,7 @@ void Player::PostRender()
 		if (m_greenScale.x <= 0.0f) {
 			m_deathFlug = true;
 		}
-		if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
+		//if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
 			//敵が出現中。
 			if (m_damageFlug != false) {
 				m_flug = true;
@@ -182,7 +163,7 @@ void Player::PostRender()
 					m_flug = false;
 				}
 			}
-		}
+		//}
 
 		if (m_greenScale.x < m_redScale.x) {
 			m_recoveryTimer++;
@@ -218,10 +199,5 @@ void Player::PostRender()
 		m_redSprite.Draw();
 		m_greenSprite.Draw();
 
-	}
-	if (flug != false) {
-		wchar_t text[256];
-		swprintf_s(text, L"%d ", ds);
-		m_font.Draw(text, { 0.0f,0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
 	}
 }

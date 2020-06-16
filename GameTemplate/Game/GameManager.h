@@ -3,6 +3,7 @@
 #include "IGameObject.h"
 #include "RenderTarget.h"
 #include "Sprite.h"
+#include "ShadowMap.h"
 class GameManager
 {
 public:
@@ -28,6 +29,10 @@ public:
 	Effekseer::Manager* GetEffekseerManager()
 	{
 		return m_effekseerManager;
+	}
+	ShadowMap* GetShadowMap()
+	{
+		return &m_shadowMap;
 	}
 
 	/// <summary>
@@ -67,6 +72,19 @@ public:
 			}
 		}
 	}
+	template<class T>
+	void QueryGameObject(const int num, std::function<bool(T* go)> func)
+	{
+		for (auto go : m_goList) {
+			if (go->GetObjectNum() == num) {
+				T* p = dynamic_cast<T*>(go);
+				if (func(p) == false) {
+					//クエリ中断。
+					return;
+				}
+			}
+		}
+	}
 	/// <summary>
 	/// ランダムで数値を返す。
 	/// </summary>
@@ -99,8 +117,7 @@ private:
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
 	bool m_flug = false;
-	int aa = 0;
-
+	ShadowMap m_shadowMap;
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
 

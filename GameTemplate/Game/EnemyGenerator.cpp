@@ -59,7 +59,11 @@ Enemy* EnemyGenerator::GetClosestEnemyToBullet(CVector3 bulletPos)
 	toBullet = RESET_KYORI;
 	return m_enemy[m_enToBuNum];
 }
-
+bool EnemyGenerator::Start()
+{
+	m_game = g_goMgr.FindGameObject<Game>(game);
+	return true;
+}
 void EnemyGenerator::Update()
 {
 	if (m_enemyNumber <= 0) {
@@ -94,7 +98,6 @@ void EnemyGenerator::Update()
 		}
 	}
 	*/
-
 	/*
 	if (m_enemyNumber < m_enemyMax) {
 	m_timer++;

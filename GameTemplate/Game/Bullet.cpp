@@ -77,12 +77,6 @@ void Bullet::Update()
 		//’e‚Æˆê”Ô‹ß‚¢“GB
 		auto closeEnemy = m_enemyGen->GetClosestEnemyToBullet(m_position);
 		CharacterController& m_chara = *closeEnemy->CharaCon();
-		//CVector3 enemyPos = m_enemy->GetPosition();
-		//enemyPos.y += 100.0f;
-		//’e‚©‚ç“G‚ÉŒü‚©‚Á‚ÄL‚Ñ‚éƒxƒNƒgƒ‹B
-		//CVector3 v = enemyPos - m_position;
-		//if (v.Length() <= m_bulletAccuracy) {
-	//}
 		bool isContact = false;
 		g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
 			if (m_GhostObject.IsSelf(contactObject) == true) {
@@ -120,11 +114,16 @@ void Bullet::Update()
 	m_GhostObject.SetPosition(m_position);
 	m_GhostObject.SetRotation(m_rotation);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
-
+	//g_goMgr.SetShadow(&m_model);
+}
+void Bullet::SetRegistShadowCaster()
+{
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Bullet::Render()
 {
 	m_model.Draw(
+		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);

@@ -54,6 +54,7 @@ void Enemy::Update()
 void Enemy::Render()
 {
 	m_model.Draw(
+		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);

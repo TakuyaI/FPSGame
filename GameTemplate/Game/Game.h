@@ -9,6 +9,7 @@ class ItemGenerator;
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Enemy.h"
+#include "DogEnemy.h"
 #include "EnemyGenerator.h"
 #include "Sprite.h"
 #include "FontRender.h"
@@ -19,7 +20,7 @@ public:
 	Game();
 	~Game();
 
-
+	bool Start();
 	void Update();
 	void Render();
 	void PostRender();
@@ -40,6 +41,10 @@ public:
 	{
 		return m_knockDownEnemyNum;
 	}
+	std::vector<DogEnemy*> GetDogEnemy()
+	{
+		return m_dogEnemyList;
+	}
 private:
 	FontRender m_font;
 	Player* m_player;
@@ -49,7 +54,8 @@ private:
 	EnemyGenerator* m_enemyGen;
 	GunGenerator* m_gunGen;
 	ItemGenerator* m_itemGen;
-	
+	DogEnemy* m_dogEnemy;
+
 	int m_gameOverTime = 0; //ゲームオーバーになってから、タイトル画面にもどるまでの時間。
 	int m_gameClearTime = 0;
 	bool m_endFlug = false; //ゲームが終わったかどうか。
@@ -60,6 +66,7 @@ private:
 
 	Level m_level;
 	std::vector<Enemy*> m_enemyList;
+	std::vector<DogEnemy*> m_dogEnemyList;
 	//Sprite m_itemS;
 };
 

@@ -62,6 +62,7 @@ public:
 	{
 		m_shootingBulletFlug = flug;
 	}
+	bool Start();
 	void Update();
 	void PostRender();
 

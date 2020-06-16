@@ -141,6 +141,7 @@
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
     <ClCompile Include="Rifle.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Sniper.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="physics\RigidBody.h" />
     <ClInclude Include="Rifle.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Sniper.h" />
     <ClInclude Include="sound\SoundEngine.h" />
@@ -221,6 +223,7 @@
     <MeshContentTask Include="Assets\modelData\background.fbx" />
     <MeshContentTask Include="Assets\modelData\bk.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
+    <MeshContentTask Include="Assets\modelData\dogEnemy.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\item01.fbx" />

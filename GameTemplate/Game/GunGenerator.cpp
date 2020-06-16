@@ -74,14 +74,13 @@ void GunGenerator::SetGunLoading(int loading)
 		m_sniperLoading = loading;
 	}
 }
+bool GunGenerator::Start()
+{
+	m_rifle = g_goMgr.NewGameObject<Rifle>(rifle);
+	return true;
+}
 void GunGenerator::Update()
 {
-	if (m_initGunFlug != true) {
-		//最初に装備する銃。
-		m_rifle = g_goMgr.NewGameObject<Rifle>(rifle);
-		m_initGunFlug = true;
-
-	}
 	if (m_reloadFlug != true) {
 		if (g_pad->IsTrigger(enButtonY)) {
 			//Yボタンで銃を切り替える。

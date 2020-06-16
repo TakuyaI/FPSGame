@@ -3,9 +3,10 @@
 #include "GameManager.h"
 #include "EnemyGenerator.h"
 #include "Player.h"
-const int ENEMY_LOITERING = 0; //徘徊中
+const int ENEMY_STAY = 0; //滞在中
 const int ENEMY_TRACKING = 1;  //追跡中
 const int ENEMY_ATTACK = 2;    //攻撃
+const int ENEMY_PUSH_AWAY = 3; //突き飛ばされた。
 const float ENEMY_CONTROLLER_RADIUS = 30.0f;
 const float ENEMY_CONTROLLER_HEIGHT = 100.0f;
 IEnemyObject::IEnemyObject()
@@ -36,7 +37,7 @@ IEnemyObject::IEnemyObject()
 IEnemyObject::~IEnemyObject()
 {
 }
-void IEnemyObject::Loitering()
+void IEnemyObject::Saty()
 {
 	//走るアニメーション。
 	m_animationFlug = enAnimationCrip_run;
@@ -89,24 +90,17 @@ void IEnemyObject::Attack()
 		}
 	}
 }
+
 void IEnemyObject::Update()//m_position, m_rotation, m_animationFlug
 {
-
 }
 void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* roation, CharacterController& charaCon)
 {
+	m_player = g_goMgr.FindGameObject<Player>(player);
+	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	//EnemyからPlayerへ向かうベクトル。
 	m_toPlayerVec = m_player->GetPosition() - *position;
 
-	m_toTargetVec = m_targetPos - *position;
-	m_toTargetVec.y = 0.0f;
-	m_toTargetVec.Normalize();
-
-	CVector3 v = m_toPlayerVec;
-	v.Normalize();
-	float d = m_toTargetVec.Dot(v);
-
-	float angle = acos(d);
 	if (m_toPlayerVec.Length() <= 750.0f) {
 		//プレイヤーとの距離が750以内になった。
 		if (m_toPlayerVec.Length() <= 70.0f) {
@@ -121,22 +115,25 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 		}
 	}
 	else {
-		//徘徊する。
-		m_state = ENEMY_LOITERING;
+		//留まる。
+		m_state = ENEMY_STAY;
 	}
-	if (m_player->GetPushAwayFlug() != false &&
-		m_endPushAwayflug != false) {
+	if (m_player->GetPushAwayFlug() != false) {
 		//Enemyを突き放した。
-		m_state = ENEMY_ATTACK;
+		m_state = ENEMY_PUSH_AWAY;
 	}
 
+	//敵の向く方向を計算する。
+	m_toTargetVec = m_targetPos - *position;
+	m_toTargetVec.y = 0.0f;
+	m_toTargetVec.Normalize();
 	m_moveSpeed = m_toTargetVec * 10.0f;
 	float rot = atan2(m_toTargetVec.x, m_toTargetVec.z);
 	roation->SetRotation(CVector3::AxisY(), rot);
 	roation->Multiply(m_targetPos);
 
 
-	if (m_state == ENEMY_LOITERING) {
+	if (m_state == ENEMY_STAY) {
 		//Loitering();
 		//走るアニメーション。
 		m_animationFlug = enAnimationCrip_run;
@@ -158,35 +155,36 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 	else if (m_state == ENEMY_ATTACK) {
 		//Attack();
 		m_targetPos = m_player->GetPosition();
-		m_enemyGen->SetAttackFlug(true);
+		//m_enemyGen->SetAttackFlug(true);
+		m_player->SetStopFlug(true);
 		//攻撃アニメーション。
 		m_animationFlug = enAnimationCrip_attack;
 
 		m_AttackTimer++;
 		if (m_AttackTimer >= 30) {
+			m_player->SetDamageFlug(true);
 			m_damage = m_enemyAttackPow / m_playerHp;
 			m_player->SetDamage(m_damage);
 			m_damageS.Stop();
 			m_damageS.Play(false);
-
-			m_damageFlug = true;
-			m_player->SetDamageFlug(m_damageFlug);
-			m_damageFlug = false;
+			//m_damageFlug = false;
 			m_AttackTimer = 0;
 		}
-
-		if (m_player->GetPushAwayFlug() != false) {
-			CVector3 toEenmyVec = m_toPlayerVec * -1.0f;
-			toEenmyVec.Normalize();
-			m_moveSpeed = toEenmyVec * m_pushAwaySpeed;
-			m_pushAwaySpeed -= 10.0f;
-			if (m_pushAwaySpeed <= 0.0f) {
-				//Enemyが突き放し終えた。
-				m_pushAwaySpeed = 100.0f;
-				m_player->SetPushAwayFlug(false);
-				m_endPushAwayflug = false;
-				m_enemyGen->SetAttackFlug(false);
-			}
+	}
+	else if (m_state = ENEMY_PUSH_AWAY) {
+		//突き飛ばされた。
+		//プレイヤーから敵に向かって伸びるベクトルを求める。
+		CVector3 toEenmyVec = m_toPlayerVec * -1.0f;
+		toEenmyVec.Normalize();
+		//m_moveSpeedに、正規化したm_toPlayerVec×突き放されるスピードを入れる。
+		m_moveSpeed = toEenmyVec * m_pushAwaySpeed;
+		//突き放されるスピードを徐々に減速させていく。
+		m_pushAwaySpeed -= 10.0f;
+		if (m_pushAwaySpeed <= 0.0f) {
+			//Enemyが突き放し終えた。
+			//m_pushAwaySpeedをリセット。
+			m_pushAwaySpeed = 100.0f;
+			m_player->SetPushAwayFlug(false);
 		}
 	}
 

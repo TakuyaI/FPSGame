@@ -16,6 +16,7 @@ public:
 	void InitGhost();
 	bool Start();
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 
 	void SetPosition(CVector3 pos)

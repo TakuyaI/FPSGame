@@ -1,16 +1,15 @@
 /*!
- *@brief	パッド
- */
+*@brief	パッド
+*/
 
 #pragma once
 
- //XInputのヘッダーファイル。
-#include <Xinput.h>
+#include <xinput.h>
 
 /*!
- *@brief	仮想ボタン定義。
- */
-enum EnButton{
+*@brief	仮想ボタン定義。
+*/
+enum EnButton {
 	enButtonUp,		//!<上。
 	enButtonDown,		//!<下。
 	enButtonLeft,		//!<左。
@@ -30,27 +29,27 @@ enum EnButton{
 	enButtonNum,	//!<ボタンの数。
 };
 /*!
- *@brief	パッド
- */
-class Pad{
+*@brief	パッド
+*/
+class CPad  {
 public:
 	static const int CONNECT_PAD_MAX = 4;		//接続可能なパッドの最大数。
-	/*!
-	 *@brief	パッドステート。
-	 */
+												/*!
+												*@brief	パッドステート。
+												*/
 	struct PAD_STATE
 	{
-		XINPUT_STATE xInputState;	//XInputGetStateを使用して、取得するパッドの入力状況。
+		XINPUT_STATE state;
 		bool bConnected;
 	};
 	/*!
-	 *@brief	コンストラクタ。
-	 */
-	Pad();
+	*@brief	コンストラクタ。
+	*/
+	CPad();
 	/*!
-	 *@brief	デストラクタ。
-	 */
-	~Pad();
+	*@brief	デストラクタ。
+	*/
+	~CPad();
 	/*!
 	*@brief	初期化。
 	*@param[in]	padNo	パッド番号。
@@ -61,43 +60,21 @@ public:
 	}
 	/*!
 	*@brief	更新。
-	*@details
-	* １フレームに一度呼び出してください。
-	* 複数回呼び出すと、トリガー入力が取れなくなるよ！！！
 	*/
 	void Update();
 	/*!
-	 *@brief	ボタンのトリガー判定。
-	 *@param[in]	button		調べたいボタン。enum EnButtonを参照。
-	 *@return	trueが返ってきたらトリガー入力。
-	 *@code
-			//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-			if( g_pad.IsTrigger( enButtonA ) == true ){
-				//Aボタンが押されたときの処理を記述。
-				・
-				・
-				・
-			}
-	 *@endcode
-	 */
+	*@brief	ボタンのトリガー判定。
+	*@return	trueが返ってきたらトリガー入力。
+	*/
 	bool IsTrigger(EnButton button) const
 	{
+		
 		return m_trigger[button] != 0;
 	}
 	/*!
-	 *@brief	ボタンが押されているか判定。
-	 *@param[in]	button		調べたいボタン。enum EnButtonを参照。
-	 *@code
-		//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-		if( g_pad.IsPress( enButtonA ) == true ){
-			//Aボタンが押されたときの処理を記述する。
-			・
-			・
-			・
-		}
-	 *@endcode
-	 *@return	trueが返ってきたら押されている。
-	 */
+	*@brief	ボタンが押されているか判定。
+	*@return	trueが返ってきたら押されている。
+	*/
 	bool IsPress(EnButton button) const
 	{
 		return m_press[button] != 0;
@@ -128,11 +105,6 @@ public:
 	/*!
 	*@brief	左スティックのX軸の入力量を取得。
 	*@return	-1.0～1.0の正規化された値を返す。
-	*@code
-		//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-		//左スティックのX軸方向の入力を取得する。
-		float lStickXF = g_pad.GetLStickXF();
-	*@endcode
 	*/
 	float GetLStickXF() const
 	{
@@ -141,11 +113,6 @@ public:
 	/*!
 	*@brief	左スティックのY軸の入力量を取得。
 	*@return	-1.0～1.0の正規化された値を返す。
-	*@code
-		//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-		//左スティックのX軸方向の入力を取得する。
-		float lStickYF = g_pad.GetLStickYF();
-	*@endcode
 	*/
 	float GetLStickYF() const
 	{
@@ -154,11 +121,6 @@ public:
 	/*!
 	*@brief	右スティックのX軸の入力量を取得。
 	*@return	-1.0～1.0の正規化された値を返す。
-	*@code
-		//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-		//右スティックのX軸方向の入力を取得する。
-		float rStickXF = g_pad.GetRStickXF();
-	*@endcode
 	*/
 	float GetRStickXF() const
 	{
@@ -167,25 +129,20 @@ public:
 	/*!
 	*@brief	右スティックのY軸の入力量を取得。
 	*@return	-1.0～1.0の正規化された値を返す。
-	*@code
-		//使用例(g_padというPad型のグローバル変数が定義されているものとする。)
-		//右スティックのY軸方向の入力を取得する。
-		float rStickXF = g_pad.GetRStickYF();
-	*@endcode
 	*/
 	float GetRStickYF() const
 	{
 		return m_rStickY;
 	}
-private:
-	/*!
-	*@brief	ボタンの入力情報を更新。
-	*/
-	void UpdateButtonInput();
-	/*!
-	*@brief	アナログスティックの入力情報を更新。
-	*/
-	void UpdateAnalogStickInput();
+	//フレームの開始時に呼ばれる関数。
+	static void BeginFrame();
+public:
+	enum { MAX_PAD = 4 };
+	enum class EnXInputPadState {
+		Undef,		//不明。
+		Connect,	//接続されている。
+		Disconnect,	//接続されていない。
+	};
 private:
 	PAD_STATE m_state;	//!<パッドステート。
 	int m_padNo = 0;			//!<パッド番号。
@@ -195,8 +152,8 @@ private:
 	float m_lStickY = 0.0f;		//!<左スティックのY軸の入力量。
 	float m_rStickX = 0.0f;		//!<右スティックのX軸の入力量。
 	float m_rStickY = 0.0f;		//!<右スティックのY軸の入力量。
+
+	static EnXInputPadState m_padStates[MAX_PAD];
 };
 
-//ゲームパッドのグローバル変数のextern宣言。
-//extern宣言は変数の定義ではないので注意する！
-extern Pad g_pad[ Pad::CONNECT_PAD_MAX ];
+extern CPad g_pad[4];

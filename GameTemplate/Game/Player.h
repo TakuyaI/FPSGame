@@ -3,7 +3,6 @@ class Sprite;
 #include "IGameObject.h"
 #include "GameCamera.h"
 #include "Sprite.h"
-#include "PhysicsGhostObject.h"
 #include "FontRender.h"
 class GameCamera;
 class Player:public IGameObject
@@ -11,9 +10,9 @@ class Player:public IGameObject
 public:
 	Player();
 	~Player();
-	void InitGhost();
 	bool Start();
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 	void PostRender();
 	/// <summary>
@@ -86,7 +85,14 @@ public:
 	{
 		return m_deathFlug;
 	}
-
+	void SetStopFlug(bool flug)
+	{
+		m_stopFlug = flug;
+	}
+	bool GetStopFlug()
+	{
+		return m_stopFlug;
+	}
 private:
 	GameCamera* m_gameCamera;
 	EnemyGenerator* m_enemyGen;
@@ -119,11 +125,7 @@ private:
 	bool m_flug = false;
 	bool m_dashFlug = false;
 	bool m_deathFlug = false;
-
-	PhysicsGhostObject m_ghost;
-	FontRender m_font;
-	int ds = 0;
-	bool flug = false;
+	bool m_stopFlug = false; //PlayerÇ™é~Ç‹Ç¡ÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©ÅB
 
 
 

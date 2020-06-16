@@ -46,12 +46,12 @@ public:
 	{
 		return m_attackFlug;
 	}
-
 	void DeleteEnemy();
 	//Player‚Æ1”Ô‹ß‚¢EnemyB
 	Enemy* GetClosestEnemyToPlayer();
 	//Bullet‚Æ1”Ô‹ß‚¢EnemyB
 	Enemy* GetClosestEnemyToBullet(CVector3 bulletPos);
+	bool Start();
 	void Update();
 private:
 	Enemy * m_enemy[10];

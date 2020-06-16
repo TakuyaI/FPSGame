@@ -8,6 +8,7 @@ public:
 	Sniper();
 	~Sniper();
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 	void PostRender();
 
@@ -23,6 +24,7 @@ public:
 	{
 	return m_rotation;
 	}
+	void OnShot(CVector3* position, CQuaternion* rotation);
 private:
 
 	SkinModel m_model;
@@ -38,5 +40,6 @@ private:
 	float m_reaction = 10.0f;                          //銃の反動。
 	int m_reloadTime = 90;                            //リロード時間。
 	CSoundSource m_gunShot; //銃声の音。
+	Effekseer::Effect* m_sampleEffect = nullptr;
 };
 

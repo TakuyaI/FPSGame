@@ -77,11 +77,20 @@ public:
 		return m_reloadFlug;
 	}
 private:
+	/// <summary>
+	/// 弾を撃った時に呼ばれる関数。
+	/// </summary>
+	virtual void OnShot(CVector3* position, CQuaternion* rotation) {}
+protected:
+	Effekseer::Handle m_playEffectHandle = -1;
+	GameCamera* m_gameCam;
+	//Effekseer::Effect* m_sampleEffect = nullptr;
+private:
 	//SkinModel m_model;
 	CSoundSource m_gunShot; //銃声の音。
 	Player* m_player;
 	Enemy* m_enemy;
-	GameCamera* m_gameCam;
+	
 	Bullet* m_bullet;
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
@@ -108,8 +117,8 @@ private:
 	bool m_reloadFlug = false; //リロードしているかどうか。
 	bool m_shootingBulletFlug = false; //弾を撃っているかどうか。
 
-	Effekseer::Effect* m_sampleEffect = nullptr;
-	Effekseer::Handle m_playEffectHandle = -1;
+	
+	
 	CVector3 m_effectPos = CVector3::Zero();
 
 	Sprite m_sprite;
@@ -121,5 +130,6 @@ private:
 	float m_blue = 0.0f;
 
 	float sss = 0.0f;
+
 };
 

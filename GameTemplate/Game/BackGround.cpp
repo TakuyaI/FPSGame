@@ -17,15 +17,17 @@ BackGround::~BackGround()
 
 void BackGround::Update()
 {
-	
-	//m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 10.0f);
-
-	
+	//m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 10.0f);	
+}
+void BackGround::SetRegistShadowCaster()
+{
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 
 void BackGround::Render()
 {
 	m_model.Draw(
+		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
 	);

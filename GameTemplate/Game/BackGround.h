@@ -8,6 +8,7 @@ public:
 	~BackGround();
 
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 
 	void SetPosition(CVector3 position)

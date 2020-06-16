@@ -39,18 +39,6 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 }
 void SkinModel::InitDirectionLight()
 {
-	/*m_dirLight.direction[0] = { 1.0f, 1.0f, 1.0f, 0.0f };
-	m_dirLight.direction[0].Normalize();
-	m_dirLight.color[0] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	m_dirLight.direction[1] = { 1.0f, 0.0f, 0.0f, 0.0f };
-	m_dirLight.color[1] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	m_dirLight.direction[2] = { 0.0f, 1.0f, 0.0f, 0.0f };
-	m_dirLight.color[2] = { 1.0f, 1.0f, 1.0f, 1.0f };
-
-	m_dirLight.direction[3] = { 0.0f, 0.0f, 1.0f, 0.0f };
-	m_dirLight.color[3] = { 1.0f, 1.0f, 1.0f, 1.0f };*/
 
 	m_light.directionLight.direction[0] = { 1.0f, 0.0f, 0.0f, 0.0f };
 	m_light.directionLight.color[0] = { 0.7f, 0.7f, 0.7f, 1.0f };
@@ -144,7 +132,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	//スケルトンの更新。
 	m_skeleton.Update(m_worldMatrix);
 }
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
+void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMatrix)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
@@ -167,6 +155,12 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	//ライト用の定数バッファを更新。
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	d3dDeviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
+
+	//エフェクトにクエリを行う。
+	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
+		auto modelMaterial = reinterpret_cast<SkinModelEffect*>(material);
+		modelMaterial->SetRenderMode(renderMode);
+		});
 
 	//描画。
 	m_modelDx->Draw(

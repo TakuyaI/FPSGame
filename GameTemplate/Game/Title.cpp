@@ -10,7 +10,7 @@ Title::Title()
 	m_cio.Init(L"Assets/sound/gamestart.wav");
 	m_bgm.Play(true);
 
-
+	
 	m_haikei.Init(L"Resource/sprite/orengi.dds", 1280.0f, 720.0f);
 	m_start.Init(L"Resource/sprite/st.dds", 1280.0f, 720.0f);
 }

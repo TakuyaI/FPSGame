@@ -9,7 +9,22 @@ public:
 	bool Start();
 	void Update();
 	void Render();
-
+	void SetPosition(CVector3 pos)
+	{
+		m_position = pos;
+	}
+	CVector3 GetPosition()
+	{
+		return m_position;
+	}
+	void SetRotation(CQuaternion rotation)
+	{
+		m_rotation = rotation;
+	}
+	CharacterController* CharaCon()
+	{
+		return &m_charaCon;
+	}
 private:
 	SkinModel m_model;                                //スキンモデル。
 	CVector3 m_position = CVector3::Zero();

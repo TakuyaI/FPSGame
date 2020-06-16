@@ -17,10 +17,10 @@ IGunObject::IGunObject()
 
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
 	//サンプルのエフェクトをロードする。
-	m_sampleEffect = Effekseer::Effect::Create(
+	/*m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/happou.efk"
-	);
+	);*/
 	m_gunShot.Init(L"Assets/sound/raifulS.wav");
 	
 	m_ammo = m_gunGen->GetGunAmmo();
@@ -51,19 +51,22 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 	YRot.SetRotationDeg(CVector3::AxisY(), m_angle);
 	CQuaternion XRot;
 	XRot.SetRotationDeg(CVector3::AxisX(), m_angle2);
-	CQuaternion a;
-	a.Multiply(YRot, XRot);
-	*rotation = a;
+	rotation->Multiply(YRot, XRot);
 
 	*position = m_gameCam->GetPosition();
 	if (m_gameCam->LockOnTargetFlug() != false) {
+		//ライフル
 		m_gunLocalPosition = { 0.0f, -10.0f, 10.0f };
+		//ショットガン
+		//m_gunLocalPosition = { -10.0f, -20.0f, 60.0f };
+		//スナイパー
+		//m_gunLocalPosition = { -20.0f, -40.0f, 150.0f };
+
 	}
 	else {
 		m_gunLocalPosition = { 15.0f, -8.0f, 10.0f };
 	}
 	CQuaternion PosRot;
-	m_Pos = m_gunLocalPosition;
 	PosRot.SetRotationDeg(CVector3::AxisY(), m_angle);
 	PosRot.Multiply(m_gunLocalPosition);
 	
@@ -93,21 +96,10 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 					m_bulletIntervalTimer = 0;
 					gunshot.Stop();
 					gunshot.Play(false);
-					
-					//再生中のエフェクトを止める。
-					g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
-					//再生。
-					CVector3 effectPos = *position;
-					pos = m_gameCam->GetToTargetPos();
-					pos.Normalize();
-					effectPos += pos * 100.0f;
 
-					m_playEffectHandle = g_goMgr.GetEffekseerManager()->Play(
-						m_sampleEffect,
-						effectPos.x,
-						effectPos.y,
-						effectPos.z
-					);
+					//弾を撃った時のイベント関数を呼び出す
+					OnShot(position, rotation);
+					
 					
 				}
 			}

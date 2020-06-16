@@ -9,7 +9,7 @@ class IEnemyObject : public IGameObject
 public:
 	IEnemyObject();
 	~IEnemyObject();
-	void Loitering();
+	void Saty();
 	void Tracking();
 	void Attack();
 
@@ -17,10 +17,10 @@ public:
 	void Update();
 
 
-	CVector3 GetPosition()
+	/*CVector3 GetPosition()
 	{
 		return m_position;
-	}
+	}*/
 	void SetInitPos(CVector3 initpos)
 	{
 		m_initPos = initpos;
@@ -29,10 +29,10 @@ public:
 	{
 		return m_initPos;
 	}
-	void SetRotation(CQuaternion rotation)
+	/*void SetRotation(CQuaternion rotation)
 	{
 		m_rotation = rotation;
-	}
+	}*/
 	CQuaternion GetRoation()
 	{
 		return m_rotation;
@@ -49,10 +49,10 @@ public:
 	{
 		return m_enemyHp;
 	}
-	CharacterController* CharaCon()
+	/*CharacterController* CharaCon()
 	{
 		return &m_charaCon;
-	}
+	}*/
 	float GetEnemyAttackPow()
 	{
 		return m_enemyAttackPow;
@@ -99,10 +99,9 @@ private:
 	CVector3 m_initPos = CVector3::Zero();            //初期座標。
 	CVector3 m_toPlayerVec = CVector3::Zero();        //EnemyからPlayerへ向かうベクトル。
 	CQuaternion m_rotation = CQuaternion::Identity(); //回転。
-	CharacterController m_charaCon;                   //キャラクターコントローラー。
 	int m_state = 0;                                  //Enemyの状態。
 	bool m_attackFlug = false;                        //攻撃フラグ。
-	float m_pushAwaySpeed = 100.0f;                   //突き放されるスペード。
+	float m_pushAwaySpeed = 100.0f;                   //突き放されるスピード。
 	bool m_endPushAwayflug = false;                   //突き放し終えたかどうか。
 	int m_enemyHp = 50;                               //EnemyのHP。
 	float m_playerHp = 100.0f;

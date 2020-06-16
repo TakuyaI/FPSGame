@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GameManager.h"
-
 //GameManagerクラスのインスタンス。
 GameManager g_goMgr;
 
@@ -29,6 +28,7 @@ void GameManager::Init()
 			FRAME_BUFFER_H
 		);
 		InitEffekseer();
+		m_shadowMap.SetShadowMapRT(2048, 2048);
 		m_flug = true;
 	}
 }
@@ -93,7 +93,7 @@ void GameManager::Update()
 				go->Update();
 			}
 		}
-
+		
 		//Effekseerカメラ行列を設定。
 		//まずはEffeseerの行列型の変数に、カメラ行列とプロジェクション行列をコピー。
 		Effekseer::Matrix44 efCameraMat;
@@ -118,6 +118,13 @@ void GameManager::Update()
 			it++;
 		}
 	}
+	for (auto go : m_goList) {
+		go->SetRegistShadowCaster();
+	}
+	m_shadowMap.Update(
+		{ 0.0f, 1000.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f }
+	);
 }
 
 void GameManager::Render()
@@ -135,6 +142,8 @@ void GameManager::Render()
 	unsigned int numViewport = 1;
 	d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
 	
+	//シャドウマップにレンダリング
+	m_shadowMap.RenderToShadowMap();
 	{
 		//レンダリングターゲットをメインに変更する。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
@@ -147,7 +156,11 @@ void GameManager::Render()
 		for (auto go : m_goList) {
 			go->Render();
 		}
-		
+		//エフェクトは不透明オブジェクトを描画した後で描画する。
+		m_effekseerRenderer->BeginRendering();
+		m_effekseerManager->Draw();
+		m_effekseerRenderer->EndRendering();
+
 		ChangeRenderTarget(
 			d3dDeviceContext,
 			m_mainRenderTarget.GetRenderTargetView(),
@@ -159,10 +172,7 @@ void GameManager::Render()
 		for (auto go : m_goList) {
 			go->PostRender();
 		}
-		//エフェクトは不透明オブジェクトを描画した後で描画する。
-		m_effekseerRenderer->BeginRendering();
-		m_effekseerManager->Draw();
-		m_effekseerRenderer->EndRendering();
+		
 	}
 	
 	{
