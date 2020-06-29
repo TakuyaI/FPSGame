@@ -10,6 +10,7 @@ class Sniper;
 #include "Rifle.h"
 #include "Shotgun.h"
 #include "Sniper.h"
+#include "Game.h"
 /// <summary>
 /// èeÇÃî‘çÜ
 /// </summary>
@@ -70,7 +71,7 @@ public:
 	Rifle* m_rifle;
 	Shotgun* m_shotgun;
 	Sniper* m_sniper;
-
+	Game * m_game;
 	int m_nextnum = 0;
 	int m_num = 0;
 	bool a = false;

@@ -2,7 +2,7 @@
 #include "GameManager.h"
 //GameManagerクラスのインスタンス。
 GameManager g_goMgr;
-
+const float LIGHT_CAMERA_POS_Y = 500.0f; //ライトカメラのY座標。
 GameManager::GameManager()
 {
 }
@@ -80,20 +80,31 @@ void GameManager::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D
 }
 void GameManager::Update()
 {
+	////登録されているゲームオブジェクトのSatrt関数1回を呼ぶ。
+	//for (auto go : m_goList) {
+	//	if (go->GetmStartEndFlug() != true) {
+	//		go->Start();
+	//		go->SetStartEndFlug(true);
+	//	}
+	//}
+	//	//登録されているゲームオブジェクトの更新処理を呼ぶ。
+	//	for (auto go : m_goList) {
+	//		if (go->GetmStartEndFlug() != false
+	//			&& go->IsReqDelete() == false
+	//		) {
+	//			go->Update();
+	//		}
+	//	}
 	//登録されているゲームオブジェクトのSatrt関数1回を呼ぶ。
 	for (auto go : m_goList) {
 		if (go->GetmStartEndFlug() != true) {
 			go->Start();
 			go->SetStartEndFlug(true);
 		}
-	}
-		//登録されているゲームオブジェクトの更新処理を呼ぶ。
-		for (auto go : m_goList) {
-			if (go->GetmStartEndFlug() != false) {
-				go->Update();
-			}
+	    if (go->IsReqDelete() == false) {
+			go->Update();
 		}
-		
+	}
 		//Effekseerカメラ行列を設定。
 		//まずはEffeseerの行列型の変数に、カメラ行列とプロジェクション行列をコピー。
 		Effekseer::Matrix44 efCameraMat;
@@ -121,9 +132,11 @@ void GameManager::Update()
 	for (auto go : m_goList) {
 		go->SetRegistShadowCaster();
 	}
+	CVector3 m_lightCameraPos = m_playerPos; //ライトの座標。
+	m_lightCameraPos.y = LIGHT_CAMERA_POS_Y;
 	m_shadowMap.Update(
-		{ 0.0f, 1000.0f, 0.0f },
-		{ 0.0f, 0.0f, 0.0f }
+		m_lightCameraPos,
+		m_playerPos
 	);
 }
 
@@ -170,9 +183,15 @@ void GameManager::Render()
 		
 		//2D
 		for (auto go : m_goList) {
-			go->PostRender();
+			if (go->GetPostRenderPriority() != false) {
+				go->PostRender();
+			}
 		}
-		
+		for (auto go : m_goList) {
+			if (go->GetPostRenderPriority() != true) {
+				go->PostRender();
+			}
+		}
 	}
 	
 	{

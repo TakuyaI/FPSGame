@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "EnemyGenerator.h"
 #include "Enemy.h"
 
@@ -98,19 +98,28 @@ void Player::Update()
 			//Enemyが攻撃してきた。
 			//つかまれているから、Playerは動けない。
 			m_moveSpeed = CVector3::Zero();
+			float stickX = fabsf(g_pad->GetLStickXF());
+			float stickY = fabsf(g_pad->GetLStickYF());
+			if (b != true) {
+				if (stickX >= 0.5f) {
+					a += stickX;
+					b = true;
+				}
+			}
+			else {
+				if (stickY >= 0.5f) {
+					a += fabsf(g_pad->GetLStickYF());
+					b = false;
+				}
+			}
 			//十字ボタンを連打したら、脱出する。
-			if (g_pad->IsTrigger(enButtonUp) ||
-				g_pad->IsTrigger(enButtonDown) ||
-				g_pad->IsTrigger(enButtonLeft) ||
-				g_pad->IsTrigger(enButtonRight)) {
-				a++;
-				if (a >= 10) {
+				if (a >= 10.0f) {
 					//十字ボタンを10回押した。
 					m_pushAwayFlug = true;
 					m_stopFlug = false;
-					a = 0;
+					a = 0.0f;
 				}
-			}
+			//}
 		}
 	//}
 	
@@ -123,6 +132,7 @@ void Player::Update()
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.0f);
+	g_goMgr.SetmPlayerPos(m_position);
 }
 void Player::SetRegistShadowCaster()
 {

@@ -9,6 +9,7 @@ public:
 
 	bool Start();
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 
 	void SetPosition(CVector3 pos)
@@ -35,5 +36,6 @@ private:
 	CharacterController m_charaCon;                   //キャラクターコントローラー。
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                    //アニメーション。
+	int m_deathAnimTime = 60; //死亡時のアニメーションの時間。
 };
 

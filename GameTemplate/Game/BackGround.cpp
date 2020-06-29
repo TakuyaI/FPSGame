@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "BackGround.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 BackGround::BackGround()
 {
-	m_model.Init(L"Assets/modelData/background.cmo");
+	m_model.Init(L"Assets/modelData/stage.cmo");
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One()/* * 10.0f*/);
-
+	m_model.SetShadowReciever(true);
 	m_physicsStaticObject.CreateMeshObject(m_model, m_position, m_rotation);
 }
 
@@ -15,6 +15,10 @@ BackGround::~BackGround()
 
 }
 
+bool BackGround::Start()
+{
+	return true;
+}
 void BackGround::Update()
 {
 	//m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 10.0f);	

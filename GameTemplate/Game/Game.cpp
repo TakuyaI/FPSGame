@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "Title.h"
 #include "GunGenerator.h"
 
@@ -8,15 +8,7 @@ Game::Game()
 {
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
-	//m_itemS.Init(L"Resource/sprite/item.dds", 320.0f, 180.0f);
-	//m_player = g_goMgr.NewGameObject<Player>(player);
-	//m_backGro = g_goMgr.NewGameObject<BackGround>(background);
-	/*m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
-	m_enemyGen = g_goMgr.NewGameObject<EnemyGenerator>(enemygenerator);
-	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
-	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);*/
-	//m_dogEnemy = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
-	m_level.Init(
+	/*m_level.Init(
 		L"Assets/level/stage_00.tkl",
 		[&](const LevelObjectData & object) {
 			if (wcscmp(object.name, L"player") == 0) {
@@ -25,11 +17,12 @@ Game::Game()
 				m_player->SetRotation(object.rotation);
 				return true;
 			}
-			/*else if (wcscmp(object.name, L"dogEnemy") == 0) {
+			else if (wcscmp(object.name, L"dogEnemy") == 0) {
 				m_dogEnemy = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
 				m_dogEnemy->SetPosition(object.position);
 				m_dogEnemy->SetRotation(object.rotation);
 				m_dogEnemyList.push_back(m_dogEnemy);
+				m_knockDownEnemyNum++;
 				return true;
 			}
 			else if (wcscmp(object.name, L"enemy") == 0) {
@@ -37,9 +30,43 @@ Game::Game()
 				m_enemy->SetPosition(object.position);
 				m_enemy->SetRotation(object.rotation);
 				m_enemyList.push_back(m_enemy);
+				m_knockDownEnemyNum++;
 				return true;
-			}*/
+			}
 			else if (wcscmp(object.name, L"background") == 0) {
+				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
+				m_backGro->SetPosition(object.position);
+				m_backGro->SetRotation(object.rotation);
+				return true;
+			}
+			return false;
+		});*/
+	m_level.Init(
+		L"Assets/level/stage_01.tkl",
+		[&](const LevelObjectData & object) {
+			if (wcscmp(object.name, L"player") == 0) {
+				m_player = g_goMgr.NewGameObject<Player>(player);
+				m_player->SetPosition(object.position);
+				m_player->SetRotation(object.rotation);
+				return true;
+			}
+			else if (wcscmp(object.name, L"dogEnemy") == 0) {
+				m_dogEnemy = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
+				m_dogEnemy->SetPosition(object.position);
+				m_dogEnemy->SetRotation(object.rotation);
+				m_dogEnemyList.push_back(m_dogEnemy);
+				m_knockDownEnemyNum++;
+				return true;
+			}
+			else if (wcscmp(object.name, L"enemy") == 0) {
+				m_enemy = g_goMgr.NewGameObject<Enemy>(enemy);
+				m_enemy->SetPosition(object.position);
+				m_enemy->SetRotation(object.rotation);
+				m_enemyList.push_back(m_enemy);
+				m_knockDownEnemyNum++;
+				return true;
+			}
+			else if (wcscmp(object.name, L"stage") == 0) {
 				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 				m_backGro->SetPosition(object.position);
 				m_backGro->SetRotation(object.rotation);
@@ -66,7 +93,7 @@ Game::~Game()
 			g_goMgr.DeleteGameObject(enemy);
 			return true;
 		});
-	g_goMgr.QueryGameObject<DogEnemy>(enemy, [](DogEnemy * dogenemy)->bool
+	g_goMgr.QueryGameObject<DogEnemy>(dogenemy, [](DogEnemy * dogenemy)->bool
 		{
 			g_goMgr.DeleteGameObject(dogenemy);
 			return true;
@@ -75,7 +102,7 @@ Game::~Game()
 
 bool Game::Start()
 {
-	
+
 	return true;
 }
 
@@ -111,13 +138,6 @@ void Game::Render()
 }
 void Game::PostRender()
 {
-	/*m_itemS.Update(
-		{ 0.0f, -250.0f, 0.0f },
-		CQuaternion::Identity(),
-		CVector3::One(),
-		{0.5f, 0.5f}
-	);
-	m_itemS.Draw();*/
 	if (m_player->GetDeathFlug() != false) {
 		m_gameOverSprite.Draw();
 	}

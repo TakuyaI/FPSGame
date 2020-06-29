@@ -21,7 +21,6 @@ public:
 	/// </summary>
 	/// <param name="position">座標</param>
 	/// <param name="rotation">回転</param>
-	/// <param name="scale">サイズ</param>
 	/// <param name="ammo">弾数</param>
 	/// <param name="loading">装填弾数</param>
 	/// <param name="maxLoading">最大装填弾数</param>
@@ -29,7 +28,14 @@ public:
 	/// <param name="bulletMoveSpeed">銃の速度</param>
 	/// <param name="reaction">発砲時の反動</param>
 	/// <param name="reloadTime">リロードにかかる時間</param>
-	void GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* scale, int* ammo, int* loading, int* maxLoading, int* bulletIntervalTime, float* bulletMoveSpeed, float* reaction, int* reloadTime, CSoundSource& gunshot);
+	/// <param name="aimingPos">エイムしているときの銃のローカル座標</param>
+	/// <param name="notAimPos">//エイムしていないときの銃のローカル座標</param>
+	void GunUpdate(
+		CVector3* position, CQuaternion* rotation,
+		int* ammo, int* loading, int* maxLoading, int* bulletIntervalTime,
+		float* bulletMoveSpeed, float* reaction, int* reloadTime,
+		CVector3* aimingPos, CVector3* notAimPos
+		);
 	/// <summary>
 	///　ポストレンダー。
 	/// </summary>
@@ -38,12 +44,18 @@ public:
 	/// <param name="loading">装填弾数。</param>
 	/// <param name="maxLoading">最大装填弾数。</param>
 	void GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading);
+	/*/// <summary>
+	/// エイミング。
+	/// </summary>
+	/// <param name="position">座標。</param>
+	void Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimaos);*/
+	/// <summary>
+	/// 銃の回転。
+	/// </summary>
+	/// <param name="rotation">回転。</param>
+	void GunRotation(CQuaternion* rotation);
 	void Update();
 
-	/*CVector3 Getpostion()
-	{
-		return m_position;
-	}*/
 	void SetNum(int num)
 	{
 		m_setNum = num;
@@ -52,18 +64,6 @@ public:
 	{
 		return m_setNum;
 	}
-	void SetShootingBulletFlug(bool shootingbullet)
-	{
-		m_shootingBulletFlug = shootingbullet;
-	}
-	bool GetShootingBulletFlug()
-	{
-		return m_shootingBulletFlug;
-	}
-	/*CQuaternion* GetRotation()
-	{
-		return &m_rotation;
-	}*/
 	int GetAmmo()
 	{
 		return m_ammo;
@@ -81,10 +81,20 @@ private:
 	/// 弾を撃った時に呼ばれる関数。
 	/// </summary>
 	virtual void OnShot(CVector3* position, CQuaternion* rotation) {}
+	/// <summary>
+	/// エイミング。
+	/// </summary>
+	virtual void Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimaos){}
+
 protected:
 	Effekseer::Handle m_playEffectHandle = -1;
 	GameCamera* m_gameCam;
-	//Effekseer::Effect* m_sampleEffect = nullptr;
+
+	const float DIVIDE_NUM = 4.0f; //m_aimMoveSpeedを割る数値。
+	CVector3 m_gunLocalPosition = CVector3::Zero();
+	CVector3 m_aimMoveSpeed = CVector3::Zero();
+	int m_count = 0;
+
 private:
 	//SkinModel m_model;
 	CSoundSource m_gunShot; //銃声の音。
@@ -98,7 +108,6 @@ private:
 
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_Pos = { 15.0f, -8.0f, 10.0f };
-	CVector3 m_gunLocalPosition = { 15.0f, -8.0f, 10.0f };
 	CVector3 m_bulletPos = CVector3::Zero();
 	CQuaternion m_rotation = CQuaternion::Identity();
 	float m_angle = 0.0f;
@@ -131,5 +140,6 @@ private:
 
 	float sss = 0.0f;
 
+	bool f = false;
 };
 

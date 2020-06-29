@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Bullet.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "Enemy.h"
+#include "DogEnemy.h"
 #include "Game.h"
 #include "GameCamera.h"
 #include "GunGenerator.h"
 #include "EnemyGenerator.h"
-#include "Item.h"
 struct BulletInformation {
 	const int RIFLE_BULLET_POWER = 10;
 	const int SHOTGUN_BULLET_POWER = 7;
@@ -29,7 +29,6 @@ Bullet::Bullet()
 		m_bulletAccuracy = bulletInf.RIFLE_BULLET_ACCURACY;
 		m_rifle = g_goMgr.FindGameObject<Rifle>(rifle);
 		m_rotation = m_rifle->GetRotation();
-
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
 		m_model.Init(L"Assets/modelData/shotgun_bullet.cmo");
@@ -67,45 +66,73 @@ bool Bullet::Start()
 	InitGhost();
 	return true;
 }
-void Bullet::Update()
+void Bullet::CollisionBulletToEnemy()
 {
-	if (m_game->GetEndFlug() != false) {
-		g_goMgr.DeleteGameObject(this);
-	}
-	if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
-		//“G‚ªoŒ»‚µ‚Ä‚¢‚éB
-		//’e‚Æˆê”Ô‹ß‚¢“GB
-		auto closeEnemy = m_enemyGen->GetClosestEnemyToBullet(m_position);
-		CharacterController& m_chara = *closeEnemy->CharaCon();
+	g_goMgr.QueryGameObject<DogEnemy>(dogenemy, [&](DogEnemy * dogenemy)->bool
+	{
+		CharacterController& m_chara = *dogenemy->CharaCon();
 		bool isContact = false;
 		g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
 			if (m_GhostObject.IsSelf(contactObject) == true) {
 				//m_ghostObject‚Æ‚Ô‚Â‚©‚Á‚½
-				//’e‚Æ“G‚Ì‹——£‚ªˆê’è’lˆÈ‰º‚É‚È‚Á‚½B
-				int enemyhp = closeEnemy->GetEnemyHp();
+				int enemyhp = dogenemy->GetEnemyHp();
 				//’e‚ÌˆÐ—Í‚É‰ž‚¶‚½ƒ_ƒ[ƒW‚ð“G‚É—^‚¦‚éB
-				closeEnemy->SetEnemyHp(enemyhp - m_bulletPower);
+				dogenemy->SetEnemyHp(enemyhp - m_bulletPower);
 				if (enemyhp <= 0) {
 					//“G‚ÌHP‚ª0‚É‚È‚Á‚½B
 					//“G‚ðíœB
-					closeEnemy->SetDeathFlug(true);
-					//Žc‚è‚Ì”‚ðƒ}ƒCƒiƒX‚·‚éB
-					m_knockDownEnemyNum = m_game->GetKnockDownEnemyNum();
-					m_game->SetKnockDownEnemyNum(--m_knockDownEnemyNum);
-					int enemyNum = m_enemyGen->GetEnemyNumber();
-					m_enemyGen->SetEnemyNumber(--enemyNum);
-					int enemyArrayNum = m_enemyGen->GetEnemyArrayNum();
-					m_enemyGen->SetEnemyArrayNum(--enemyArrayNum);
-					m_enemyGen->DeleteEnemy();
+					dogenemy->SetDeathFlug(true);
+					dogenemy->SetEffectVec(m_moveSpeed);
+					dogenemy->SetBulletPos(m_position);
 				}
-				closeEnemy->SetReceiveDamageFlug(true);
-				isContact = true;//g_goMgr.DeleteGameObject(this);
+				dogenemy->SetReceiveDamageFlug(true);
+				isContact = true;
 			}
 			});
 		if (isContact) {
 			g_goMgr.DeleteGameObject(this);
 		}
+		return true;
+	});
+}
+void Bullet::CollisionBulletToDogEnemy()
+{
+	g_goMgr.QueryGameObject<Enemy>(enemy, [&](Enemy * enemy)->bool
+		{
+			CharacterController& m_chara = *enemy->CharaCon();
+			bool isContact = false;
+			g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
+				if (m_GhostObject.IsSelf(contactObject) == true) {
+					//m_ghostObject‚Æ‚Ô‚Â‚©‚Á‚½
+					int enemyhp = enemy->GetEnemyHp();
+					//’e‚ÌˆÐ—Í‚É‰ž‚¶‚½ƒ_ƒ[ƒW‚ð“G‚É—^‚¦‚éB
+					enemy->SetEnemyHp(enemyhp - m_bulletPower);
+					if (enemyhp <= 0) {
+						//“G‚ÌHP‚ª0‚É‚È‚Á‚½B
+						//“G‚ðíœB
+						enemy->SetDeathFlug(true);
+					}
+					enemy->SetReceiveDamageFlug(true);
+					enemy->SetEffectVec(m_moveSpeed);
+					enemy->SetBulletPos(m_position);
+					isContact = true;
+				}
+				});
+			if (isContact) {
+				g_goMgr.DeleteGameObject(this);
+			}
+			return true;
+		});
+}
+void Bullet::Update()
+{
+	if (m_game->GetEndFlug() != false) {
+		g_goMgr.DeleteGameObject(this);
 	}
+	//’eŠÛ‚Æ“G‚Ì“–‚½‚è”»’è‚ðŽÀsB
+	CollisionBulletToEnemy();
+	CollisionBulletToDogEnemy();
+	
 	m_timer++;
 	m_position += m_moveSpeed;
 	if (m_timer >= 5) {
@@ -114,7 +141,6 @@ void Bullet::Update()
 	m_GhostObject.SetPosition(m_position);
 	m_GhostObject.SetRotation(m_rotation);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
-	//g_goMgr.SetShadow(&m_model);
 }
 void Bullet::SetRegistShadowCaster()
 {

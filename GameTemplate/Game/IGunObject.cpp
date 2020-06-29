@@ -1,7 +1,7 @@
 #include "stdafx.h"
 //#include "IGunObject.h"
 #include "GunGenerator.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "EnemyGenerator.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -16,11 +16,7 @@ IGunObject::IGunObject()
 	m_player = g_goMgr.FindGameObject<Player>(player);
 
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
-	//サンプルのエフェクトをロードする。
-	/*m_sampleEffect = Effekseer::Effect::Create(
-		g_goMgr.GetEffekseerManager(),
-		(const EFK_CHAR*)L"Assets/effect/happou.efk"
-	);*/
+	
 	m_gunShot.Init(L"Assets/sound/raifulS.wav");
 	
 	m_ammo = m_gunGen->GetGunAmmo();
@@ -30,16 +26,71 @@ IGunObject::IGunObject()
 
 IGunObject::~IGunObject(/*m_blaze m_bulletIntervalTime m_bulletMoveSpeed m_reaction m_ammo m_reloadTime*/)
 {
+	g_goMgr.QueryGameObject<Bullet>(bullet, [](Bullet * bul)->bool
+		{
+			g_goMgr.DeleteGameObject(bul);
+			return true;
+		});
 	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 }
+/*
+void IGunObject::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notaimPos)
+{
+	*position = m_gameCam->GetPosition();
+	CQuaternion PosRot = *rotation;
+	
+	//エイムしているときの銃のローカル座標。
+	CVector3 aimPos = *aimingPos;
+	//エイムしていないときの銃のローカル座標。
+	CVector3 notAimPos = *notaimPos;
 
-void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* scale, int* ammo, int* loading, int* maxLoading, int* bulletIntervalTime, float* bulletMoveSpeed, float* reaction, int* reloadTime, CSoundSource& gunshot)
+	if (m_gameCam->GetAimFlug() != false) {
+		//エイムしている。
+		PosRot.Multiply(aimPos);
+		PosRot.Multiply(notAimPos);
+
+		//エイムしていないときの銃のローカル座標から、
+		//エイムしているときの銃のローカル座標に向かうベクトルを求める。
+		m_aimMoveSpeed = aimPos - notAimPos;
+		m_aimMoveSpeed /= DIVIDE_NUM;
+
+		if (m_count < (int)DIVIDE_NUM) {
+			//m_countがDIVIDE_NUMより少ないなら移動する。
+			m_gunLocalPosition += m_aimMoveSpeed;
+			m_count++;
+		}
+		else {
+			m_gunLocalPosition = *aimingPos;
+			PosRot.Multiply(m_gunLocalPosition);
+
+		}
+	}
+	else {//エイムしていない。
+		if (m_count > 0) {
+			//m_countが0より多いなら移動する。
+			PosRot.Multiply(aimPos);
+			PosRot.Multiply(notAimPos);
+
+			m_aimMoveSpeed = aimPos - notAimPos;
+			m_aimMoveSpeed /= DIVIDE_NUM;
+			m_gunLocalPosition -= m_aimMoveSpeed;
+			m_count--;
+		}
+		else {
+			m_gunLocalPosition = notAimPos;
+			PosRot.Multiply(m_gunLocalPosition);
+		}
+	}
+	*position += m_gunLocalPosition;
+}
+*/
+void IGunObject::GunRotation(CQuaternion* rotation)
 {
 	//カメラのターゲットを代入。
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.y = 0.0f;
 
-	m_angle = CMath::RadToDeg(atan2(pos.x, pos.z));// acos(pos.Dot(CVector3::Front())));
+	m_angle = CMath::RadToDeg(atan2(pos.x, pos.z));
 
 	pos = m_gameCam->GetToTargetPos();
 	float y = pos.y;
@@ -52,26 +103,25 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 	CQuaternion XRot;
 	XRot.SetRotationDeg(CVector3::AxisX(), m_angle2);
 	rotation->Multiply(YRot, XRot);
+}
 
-	*position = m_gameCam->GetPosition();
-	if (m_gameCam->LockOnTargetFlug() != false) {
-		//ライフル
-		m_gunLocalPosition = { 0.0f, -10.0f, 10.0f };
-		//ショットガン
-		//m_gunLocalPosition = { -10.0f, -20.0f, 60.0f };
-		//スナイパー
-		//m_gunLocalPosition = { -20.0f, -40.0f, 150.0f };
+void IGunObject::GunUpdate(
+	CVector3* position, CQuaternion* rotation,  
+	int* ammo, int* loading, int* maxLoading, int* bulletIntervalTime, 
+	float* bulletMoveSpeed, float* reaction, int* reloadTime,
+	CVector3* aimingPos, CVector3* notAimPos
+){
+	GunRotation(rotation);
 
+	Aim(position, rotation, aimingPos, notAimPos);
+	if (f != false) {
+		float vv = m_gameCam->GetGameCameraViewAngle();
+		vv -= 0.5f;
+		m_gameCam->SetGameCameraViewAngle(vv);
+		f = false;
 	}
-	else {
-		m_gunLocalPosition = { 15.0f, -8.0f, 10.0f };
-	}
-	CQuaternion PosRot;
-	PosRot.SetRotationDeg(CVector3::AxisY(), m_angle);
-	PosRot.Multiply(m_gunLocalPosition);
+
 	
-	*position += m_gunLocalPosition;
-
 	//弾を発射。
 	if (m_reloadFlug != true && m_enemyGen->GetAttackFlug() != true && m_player->GetDeathFlug() != true) {
 		//リロード中は発射できないかつ、敵が攻撃していないかつ、Playerが死んでいない。
@@ -83,30 +133,38 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 				m_bulletIntervalTimer++;
 				if (m_bulletIntervalTimer >= *bulletIntervalTime) {
 					//一定間隔で弾を発射する。
-					m_shootingBulletFlug = true;
 					m_gunGen->SetShootingBulletFlug(true);
 					m_bullet = g_goMgr.NewGameObject<Bullet>(bullet);
+					/*CVector3 p = *position;
+					p.y += 10.0f;*/
 					m_bullet->SetPosition(*position);
-					CVector3 v = m_gameCam->GetTargetPos() - *position;
-					v.Normalize();
+					//弾のスピードを設定する。
+					CVector3 v = m_gameCam->GetToTarget();
 					m_bulletPos = v * *bulletMoveSpeed;
 					m_bullet->SetMoveSpeed(m_bulletPos);
+					//反動。
 					*position += v * *reaction;
 					--*loading;
-					m_bulletIntervalTimer = 0;
-					gunshot.Stop();
-					gunshot.Play(false);
 
+					float vv2 = m_gameCam->GetGameCameraViewAngle();
+					vv2 += 0.5f;
+					m_gameCam->SetGameCameraViewAngle(vv2);
+					f = true;
+
+					m_bulletIntervalTimer = 0;
 					//弾を撃った時のイベント関数を呼び出す
 					OnShot(position, rotation);
 					
-					
 				}
+			}
+			else {
+				m_gameCam->SetShotFlug(false);
 			}
 		}
 		else {
-			m_shootingBulletFlug = false;
+			m_bulletIntervalTimer = *bulletIntervalTime;
 			m_gunGen->SetShootingBulletFlug(false);
+			m_gameCam->SetShotFlug(false);
 		}
 	}
 
@@ -146,8 +204,6 @@ void IGunObject::GunUpdate(CVector3* position, CQuaternion* rotation, CVector3* 
 			}
 		}
 	}
-
-	//m_model.UpdateWorldMatrix(position, rotation, scale);
 
 }
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GunGenerator.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "Rifle.h"
 #include "Shotgun.h"
 #include "Sniper.h"

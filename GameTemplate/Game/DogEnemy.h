@@ -1,5 +1,6 @@
 #pragma once
 #include "IEnemyObject.h"
+#include "Game.h"
 class DogEnemy : public IEnemyObject
 {
 public:
@@ -8,6 +9,7 @@ public:
 
 	bool Start();
 	void Update();
+	void SetRegistShadowCaster();
 	void Render();
 	void SetPosition(CVector3 pos)
 	{
@@ -32,5 +34,6 @@ private:
 	CharacterController m_charaCon;                   //キャラクターコントローラー。
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                    //アニメーション。
+	int m_deathAnimTime = 10; //死亡時のアニメーションの時間。
 };
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Shotgun.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "GunGenerator.h"
 #include "GameCamera.h"
 
@@ -29,7 +29,6 @@ void Shotgun::Update()
 	GunUpdate(
 		&m_positon,
 		&m_rotation,
-		&m_scale,
 		&m_ammo,
 		&m_loading,
 		&m_maxLoading,
@@ -37,7 +36,8 @@ void Shotgun::Update()
 		&m_bulletMoveSpeed,
 		&m_reaction,
 		&m_reloadTime,
-		m_gunShot
+		&m_aimingPos,
+		&m_notAimPos
 	);
 	m_model.UpdateWorldMatrix(m_positon, m_rotation, m_scale);
 }
@@ -64,6 +64,9 @@ void Shotgun::PostRender()
 }
 void Shotgun::OnShot(CVector3* position, CQuaternion* rotation)
 {
+	//音を再生。
+	m_gunShot.Stop();
+	m_gunShot.Play(false);
 	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 	//再生。
 	CVector3 effectPos = *position;
@@ -95,4 +98,60 @@ void Shotgun::OnShot(CVector3* position, CQuaternion* rotation)
 	}
 
 	effMgr->SetBaseMatrix(m_playEffectHandle, effMat);
+}
+void Shotgun::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimPos)
+{
+	*position = m_gameCam->GetPosition();
+	CQuaternion PosRot = *rotation;
+	//画角。
+	float GameCameraViewAngle = m_gameCam->GetGameCameraViewAngle();
+	//エイムしているときの銃のローカル座標。
+	CVector3 aimPos = *aimingPos;
+	//エイムしていないときの銃のローカル座標。
+	CVector3 notaimPos = *notAimPos;
+
+	if (g_pad->IsPress(enButtonLB1)) {
+		//エイムしている。
+		PosRot.Multiply(aimPos);
+		PosRot.Multiply(notaimPos);
+
+		//エイムしていないときの銃のローカル座標から、
+		//エイムしているときの銃のローカル座標に向かうベクトルを求める。
+		m_aimMoveSpeed = aimPos - notaimPos;
+		m_aimMoveSpeed /= DIVIDE_NUM;
+
+		if (m_count < (int)DIVIDE_NUM) {
+			//m_countがDIVIDE_NUMより少ないなら移動する。
+			m_gunLocalPosition += m_aimMoveSpeed;
+			//画角を狭くする。
+			m_gameCam->SetGameCameraViewAngle(GameCameraViewAngle - 3.0f);
+			m_gameCam->SetRotSpeed(1.0f);
+			m_count++;
+		}
+		else {
+			m_gunLocalPosition = *aimingPos;
+			PosRot.Multiply(m_gunLocalPosition);
+
+		}
+	}
+	else {//エイムしていない。
+		if (m_count > 0) {
+			//m_countが0より多いなら移動する。
+			PosRot.Multiply(aimPos);
+			PosRot.Multiply(notaimPos);
+
+			m_aimMoveSpeed = aimPos - notaimPos;
+			m_aimMoveSpeed /= DIVIDE_NUM;
+			m_gunLocalPosition -= m_aimMoveSpeed;
+			//画角を広くする。。
+			m_gameCam->SetGameCameraViewAngle(GameCameraViewAngle + 3.0f);
+			m_gameCam->SetRotSpeed(3.0f);
+			m_count--;
+		}
+		else {
+			m_gunLocalPosition = *notAimPos;
+			PosRot.Multiply(m_gunLocalPosition);
+		}
+	}
+	*position += m_gunLocalPosition;
 }

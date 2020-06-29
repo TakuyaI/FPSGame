@@ -22,7 +22,6 @@ Enemy::Enemy()
 	//アニメーションの初期化。
 	m_animation.Init(m_model, m_animationClip, enAnimationCrip_Num);
 	
-	
 }
 
 Enemy::~Enemy()
@@ -44,12 +43,17 @@ void Enemy::Update()
 		&m_position,
 		&m_initPos,
 		&m_rotation,
-		m_charaCon
+		m_charaCon,
+		&m_deathAnimTime
 	);
 	//アニメーションを決定。
 	m_animation.Play(m_animationFlug);
 	m_animation.Update(1.0f / 30.0f);
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.5f);
+}
+void Enemy::SetRegistShadowCaster()
+{
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Enemy::Render()
 {

@@ -18,7 +18,6 @@ public:
 	/// </summary>
 	virtual void Render() {}
 	virtual void PostRender() {}
-	//virtual bool Start() { return true; };
 	/// <summary>
 	/// 削除リクエストを行う。
 	/// </summary>
@@ -50,10 +49,24 @@ public:
 	{
 		return m_startEndFlug;
 	}
+	/// <summary>
+	/// 2D描画の優先度。
+	/// trueを優先して、falseを後回し。
+	/// </summary>
+	/// <param name="priority"></param>
+	void SetPostRenderPriority(bool priority)
+	{
+		m_postRenderPriority = priority;
+	}
+	bool GetPostRenderPriority()
+	{
+		return m_postRenderPriority;
+	}
 private:
 	bool isReqDelete = false;//削除フラグ。
 	int m_objectNum = 0;
 	bool m_startEndFlug = false;
+	bool m_postRenderPriority = false;// 2D描画の優先度。
 protected:
 
 	const enum objectNum {
@@ -67,7 +80,6 @@ protected:
 		gamecamera,
 		player,
 		gungenerator,
-		item,
 		itemgenerator,
 		title,
 		rifle,

@@ -91,6 +91,21 @@ public:
 		enSkinModelSRVReg_DiffuseTexture = 0,		//!<ディフューズテクスチャ。
 		enSkinModelSRVReg_BoneMatrix,				//!<ボーン行列。
 	};
+	/// <summary>
+	/// シャドウレシーバーのフラグを設定する。
+	/// </summary>
+	/// <param name="flag">trueを渡すとシャドウレシーバーになる</param>
+	/// <remarks>
+	/// シャドウレシーバーとは影を落とされるオブジェクトのことです。
+	/// シャドウキャスターによって生成された、シャドウマップを利用して
+	/// 自身に影を落とします。
+	/// オブジェクトがシャドウレシーバーかつシャドウキャスターになっている場合は
+	/// セルフシャドウ(自分の影が自分に落ちる)を行うことができます。
+	/// </remarks>
+	void SetShadowReciever(bool flag)
+	{
+		m_isShadowReciever = flag;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -115,6 +130,9 @@ private:
 		CMatrix mWorld;
 		CMatrix mView;
 		CMatrix mProj;
+		CMatrix mLightView;	//ライトビュー行列。
+		CMatrix mLightProj;	//ライトプロジェクション行列。
+		int isShadowReciever;	//シャドウレシーバーフラグ。
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
@@ -125,5 +143,6 @@ private:
 	SLight				m_light;
 	//SDirectionLight m_dirLight;                         //!ディレクションライト。
 	ID3D11Buffer* m_lightCb = nullptr;                  //!ライト用の定数バッファ。
+	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
 };
 

@@ -106,10 +106,15 @@ public:
 	/// <returns></returns>
 	float Lerp(float lowest, float highest)
 	{
-		return lowest + Rand(highest - lowest);
+		return lowest + (float)Rand(highest - lowest);
+	}
+	void SetmPlayerPos(CVector3 pos)
+	{
+		m_playerPos = pos;
 	}
 private:
 	std::list <IGameObject*> m_goList; //可変長配列。
+
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	RenderTarget m_mainRenderTarget;   //メインレンダリングターゲット。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
@@ -117,7 +122,8 @@ private:
 	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
 	bool m_flug = false;
-	ShadowMap m_shadowMap;
+	ShadowMap m_shadowMap; //シャドウマップ。
+	CVector3 m_playerPos = CVector3::Zero(); //プレイヤーの座標。
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
 

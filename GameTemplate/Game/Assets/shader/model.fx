@@ -11,7 +11,7 @@ Texture2D<float4> albedoTexture : register(t0);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 //todo シャドウマップ。
-Texture2D<float4> g_shadowMap : register(t1);	
+Texture2D<float4> g_shadowMap : register(t2);	
 /////////////////////////////////////////////////////////////
 // SamplerState
 /////////////////////////////////////////////////////////////
@@ -116,9 +116,9 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 {
 	PSInput psInput = (PSInput)0;
 	float4 worldPos = mul(mWorld, In.Position);
-	worldPos = mul(mView, worldPos);
-	worldPos = mul(mProj, worldPos);
-	psInput.Position = worldPos;
+	psInput.Position = mul(mView, worldPos);
+	psInput.Position = mul(mProj, psInput.Position);
+
 
 	if (isShadowReciever == 1) {
 		//続いて、ライトビュープロジェクション空間に変換。
@@ -154,7 +154,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 			//boneMatrixにボーン行列が設定されていて、
 			//In.indicesは頂点に埋め込まれた、関連しているボーンの番号。
 			//In.weightsは頂点に埋め込まれた、関連しているボーンのウェイト。
-	        skinning += boneMatrix[In.Indices[i]] * In.Weights[i];
+	        skinning += boneMatrix[ In.Indices[i] ] * In.Weights[i];
 	        w += In.Weights[i];
 	    }
 	    //最後のボーンを計算する。
@@ -165,7 +165,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	}
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
-	
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -204,13 +204,13 @@ float4 PSMain( PSInput In ) : SV_Target0
 			//シャドウマップに書き込まれている深度値を取得。
 			float zInShadowMap = g_shadowMap.Sample(Sampler, shadowMapUV);
 
-			if (zInLVP > zInShadowMap + 0.01f) {
+			if (zInLVP > zInShadowMap + 0.001f) {
 				//影が落ちているので、光を弱くする
-				lig *= 0.5f;
+				lig *= 0.5f/* = float4(1.0f, 0.0f, 0.0f, 1.0f)*/;
 			}
 		}
 	}
-	lig += float3(0.2f, 0.2f, 0.2f);
+	lig += float4(0.5f, 0.5f, 0.5f, 1.0f);
 	float4 final;
 	final.xyz = albedo.xyz *lig;
 	return float4(final.xyz, 1.0f);
@@ -223,6 +223,36 @@ PSInput_ShadowMap VSMain_ShadowMap(VSInputNmTxVcTangent In)
 {
 	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
 	float4 pos = mul(mWorld, In.Position);
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+/// <summary>
+/// シャドウマップ生成用の頂点シェーダー。
+/// </summary>
+PSInput_ShadowMap VSMain_ShadowMapSkin(VSInputNmTxWeights In)
+{
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
+	float4x4 worldMatrix = 0;
+	float4 pos = 0;
+	
+	//この頂点のワールド行列を計算する。
+	float w = 0.0f;
+	for (int i = 0; i < 3; i++)
+	{
+		//boneMatrixにボーン行列が設定されていて、
+		//In.indicesは頂点に埋め込まれた、関連しているボーンの番号。
+		//In.weightsは頂点に埋め込まれた、関連しているボーンのウェイト。
+		worldMatrix += boneMatrix[In.Indices[i]] * In.Weights[i];
+		w += In.Weights[i];
+	}
+	//最後のボーンを計算する。
+	worldMatrix += boneMatrix[In.Indices[3]] * (1.0f - w);
+
+	//頂点座標に計算したワールド行列を乗算して、頂点をワールド空間に変換。
+	pos = mul(worldMatrix, In.Position);
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;

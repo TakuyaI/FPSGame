@@ -7,6 +7,7 @@ public:
 	BackGround();
 	~BackGround();
 
+	bool Start();
 	void Update();
 	void SetRegistShadowCaster();
 	void Render();

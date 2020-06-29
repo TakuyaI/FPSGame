@@ -16,6 +16,7 @@ protected:
 	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー。
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
+	//ID3D11ShaderResourceView* m_shadow = nullptr;
 	int m_albedoTextureStackPos = 0;
 	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
 public:
@@ -89,9 +90,9 @@ public:
 		
 		m_pVSShader = &m_vsShader;
 		isSkining = true;
-		//todo シャドウマップ用のシェーダーをロード。
+		
+		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMapSkin", Shader::EnType::VS);
 		m_psShadowMap.Load("Assets/shader/model.fx", "PSMain_ShadowMap", Shader::EnType::PS);
-		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
 	}
 };
 

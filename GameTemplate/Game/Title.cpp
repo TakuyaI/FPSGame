@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Title.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "Game.h"
 
 Title::Title()

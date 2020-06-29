@@ -30,6 +30,8 @@ public:
 	return m_rotation;
 	}
 	void OnShot(CVector3* position, CQuaternion* rotation);
+
+	void Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimaos);
 private:
 
 	SkinModel m_model;
@@ -43,8 +45,10 @@ private:
 	int m_bulletIntervalTime = 3;                     //弾のインターバル。
 	float m_bulletMoveSpeed = 400.0f;                 //弾の速度。
 	float m_reaction = 1.0f;                          //銃の反動。
-	int m_reloadTime = 60;                            //リロード時間。
+	int m_reloadTime = 80;                            //リロード時間。
 	CSoundSource m_gunShot; //銃声の音。
+	CVector3 m_aimingPos = { 0.0f, -12.0f, 10.0f };
+	CVector3 m_notAimPos = { 15.0f, -15.0f, 0.0f };//{ 15.0f, -15.0f, 0.0f };
 	Effekseer::Effect* m_sampleEffect = nullptr;
 };
 

@@ -14,5 +14,6 @@ MapChip::MapChip(const LevelObjectData& objData)
 
 void MapChip::Draw()
 {
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 	m_model.Draw(enRenderMode_Normal, g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
 }

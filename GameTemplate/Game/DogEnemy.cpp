@@ -10,14 +10,14 @@ DogEnemy::DogEnemy()
 	m_animationClip[enAnimationCrip_stay].Load(L"Assets/animData/stay_dog.tka");
 	m_animationClip[enAnimationCrip_run].Load(L"Assets/animData/run_dog.tka");
 	m_animationClip[enAnimationCrip_attack].Load(L"Assets/animData/ata_dog.tka");
-	/*m_animationClip[enAnimationCrip_hirumu].Load(L"Assets/animData/hirumu_dog.tka");
-	m_animationClip[enAnimationCrip_death].Load(L"Assets/animData/death_dog.tka");*/
+	m_animationClip[enAnimationCrip_hirumu].Load(L"Assets/animData/hirumu_dog.tka");
+	m_animationClip[enAnimationCrip_death].Load(L"Assets/animData/death_dog.tka");
 	//ループフラグを設定。
 	m_animationClip[enAnimationCrip_stay].SetLoopFlag(true);
 	m_animationClip[enAnimationCrip_run].SetLoopFlag(true);
 	m_animationClip[enAnimationCrip_attack].SetLoopFlag(true);
-	/*m_animationClip[enAnimationCrip_hirumu].SetLoopFlag(true);
-	m_animationClip[enAnimationCrip_death].SetLoopFlag(true);*/
+	m_animationClip[enAnimationCrip_hirumu].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_death].SetLoopFlag(true);
 	//アニメーションの初期化。
 	m_animation.Init(m_model, m_animationClip, enAnimationCrip_Num);
 }
@@ -37,20 +37,23 @@ bool DogEnemy::Start()
 }
 void DogEnemy::Update()
 {
-
 	EnemyUpdate(
 		&m_position,
 		&m_position,
 		&m_rotation,
-		m_charaCon
-
+		m_charaCon,
+		&m_deathAnimTime
 	);
 	//アニメーションを決定。
 	m_animation.Play(m_animationFlug);
 	m_animation.Update(1.0f / 30.0f);
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.5f);
 }
 
+void DogEnemy::SetRegistShadowCaster()
+{
+	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
+}
 void DogEnemy::Render()
 {
 	m_model.Draw(

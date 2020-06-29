@@ -178,9 +178,6 @@
     <ClCompile Include="FontRender.cpp">
       <Filter>myEngine\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>item</Filter>
-    </ClCompile>
     <ClCompile Include="ItemGenerator.cpp">
       <Filter>item</Filter>
     </ClCompile>
@@ -207,6 +204,15 @@
     </ClCompile>
     <ClCompile Include="ShadowMap.cpp">
       <Filter>myEngine\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemObject.cpp">
+      <Filter>item</Filter>
+    </ClCompile>
+    <ClCompile Include="Danyaku.cpp">
+      <Filter>item</Filter>
+    </ClCompile>
+    <ClCompile Include="Kaihuku.cpp">
+      <Filter>item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -342,9 +348,6 @@
     <ClInclude Include="FontRender.h">
       <Filter>myEngine\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>item</Filter>
-    </ClInclude>
     <ClInclude Include="ItemGenerator.h">
       <Filter>item</Filter>
     </ClInclude>
@@ -372,6 +375,15 @@
     <ClInclude Include="ShadowMap.h">
       <Filter>myEngine\graphics</Filter>
     </ClInclude>
+    <ClInclude Include="ItemObject.h">
+      <Filter>item</Filter>
+    </ClInclude>
+    <ClInclude Include="Danyaku.h">
+      <Filter>item</Filter>
+    </ClInclude>
+    <ClInclude Include="Kaihuku.h">
+      <Filter>item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -384,9 +396,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\background.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\bk.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx">
@@ -414,6 +423,15 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\dogEnemy.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Arifle.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -463,6 +481,9 @@
       <Filter>Assets\sprite</Filter>
     </Image>
     <Image Include="Assets\sprite\item_kaihuku.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\sprite\SR_scope.png">
       <Filter>Assets\sprite</Filter>
     </Image>
   </ItemGroup>

@@ -1,6 +1,5 @@
 #pragma once
 class Enemy;
-class Item;
 class Game;
 #include "IGameObject.h"
 #include "PhysicsGhostObject.h"
@@ -33,11 +32,16 @@ public:
 		m_moveSpeed = moveSpeed;
 	}
 private:
+	/// <summary>
+	/// íeä€Ç∆ìGÇÃè’ìÀîªíË
+	/// </summary>
+	void CollisionBulletToEnemy();
+	void CollisionBulletToDogEnemy();
+private:
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
-	Item* m_item;
 	Game* m_game;
 	Rifle* m_rifle;
 	Shotgun* m_shotgun;

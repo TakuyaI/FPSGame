@@ -93,6 +93,14 @@ public:
 	{
 		return m_stopFlug;
 	}
+	void SetPlayerSpeed(float speed)
+	{
+		m_playerSpeed = speed;
+	}
+	float GetPlayerSpeed()
+	{
+		return m_playerSpeed;
+	}
 private:
 	GameCamera* m_gameCamera;
 	EnemyGenerator* m_enemyGen;
@@ -106,7 +114,8 @@ private:
 	CharacterController m_charaCon;         //キャラクターコントローラー。
 	bool m_jumpFlag = false;                     //ジャンプフラグ。
 	float m_playerSpeed = 20.0f;            //Playerのスピード。
-	int a = 0;
+	float a = 0;
+	bool b = false;
 	bool m_pushAwayFlug = false;
 	float m_damage = 0.0f;
 	float m_redDamage = 0.0f;

@@ -100,10 +100,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Danyaku.cpp" />
     <ClCompile Include="DogEnemy.cpp" />
     <ClCompile Include="IEnemyObject.cpp" />
     <ClCompile Include="IGunObject.cpp" />
     <ClCompile Include="ItemGenerator.cpp" />
+    <ClCompile Include="ItemObject.cpp" />
+    <ClCompile Include="Kaihuku.cpp" />
     <ClCompile Include="physics\BoxCollider.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
@@ -127,7 +130,6 @@
     <ClCompile Include="GunGenerator.cpp" />
     <ClCompile Include="HID\Pad.cpp" />
     <ClCompile Include="IGameObject.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="level\Level.cpp" />
     <ClCompile Include="level\MapChip.cpp" />
     <ClCompile Include="main.cpp" />
@@ -161,10 +163,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Danyaku.h" />
     <ClInclude Include="DogEnemy.h" />
     <ClInclude Include="IEnemyObject.h" />
     <ClInclude Include="IGunObject.h" />
     <ClInclude Include="ItemGenerator.h" />
+    <ClInclude Include="ItemObject.h" />
+    <ClInclude Include="Kaihuku.h" />
     <ClInclude Include="physics\BoxCollider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="character\CharacterController.h" />
@@ -189,7 +194,6 @@
     <ClInclude Include="GunGenerator.h" />
     <ClInclude Include="HID\Pad.h" />
     <ClInclude Include="IGameObject.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="level\Level.h" />
     <ClInclude Include="level\MapChip.h" />
     <ClInclude Include="math\kMath.h" />
@@ -220,8 +224,8 @@
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\Arifle.fbx" />
     <MeshContentTask Include="Assets\modelData\background.fbx" />
-    <MeshContentTask Include="Assets\modelData\bk.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
     <MeshContentTask Include="Assets\modelData\dogEnemy.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
@@ -232,6 +236,8 @@
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
+    <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
@@ -261,6 +267,7 @@
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
     <Image Include="Assets\sprite\item_kaihuku.png" />
+    <ImageContentTask Include="Assets\sprite\SR_scope.png" />
     <ImageContentTask Include="Assets\sprite\item_danyaku.png" />
     <ImageContentTask Include="Assets\sprite\item.png" />
     <ImageContentTask Include="Assets\sprite\gameclear.png" />

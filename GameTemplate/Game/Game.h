@@ -41,10 +41,6 @@ public:
 	{
 		return m_knockDownEnemyNum;
 	}
-	std::vector<DogEnemy*> GetDogEnemy()
-	{
-		return m_dogEnemyList;
-	}
 private:
 	FontRender m_font;
 	Player* m_player;
@@ -61,7 +57,7 @@ private:
 	bool m_endFlug = false; //ゲームが終わったかどうか。
 	Sprite m_gameOverSprite; // ゲームオーバースプライト。
 	Sprite m_gameClearSprite; //ゲームクリアスプライト。
-	int m_knockDownEnemyNum = 10; //倒す敵の数。
+	int m_knockDownEnemyNum = 0; //倒す敵の数。
 
 
 	Level m_level;

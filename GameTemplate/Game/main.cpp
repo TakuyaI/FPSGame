@@ -2,7 +2,7 @@
 #include "system/system.h"
 #include "Game.h"
 #include "Title.h"
-#include "GameManager.h"
+//#include "GameManager.h"
 #include "level/Level.h"
 
 ///////////////////////////////////////////////////////////////////
@@ -32,8 +32,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
-		
-		
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 		//ゲームパッドの更新。	

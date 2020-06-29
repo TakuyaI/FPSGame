@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
-
 SkinModel::~SkinModel()
 {
 	if (m_cb != nullptr) {
@@ -40,7 +39,8 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 void SkinModel::InitDirectionLight()
 {
 
-	m_light.directionLight.direction[0] = { 1.0f, 0.0f, 0.0f, 0.0f };
+	m_light.directionLight.direction[0] = { 1.0f, -1.0f, 0.0f, 0.0f };
+	m_light.directionLight.direction[0].Normalize();
 	m_light.directionLight.color[0] = { 0.7f, 0.7f, 0.7f, 1.0f };
 
 	m_light.directionLight.direction[1] = { -1.0f, 0.0f, 0.0f, 0.0f };
@@ -143,6 +143,18 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
+
+	auto shadowMap = g_goMgr.GetShadowMap();
+	//todo ライトカメラのビュー、プロジェクション行列を送る。
+	vsCb.mLightProj = shadowMap->GetLightProjMatrix();
+	vsCb.mLightView = shadowMap->GetLighViewMatrix();
+	if (m_isShadowReciever == true) {
+		vsCb.isShadowReciever = 1;
+	}
+	else {
+		vsCb.isShadowReciever = 0;
+	}
+
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
