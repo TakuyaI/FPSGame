@@ -10,23 +10,13 @@ enum EnFbxUpAxis {
 	enFbxUpAxisY,		//Y-up
 	enFbxUpAxisZ,		//Z-up
 };
-//ディレクションライト。
-struct SDirectionLight {
-	CVector4 direction[4];
-	CVector4 color[4];
-};
-struct SLight {
-	SDirectionLight directionLight;
-	CVector3 eyePos;
-	float specPow;
-	float envPow;
-};
 /*!
 *@brief	スキンモデルクラス。
 */
 class SkinModel
 {
 public:
+	
 	//メッシュが見つかったときのコールバック関数。
 	using OnFindMesh = std::function<void(const std::unique_ptr<DirectX::ModelMeshPart>&)>;
 	/*!
@@ -106,6 +96,14 @@ public:
 	{
 		m_isShadowReciever = flag;
 	}
+	void SetNormalMap(ID3D11ShaderResourceView* srv)
+	{
+		m_normalMapSRV = srv;
+	}
+	void SetSpecularMap(ID3D11ShaderResourceView* srv)
+	{
+		m_specularMapSRV = srv;
+	}
 private:
 	/*!
 	*@brief	サンプラステートの初期化。
@@ -124,6 +122,7 @@ private:
 	*@brief ディレクションライトの初期化。
 	*/
 	void InitDirectionLight();
+
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
@@ -133,6 +132,27 @@ private:
 		CMatrix mLightView;	//ライトビュー行列。
 		CMatrix mLightProj;	//ライトプロジェクション行列。
 		int isShadowReciever;	//シャドウレシーバーフラグ。
+		int isHasNormalMap; //法線マップのフラグ。
+		int isHasSpecuraMap;//スペキュラマップのフラグ。
+	};
+	static const int NUM_DIRECTION_LIGHT = 4; //ディレクションライトの数。
+	//ディレクションライト。
+	struct SDirectionLight {
+		CVector4 direction[NUM_DIRECTION_LIGHT];
+		CVector4 color[NUM_DIRECTION_LIGHT];
+		CVector4 eyePos[NUM_DIRECTION_LIGHT];
+		CVector4 specPow[NUM_DIRECTION_LIGHT];
+	};
+	struct SLight {
+		SDirectionLight directionLight;
+		float envPow;
+	};
+	static const int NUM_POINT_LIGHT = 5;	//ポイントライトの数。 
+	//ポイントライト。
+	struct SPointLight {
+		CVector4	position[NUM_POINT_LIGHT];		//位置。
+		CVector4	color[NUM_POINT_LIGHT];			//カラー。
+		CVector4    attn[NUM_POINT_LIGHT];
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
@@ -141,8 +161,12 @@ private:
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	SLight				m_light;
-	//SDirectionLight m_dirLight;                         //!ディレクションライト。
 	ID3D11Buffer* m_lightCb = nullptr;                  //!ライト用の定数バッファ。
+	SPointLight m_pointLightList;
+	ID3D11Buffer* m_pointLightCb = nullptr;
 	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
+	int d = 0;
+	ID3D11ShaderResourceView* m_normalMapSRV = nullptr; //法線マップのSRV。
+	ID3D11ShaderResourceView* m_specularMapSRV = nullptr;	//スペキュラマップのSRV
 };
 

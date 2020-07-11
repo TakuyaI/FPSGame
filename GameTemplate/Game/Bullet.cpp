@@ -11,9 +11,6 @@ struct BulletInformation {
 	const int RIFLE_BULLET_POWER = 10;
 	const int SHOTGUN_BULLET_POWER = 7;
 	const int SNIPER_BULLET_POWER = 20;
-	const float RIFLE_BULLET_ACCURACY = 100.0f;
-	const float SHOTGUN_BULLET_ACCURACY = 200.0f;
-	const float SNIPER_BULLET_ACCURACY = 50.0f;
 };
 Bullet::Bullet()
 {
@@ -26,25 +23,24 @@ Bullet::Bullet()
 	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
 		m_model.Init(L"Assets/modelData/bullet_test.cmo");
 		m_bulletPower = bulletInf.RIFLE_BULLET_POWER;
-		m_bulletAccuracy = bulletInf.RIFLE_BULLET_ACCURACY;
 		m_rifle = g_goMgr.FindGameObject<Rifle>(rifle);
 		m_rotation = m_rifle->GetRotation();
+		m_hitJudgmentRange = m_rifle->GetHitJudgmentRange();
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
 		m_model.Init(L"Assets/modelData/shotgun_bullet.cmo");
 		m_bulletPower = bulletInf.SHOTGUN_BULLET_POWER;
-		m_bulletAccuracy = bulletInf.SHOTGUN_BULLET_ACCURACY;
 		m_shotgun = g_goMgr.FindGameObject<Shotgun>(shotgun);
 		m_rotation = m_shotgun->GetRotation();
+		m_hitJudgmentRange = m_shotgun->GetHitJudgmentRange();
 
 	}
 	else if (m_gunGen->GetNextNum() == gunNum.SNIPER_NUMBER) {
 		m_model.Init(L"Assets/modelData/sniper_bullet.cmo");
 		m_bulletPower = bulletInf.SNIPER_BULLET_POWER;
-		m_bulletAccuracy = bulletInf.SNIPER_BULLET_ACCURACY;
 		m_sniper = g_goMgr.FindGameObject<Sniper>(sniper);
 		m_rotation = m_sniper->GetRotation();
-
+		m_hitJudgmentRange = m_sniper->GetHitJudgmentRange();
 	}
 }
 
@@ -58,12 +54,13 @@ void Bullet::InitGhost()
 	m_GhostObject.CreateBox(
 		m_position,	//第一引数は座標。
 		CQuaternion::Identity(),		//第二引数は回転クォータニオン。
-		{ 50.0f, 50.0f, 500.0f }	//第三引数はボックスのサイズ。
+		m_hitJudgmentRange	//第三引数はボックスのサイズ。
 	);
 }
 bool Bullet::Start()
 {
 	InitGhost();
+	m_charaCon.Init(m_hitJudgmentRange.x / 2.0f, m_hitJudgmentRange.y, m_position);
 	return true;
 }
 void Bullet::CollisionBulletToEnemy()
@@ -88,7 +85,7 @@ void Bullet::CollisionBulletToEnemy()
 				dogenemy->SetReceiveDamageFlug(true);
 				isContact = true;
 			}
-			});
+		});
 		if (isContact) {
 			g_goMgr.DeleteGameObject(this);
 		}
@@ -122,7 +119,7 @@ void Bullet::CollisionBulletToDogEnemy()
 				g_goMgr.DeleteGameObject(this);
 			}
 			return true;
-		});
+	});
 }
 void Bullet::Update()
 {
@@ -132,12 +129,12 @@ void Bullet::Update()
 	//弾丸と敵の当たり判定を実行。
 	CollisionBulletToEnemy();
 	CollisionBulletToDogEnemy();
+
+	m_backGro = g_goMgr.FindGameObject<BackGround>(background);
 	
-	m_timer++;
-	m_position += m_moveSpeed;
-	if (m_timer >= 5) {
-		g_goMgr.DeleteGameObject(this);
-	}
+	
+	m_position = m_charaCon.Execute(1.0f,1, m_moveSpeed);
+
 	m_GhostObject.SetPosition(m_position);
 	m_GhostObject.SetRotation(m_rotation);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());

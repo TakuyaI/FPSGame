@@ -3,13 +3,13 @@ class GameCamera;
 class EnemyGenerator;
 class Sprite;
 class GunGenerator;
-class ItemGenerator;
 #include "IGameObject.h"
 #include "Player.h"
 #include "BackGround.h"
 #include "GameCamera.h"
 #include "Enemy.h"
 #include "DogEnemy.h"
+#include "PointLightObject.h"
 #include "EnemyGenerator.h"
 #include "Sprite.h"
 #include "FontRender.h"
@@ -51,6 +51,7 @@ private:
 	GunGenerator* m_gunGen;
 	ItemGenerator* m_itemGen;
 	DogEnemy* m_dogEnemy;
+	PointLightObject* m_pointLightObj;
 
 	int m_gameOverTime = 0; //ゲームオーバーになってから、タイトル画面にもどるまでの時間。
 	int m_gameClearTime = 0;
@@ -63,6 +64,7 @@ private:
 	Level m_level;
 	std::vector<Enemy*> m_enemyList;
 	std::vector<DogEnemy*> m_dogEnemyList;
-	//Sprite m_itemS;
+	std::vector<PointLightObject*> m_PointLightObjList;
+	int i = 1;
 };
 

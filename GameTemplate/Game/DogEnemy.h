@@ -1,6 +1,6 @@
 #pragma once
 #include "IEnemyObject.h"
-#include "Game.h"
+//#include "Game.h"
 class DogEnemy : public IEnemyObject
 {
 public:

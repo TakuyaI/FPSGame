@@ -1,8 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 //#include "GameManager.h"
-#include "EnemyGenerator.h"
-#include "Enemy.h"
+
 
 const float PLAYER_CONTROLLER_RADIUS = 30.0f;
 const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
@@ -12,9 +11,9 @@ Player::Player()
 	m_greenSprite.Init(L"Resource/sprite/oamidori.dds", 200.0f, 15.0f);
 	m_redSprite.Init(L"Resource/sprite/aka.dds", 200.0f, 15.0f);
 	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
-
+	
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/player.cmo");
+	//m_model.Init(L"Assets/modelData/player.cmo");
 	/*m_charaCon.Init(
 		PLAYER_CONTROLLER_RADIUS,
 		PLAYER_CONTROLLER_HEIGHT,
@@ -28,6 +27,7 @@ Player::~Player()
 }
 bool Player::Start()
 {
+	m_model.Init(L"Assets/modelData/player.cmo");
 	m_charaCon.Init(
 		PLAYER_CONTROLLER_RADIUS,
 		PLAYER_CONTROLLER_HEIGHT,
@@ -66,72 +66,63 @@ void Player::Update()
 		m_playerSpeed = 20.0f;
 		m_dashFlug = false;
 	}
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
+	if (g_pad->GetLStickXF() >= 0.5f || g_pad->GetLStickYF() >= 0.5f) {
+		//移動中はリコイルのブレが大きくなる。
+		m_gameCamera->SetWidthUpperLimit(100.0f);
+		m_gameCamera->SetRecoilRightAndLeft(1.0f);
+	}
+	else {
+		m_gameCamera->SetWidthUpperLimit(50.0f);
+		m_gameCamera->SetRecoilRightAndLeft(0.3f);
+	}
+	m_moveSpeed = CVector3::Zero();
 	m_moveSpeed += cameraDirX * g_pad->GetLStickXF()* -m_playerSpeed;
 	m_moveSpeed += cameraDir * g_pad->GetLStickYF()* m_playerSpeed;
 
-	//if (g_pad->IsTrigger(enButtonA)) {
-	//	if (m_jumpFlag != true) {
-	//		//m_jumpFlagが0ならジャンプできる。
-	//		m_moveSpeed.y = 20.0f;
-	//		//m_jumpFlagに1を代入して、
-	//		//空中でジャンプできないようにする。
-	//		m_jumpFlag = true;
-	//	}
-	//}
+	//重力を受ける。
 	m_moveSpeed.y -= 1.0f;
-	
-	m_position.y += m_moveSpeed.y;
-	//if (m_position.y <= -5.0f) {
-	//	//Playerの座標が0以下になったら、
-	//	//重力を0にする。
-	//	m_moveSpeed.y = -5.0f;
-	//	if (m_jumpFlag != false) {
-	//		m_jumpFlag = false;
-	//	}
-	//}
+	if (m_position.y <= -5.0f) {
+		//Playerの座標が0以下になったら、
+		//重力を0にする。
+		m_moveSpeed.y = -5.0f;
+	}
 
-	//if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
-		//Enemyが出現した。
-		if (m_stopFlug != false) {
-			//Enemyが攻撃してきた。
-			//つかまれているから、Playerは動けない。
-			m_moveSpeed = CVector3::Zero();
-			float stickX = fabsf(g_pad->GetLStickXF());
-			float stickY = fabsf(g_pad->GetLStickYF());
-			if (b != true) {
-				if (stickX >= 0.5f) {
-					a += stickX;
-					b = true;
-				}
+	if (m_stopFlug != false) {
+		//Enemyが攻撃してきた。
+		//つかまれているから、Playerは動けない。
+		m_moveSpeed = CVector3::Zero();
+		float stickX = fabsf(g_pad->GetLStickXF());
+		float stickY = fabsf(g_pad->GetLStickYF());
+		if (m_moveStickFlug != true) {
+			if (stickX >= 0.5f) {
+				m_pushAwayNum += stickX;
+				m_moveStickFlug = true;
 			}
-			else {
-				if (stickY >= 0.5f) {
-					a += fabsf(g_pad->GetLStickYF());
-					b = false;
-				}
-			}
-			//十字ボタンを連打したら、脱出する。
-				if (a >= 10.0f) {
-					//十字ボタンを10回押した。
-					m_pushAwayFlug = true;
-					m_stopFlug = false;
-					a = 0.0f;
-				}
-			//}
 		}
-	//}
+		else {
+			if (stickY >= 0.5f) {
+				m_pushAwayNum += fabsf(g_pad->GetLStickYF());
+				m_moveStickFlug = false;
+			}
+		}
+		//十字ボタンを連打したら、脱出する。
+			if (m_pushAwayNum >= 10.0f) {
+				//十字ボタンを10回押した。
+				m_pushAwayFlug = true;
+				m_stopFlug = false;
+				m_pushAwayNum = 0.0f;
+			}
+	}
 	
 
 	if (m_deathFlug != false) {
 		m_moveSpeed = CVector3::Zero();
 	}
 
-	m_position = m_charaCon.Execute(1.0f, m_moveSpeed);
+	m_position = m_charaCon.Execute(1.0f,0, m_moveSpeed);
 
 	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.0f);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 0.5f);
 	g_goMgr.SetmPlayerPos(m_position);
 }
 void Player::SetRegistShadowCaster()
@@ -140,22 +131,19 @@ void Player::SetRegistShadowCaster()
 }
 void Player::Render()
 {
-	/*m_model.Draw(
+	m_model.Draw(
 	enRenderMode_Normal,
 	g_camera3D.GetViewMatrix(),
 	g_camera3D.GetProjectionMatrix()
-	);*/
+	);
 }
 
 void Player::PostRender()
 {
 	{//HPバー。
-		m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 		if (m_greenScale.x <= 0.0f) {
 			m_deathFlug = true;
 		}
-		//if (m_enemyGen->GetEnemyOccurrenceFlug() != false) {
-			//敵が出現中。
 			if (m_damageFlug != false) {
 				m_flug = true;
 			
@@ -173,7 +161,6 @@ void Player::PostRender()
 					m_flug = false;
 				}
 			}
-		//}
 
 		if (m_greenScale.x < m_redScale.x) {
 			m_recoveryTimer++;

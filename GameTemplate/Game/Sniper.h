@@ -1,7 +1,5 @@
 #pragma once
-class GunGenerator;
 #include "IGunObject.h"
-#include "GunGenerator.h"
 class Sniper : public IGunObject
 {
 public:
@@ -22,14 +20,17 @@ public:
 	}
 	CQuaternion GetRotation()
 	{
-	return m_rotation;
+		return m_rotation;
+	}
+	CVector3 GetHitJudgmentRange()
+	{
+		return m_hitJudgmentRange;
 	}
 	void OnShot(CVector3* position, CQuaternion* rotation);
 	void Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimaos);
 private:
 
 	SkinModel m_model;
-	GunGenerator* m_gunGen;
 	CVector3 m_positon = CVector3::Zero();            //座標。
 	CQuaternion m_rotation = CQuaternion::Identity(); //回転。
 	CVector3 m_scale = CVector3::One();               //サイズ。
@@ -44,6 +45,7 @@ private:
 	CVector3 m_aimingPos = { -1.5f, -14.0f, 35.0f };
 	CVector3 m_notAimPos = { 15.0f, -15.0f, 20.0f };
 	Effekseer::Effect* m_sampleEffect = nullptr;
+	CVector3 m_hitJudgmentRange = { 20.0f, 20.0f, m_bulletMoveSpeed }; //弾の当たり判定の範囲。
 
 	Sprite m_aim;
 	bool m_flug = false;

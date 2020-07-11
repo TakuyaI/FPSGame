@@ -16,7 +16,7 @@ public:
 	/// </summary>
 	~GameManager();
 	void Init();
-
+	void InitTranslucentBlendState();
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 	/// <summary>
@@ -112,6 +112,26 @@ public:
 	{
 		m_playerPos = pos;
 	}
+	CVector3 GetPlayerPos()
+	{
+		return m_playerPos;
+	}
+	void SetPointLightPos(CVector3 pos , int i)
+	{
+		m_pointLightPos[i] = pos;
+	}
+	CVector3 GetPointLightPos(int i)
+	{
+		return m_pointLightPos[i];
+	}
+	void SetShotFlug(bool flug)
+	{
+		m_shotFlug = flug;
+	}
+	bool GetShotFlug()
+	{
+		return m_shotFlug;
+	}
 private:
 	std::list <IGameObject*> m_goList; //可変長配列。
 
@@ -127,8 +147,8 @@ private:
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
 
-
-
+	CVector3 m_pointLightPos[5]; //ポイントライトの座標。
+	bool m_shotFlug = false; //弾を撃ったかどうか。
 };
 //外部からアクセスするので、extern宣言も必要。
 extern GameManager g_goMgr;

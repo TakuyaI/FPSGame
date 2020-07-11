@@ -52,6 +52,9 @@
     <Filter Include="myEngine\system">
       <UniqueIdentifier>{48b58c60-bbe2-40d8-9d2f-e81d065b6820}</UniqueIdentifier>
     </Filter>
+    <Filter Include="stage">
+      <UniqueIdentifier>{0fb1fd75-2ec8-424f-91ba-ead40f196f85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -115,7 +118,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="physics\Physics.cpp">
@@ -214,6 +216,12 @@
     <ClCompile Include="Kaihuku.cpp">
       <Filter>item</Filter>
     </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
+    <ClCompile Include="PointLightObject.cpp">
+      <Filter>stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -279,7 +287,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="BackGround.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="physics\Physics.h">
@@ -384,6 +391,12 @@
     <ClInclude Include="Kaihuku.h">
       <Filter>item</Filter>
     </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>stage</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLightObject.h">
+      <Filter>stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -434,6 +447,18 @@
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\pointLightObj.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\shotGun.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\item_dangan.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\item_kaihuku.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gameclear.png">
@@ -475,6 +500,57 @@
     <ImageContentTask Include="Assets\sprite\item_danyaku.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Arifle.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\sniper.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\SR_scope.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Plates_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_01_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_01_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_03_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_03_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Light_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Light_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Plates_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Platforms_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Platforms_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_02_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_02_Normal.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_MetallicSmoothness.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
@@ -483,7 +559,7 @@
     <Image Include="Assets\sprite\item_kaihuku.png">
       <Filter>Assets\sprite</Filter>
     </Image>
-    <Image Include="Assets\sprite\SR_scope.png">
+    <Image Include="Assets\sprite\item2.png">
       <Filter>Assets\sprite</Filter>
     </Image>
   </ItemGroup>

@@ -7,9 +7,6 @@ class Shotgun;
 class Sniper;
 #include "Sprite.h"
 #include "IGameObject.h"
-#include "Rifle.h"
-#include "Shotgun.h"
-#include "Sniper.h"
 #include "Game.h"
 /// <summary>
 /// èeÇÃî‘çÜ
@@ -63,6 +60,10 @@ public:
 	{
 		m_shootingBulletFlug = flug;
 	}
+	void SetmAimFlug(bool flug)
+	{
+		m_aimFlug = flug;
+	}
 	bool Start();
 	void Update();
 	void PostRender();
@@ -86,6 +87,7 @@ public:
 	float m_gunChangeFlug = true;
 	bool m_reloadFlug = false;
 	bool m_shootingBulletFlug = false;
+	bool m_aimFlug = false;
 	Sprite m_sprite;
 };
 

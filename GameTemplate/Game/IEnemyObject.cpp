@@ -1,9 +1,8 @@
 #include "stdafx.h"
-//#include "IEnemyObject.h"
-//#include "GameManager.h"
 #include "EnemyGenerator.h"
 #include "Player.h"
 #include "Game.h"
+#include "ItemObject.h"
 const int ENEMY_STAY = 0; //ëÿç›íÜ
 const int ENEMY_TRACKING = 1;  //í«ê’íÜ
 const int ENEMY_ATTACK = 2;    //çUåÇ
@@ -126,7 +125,7 @@ void IEnemyObject::PushAway()
 void IEnemyObject::Death(CVector3* pos, int* time)
 {
 	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
-	m_enemyGen->SetAttackFlug(false);
+	//m_enemyGen->SetAttackFlug(false);
 	m_moveSpeed = CVector3::Zero();
 	m_targetPos = m_lockTargetPos;
 	m_deathAnimtime++;
@@ -136,6 +135,11 @@ void IEnemyObject::Death(CVector3* pos, int* time)
 		m_game = g_goMgr.FindGameObject<Game>(game);
 		int num = m_game->GetKnockDownEnemyNum();
 		m_game->SetKnockDownEnemyNum(--num);
+
+		m_itemObj = g_goMgr.NewGameObject<ItemObject>(itemobject);
+		CVector3 Ipos = *pos;
+		Ipos.y = 100.0f;
+		m_itemObj->SetPosition(Ipos);
 		g_goMgr.DeleteGameObject(this);
 	}
 }
@@ -229,5 +233,5 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 		m_walk.Stop();
 	}
 	m_moveSpeed.y -= 10.0f;
-	*position = charaCon.Execute(1.0f, m_moveSpeed);
+	*position = charaCon.Execute(1.0f,0, m_moveSpeed);
 }

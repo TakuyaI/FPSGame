@@ -2,6 +2,7 @@
 class EnemyGenerator;
 class Player;
 class Game;
+class ItemObject;
 #include "IGameObject.h"
 #include "IEnemyObject.h"
 #include "graphics\animation\AnimationClip.h"
@@ -103,6 +104,7 @@ private:
 		Player* m_player;                                 //Playerのインスタンス。
 	EnemyGenerator* m_enemyGen;                       //EnemyGeneratorのインスタンス。
 	Game* m_game;
+	ItemObject* m_itemObj;
 
 	CVector3 m_moveSpeed = CVector3::Zero();          //ムーブスピード。
 	CVector3 m_initPos = CVector3::Zero();            //初期座標。

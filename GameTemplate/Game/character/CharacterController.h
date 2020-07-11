@@ -33,7 +33,7 @@ public:
 		*@param[in, out]	moveSpeed		移動速度。内部で重力加速が計算され、その結果がmoveSpeedに反映されます。
 		*@return 移動後のキャラクターの座標。
 		*/
-	const CVector3& Execute(float deltaTime, CVector3& moveSpeed);
+	const CVector3& Execute(float deltaTime, int i, CVector3& moveSpeed);
 	/*!
 		* @brief	座標を取得。
 		*/
@@ -77,6 +77,10 @@ public:
 	{
 		return &m_rigidBody;
 	}
+	bool GetHitFlug()
+	{
+		return m_hitFlug;
+	}
 	/*!
 	* @brief	剛体を物理エンジンから削除。。
 	*/
@@ -89,4 +93,13 @@ private:
 	float				m_radius = 0.0f;
 	float				m_height = 0.0f;		
 	RigidBody			m_rigidBody;					//剛体。
+
+	enum {
+		enHit,
+		enNotHit
+	};
+	int m_state = 0;
+	int m_state2 = 0;
+	bool m_hitFlug = false;
+
 };

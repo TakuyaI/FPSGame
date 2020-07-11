@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "GunGenerator.h"
-//#include "GameManager.h"
 #include "Rifle.h"
 #include "Shotgun.h"
 #include "Sniper.h"
@@ -84,8 +83,8 @@ void GunGenerator::Update()
 	if (m_reloadFlug != true) {
 		if (g_pad->IsTrigger(enButtonY)) {
 			//Yボタンで銃を切り替える。
-			if (m_shootingBulletFlug != true) {
-				//弾を発射していない。
+			if (m_shootingBulletFlug != true && m_aimFlug != true) {
+				//弾を発射していないかつ、エイムしていない。
 				m_num = m_nextnum;
 				m_nextnum++;
 				GunNumber gunNum;

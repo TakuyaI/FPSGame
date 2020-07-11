@@ -72,7 +72,9 @@ private:
 	/*!
 	* @brief	ゴースト作成処理の共通処理。
 	*/
-	void CreateCommon(CVector3 pos, CQuaternion rot/*, std::unique_ptr<ICollider> collider*/);
+	void CreateCommon(CVector3 pos, CQuaternion rot, std::unique_ptr<ICollider> collider);
+
+	void CreateCommon(CVector3 pos, CQuaternion rot);
 private:
 	bool						m_isRegistPhysicsWorld = false;	//!<物理ワールドに登録しているかどうかのフラグ。
 	btGhostObject				m_ghostObject;	//!<ゴースト

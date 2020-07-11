@@ -16,7 +16,6 @@ protected:
 	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー。
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
-	//ID3D11ShaderResourceView* m_shadow = nullptr;
 	int m_albedoTextureStackPos = 0;
 	EnRenderMode m_renderMode = enRenderMode_Invalid;	//レンダリングモード。
 public:

@@ -1,7 +1,5 @@
 #pragma once
-class GunGenerator;
 #include "IGunObject.h"
-#include "GunGenerator.h"
 class Rifle : public IGunObject
 {
 public:
@@ -27,7 +25,11 @@ public:
 	}
 	CQuaternion GetRotation()
 	{
-	return m_rotation;
+		return m_rotation;
+	}
+	CVector3 GetHitJudgmentRange()
+	{
+		return m_hitJudgmentRange;
 	}
 	void OnShot(CVector3* position, CQuaternion* rotation);
 
@@ -35,7 +37,7 @@ public:
 private:
 
 	SkinModel m_model;
-	GunGenerator* m_gunGen;
+	//GunGenerator* m_gunGen;
 	CVector3 m_positon = CVector3::Zero();            //座標。
 	CQuaternion m_rotation = CQuaternion::Identity(); //回転。
 	CVector3 m_scale = CVector3::One();               //サイズ。
@@ -48,7 +50,8 @@ private:
 	int m_reloadTime = 80;                            //リロード時間。
 	CSoundSource m_gunShot; //銃声の音。
 	CVector3 m_aimingPos = { 0.0f, -12.0f, 10.0f };
-	CVector3 m_notAimPos = { 15.0f, -15.0f, 0.0f };//{ 15.0f, -15.0f, 0.0f };
+	CVector3 m_notAimPos = { 8.0f, -15.0f, 0.0f };
 	Effekseer::Effect* m_sampleEffect = nullptr;
+	CVector3 m_hitJudgmentRange = { 50.0f, 50.0f, m_bulletMoveSpeed }; //弾の当たり判定の範囲。
 };
 

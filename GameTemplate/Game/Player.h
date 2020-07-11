@@ -1,9 +1,12 @@
 #pragma once
 class Sprite;
+class Enemy;
 #include "IGameObject.h"
 #include "GameCamera.h"
 #include "Sprite.h"
 #include "FontRender.h"
+#include "EnemyGenerator.h"
+#include "Enemy.h"
 class GameCamera;
 class Player:public IGameObject
 {
@@ -114,8 +117,8 @@ private:
 	CharacterController m_charaCon;         //キャラクターコントローラー。
 	bool m_jumpFlag = false;                     //ジャンプフラグ。
 	float m_playerSpeed = 20.0f;            //Playerのスピード。
-	float a = 0;
-	bool b = false;
+	float m_pushAwayNum = 0;
+	bool m_moveStickFlug = false;
 	bool m_pushAwayFlug = false;
 	float m_damage = 0.0f;
 	float m_redDamage = 0.0f;
@@ -135,8 +138,6 @@ private:
 	bool m_dashFlug = false;
 	bool m_deathFlug = false;
 	bool m_stopFlug = false; //Playerが止まっているかどうか。
-
-
 
 	bool test = false;
 };

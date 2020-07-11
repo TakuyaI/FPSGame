@@ -15,6 +15,13 @@ SkinModel::~SkinModel()
 	if (m_lightCb != nullptr) {
 		m_lightCb->Release();
 	}
+
+	if (m_pointLightCb != nullptr) {
+		m_pointLightCb->Release();
+	}
+	if (m_normalMapSRV != nullptr) {
+		m_normalMapSRV->Release();
+	}
 }
 
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
@@ -39,21 +46,41 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 void SkinModel::InitDirectionLight()
 {
 
-	m_light.directionLight.direction[0] = { 1.0f, -1.0f, 0.0f, 0.0f };
+	/*m_light.directionLight.direction[0] = { 1.0f, -1.0f, 0.0f, 0.0f };
 	m_light.directionLight.direction[0].Normalize();
 	m_light.directionLight.color[0] = { 0.7f, 0.7f, 0.7f, 1.0f };
+	m_light.specPow[0] = 10.0f;
 
 	m_light.directionLight.direction[1] = { -1.0f, 0.0f, 0.0f, 0.0f };
+	m_light.directionLight.direction[1].Normalize();
 	m_light.directionLight.color[1] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	m_light.specPow[1] = 10.0f;
 
 	m_light.directionLight.direction[2] = { 0.0f, 0.0f, 1.0f, 0.0f };
+	m_light.directionLight.direction[2].Normalize();
 	m_light.directionLight.color[2] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	m_light.specPow[2] = 10.0f;
 
 	m_light.directionLight.direction[3] = { 1.0f, 0.0f, -1.0f, 0.0f };
+	m_light.directionLight.direction[3].Normalize();
 	m_light.directionLight.color[3] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	m_light.specPow[3] = 10.0f;*/
+	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
+		m_light.directionLight.direction[i] = { 0.0f, -1.0f, -1.0f, 0.0f };
+		m_light.directionLight.direction[i].Normalize();
+		m_light.directionLight.color[i] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		m_light.directionLight.specPow[i].x = 10.0f;
+	}
 
-	m_light.specPow = 10.0f;
 	m_light.envPow = 1.0f;
+
+	m_pointLightList.color[0] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	m_pointLightList.attn[0].x = 1000.0f;
+
+	for (int i = 1; i < NUM_POINT_LIGHT; i++) {
+		m_pointLightList.color[i] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		m_pointLightList.attn[i].x = 5000.0f;
+	}
 }
 void SkinModel::InitSkeleton(const wchar_t* filePath)
 {
@@ -95,6 +122,9 @@ void SkinModel::InitConstantBuffer()
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_cb);
 	bufferDesc.ByteWidth = sizeof(SDirectionLight);				//SDirectionLightは16byteの倍数になっているので、切り上げはやらない。
 	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_lightCb);
+	bufferDesc.ByteWidth = sizeof(SPointLight);
+	g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_pointLightCb);
+
 }
 void SkinModel::InitSamplerState()
 {
@@ -154,7 +184,20 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	else {
 		vsCb.isShadowReciever = 0;
 	}
-
+	//法線マップを使用するかどうか。
+	if (m_normalMapSRV != nullptr) {
+		vsCb.isHasNormalMap = 1;
+	}
+	else {
+		vsCb.isHasNormalMap = 0;
+	}
+	//スペキュラマップを使用するかどうか。
+	if (m_specularMapSRV != nullptr) {
+		vsCb.isHasSpecuraMap = 1;
+	}
+	else {
+		vsCb.isHasSpecuraMap = 0;
+	}
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);
@@ -163,16 +206,46 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
 	m_skeleton.SendBoneMatrixArrayToGPU();
-	m_light.eyePos = g_camera3D.GetPosition();
+
+	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
+		m_light.directionLight.eyePos[i] = g_camera3D.GetPosition();
+	}
 	//ライト用の定数バッファを更新。
 	d3dDeviceContext->UpdateSubresource(m_lightCb, 0, nullptr, &m_light, 0, 0);
 	d3dDeviceContext->PSSetConstantBuffers(1, 1, &m_lightCb);
+
+	CVector3 pointLigPos = g_goMgr.GetPointLightPos(0);
+	CVector4 pos;
+	pos.x = pointLigPos.x;
+	pos.y = pointLigPos.y;
+	pos.y += 200.0f;
+	pos.z = pointLigPos.z;
+	pos.w = 1.0f;
+	m_pointLightList.position[0] = pos;
+	if (g_goMgr.GetShotFlug() != false) {
+		m_pointLightList.attn[0].x = 1000.0f;
+	}
+	else {
+		m_pointLightList.attn[0].x = 0.0f;
+	}
+	for (int i = 1; i < NUM_POINT_LIGHT; i++) {
+		m_pointLightList.position[i] = g_goMgr.GetPointLightPos(i);
+	}
+	//ポイントライト用の定数バッファを更新。
+	d3dDeviceContext->UpdateSubresource(m_pointLightCb, 0, nullptr, &m_pointLightList, 0, 0);
+	d3dDeviceContext->PSSetConstantBuffers(2, 1, &m_pointLightCb);
 
 	//エフェクトにクエリを行う。
 	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
 		auto modelMaterial = reinterpret_cast<SkinModelEffect*>(material);
 		modelMaterial->SetRenderMode(renderMode);
-		});
+	});
+	if (m_normalMapSRV != nullptr) {
+		d3dDeviceContext->PSSetShaderResources(3, 1, &m_normalMapSRV);
+	}
+	if (m_specularMapSRV != nullptr) {
+		d3dDeviceContext->PSSetShaderResources(4, 1, &m_specularMapSRV);
+	}
 
 	//描画。
 	m_modelDx->Draw(

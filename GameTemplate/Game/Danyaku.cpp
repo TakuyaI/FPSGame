@@ -18,5 +18,5 @@ bool Danyaku::Start()
 
 void Danyaku::Update()
 {
-	ItemUpdate(&m_position, &m_number);
+
 }

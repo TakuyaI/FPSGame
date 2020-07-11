@@ -1,12 +1,10 @@
 #include "stdafx.h"
 #include "GameCamera.h"
 
-const float MAX_SHOT_COUNT = 100.0f;//m_shotCountの最大値。
-const float MIN_SHOT_COUNT = 0.0f;//m_shotCountの最小値。
+const float MAX_SHOT_COUNT = 10.0f;//m_shotCountの最大値。
 const float RECOIL_UP = -0.5f;//リコイルの上の移動量。
-const float RECOIL_DOWN = 1.0f;//リコイルの下の移動量。
 const float WIDTH_UPPER_LIMIT = 50.0f; //リコイルの横幅の上限。
-const float RECOIL_RIGHT_AND_LEFT = 0.5f;//リコイルの左右の移動量。
+const float RECOIL_RIGHT_AND_LEFT = 0.3f;//リコイルの左右の移動量。
 GameCamera::GameCamera()
 {
 	g_camera3D.SetNear(1.0f);
@@ -21,32 +19,32 @@ GameCamera::~GameCamera()
 
 void GameCamera::Recoil()
 {
-	if (m_shotFlug != false) {
+	if (g_goMgr.GetShotFlug() != false) {
 		//弾を撃った。
 		//randomにランダムで、0か１が入る。
 		int random =g_goMgr.Rand(1);
 		if (random != 0) {
 			//randomが１だった。
-			if (m_width >= WIDTH_UPPER_LIMIT) {
+			if (m_width >= m_widthUpperLimit) {
 				//m_widthがプラスの上限に達したので、マイナスする。
-				m_angle -= RECOIL_RIGHT_AND_LEFT;
+				m_angle -= m_recoilRightAndLeft;
 				m_width--;
 			}
 			else {
 				//m_widthをプラスする。
-				m_angle += RECOIL_RIGHT_AND_LEFT;
+				m_angle += m_recoilRightAndLeft;
 				m_width++;
 			}
 		}
 		else{//randomが0だった。
-			if (m_width <= -WIDTH_UPPER_LIMIT) {
+			if (m_width <= -m_widthUpperLimit) {
 				//m_widthがマイナスの上限に達したので、プラスする。
-				m_angle += RECOIL_RIGHT_AND_LEFT;
+				m_angle += m_recoilRightAndLeft;
 				m_width++;
 			}
 			else {
 				//m_widthをマイナスする。
-				m_angle -= RECOIL_RIGHT_AND_LEFT;
+				m_angle -= m_recoilRightAndLeft;
 				m_width--;
 			}
 
@@ -65,14 +63,7 @@ void GameCamera::Recoil()
 	}
 	else {//弾を撃っていない。
 		m_width = 0.0f;
-		//すこし下を向く。
-		m_angle2 += RECOIL_DOWN;
-		m_shotCount -= fabsf(RECOIL_DOWN);
-		if (m_shotCount < MIN_SHOT_COUNT) {
-			//m_shotCountが最小値に達した。
-			m_angle2 = g_pad->GetRStickYF() * -m_rotSpeed;
-			m_shotCount = MIN_SHOT_COUNT;
-		}
+		m_shotCount -= m_angle2;
 	}
 }
 

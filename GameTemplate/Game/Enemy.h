@@ -26,7 +26,7 @@ public:
 	}
 	CharacterController* CharaCon()
 	{
-	return &m_charaCon;
+		return &m_charaCon;
 	}
 private:
 	SkinModel m_model;                                //スキンモデル。

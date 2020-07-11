@@ -27,6 +27,10 @@ public:
 		*@param[in]	pos			À•WB
 		*@param[in]	rot			‰ñ“]B
 		*/
+	RigidBody* GetRigidBody()
+	{
+		return& m_rigidBody;
+	}
 	void CreateMeshObject(SkinModel& skinModel, CVector3 pos, CQuaternion rot);
 	
 private:

@@ -87,7 +87,6 @@ public:
 		CharacterController& charaCon,
 		std::function<void(const btCollisionObject& contactCollisionObject)> cb
 	);
-
 };
 
 extern PhysicsWorld g_physics;

@@ -22,9 +22,22 @@ void PhysicsGhostObject::Release()
 		m_isRegistPhysicsWorld = false;
 	}
 }
-void PhysicsGhostObject::CreateCommon(CVector3 pos, CQuaternion rot/*, std::unique_ptr<ICollider> collider*/)
+void PhysicsGhostObject::CreateCommon(CVector3 pos, CQuaternion rot, std::unique_ptr<ICollider> collider)
 {
-	//m_collider = move(collider);
+	m_collider = move(collider);
+	m_ghostObject.setCollisionShape(m_collider->GetBody());
+	btTransform btTrans;
+	btTrans.setOrigin({ pos.x, pos.y, pos.z });
+	btTrans.setRotation({ rot.x, rot.y, rot.z, rot.w });
+	m_ghostObject.setWorldTransform(btTrans);
+
+	//物理エンジンに登録。
+	//g_physics.Init();
+	g_physics.AddCollisionObject(m_ghostObject);
+	m_isRegistPhysicsWorld = true;
+}
+void PhysicsGhostObject::CreateCommon(CVector3 pos, CQuaternion rot)
+{
 	m_ghostObject.setCollisionShape(m_collider->GetBody());
 	btTransform btTrans;
 	btTrans.setOrigin({ pos.x, pos.y, pos.z });
@@ -42,14 +55,14 @@ void PhysicsGhostObject::CreateBox(CVector3 pos, CQuaternion rot, CVector3 size)
 	auto boxCollider = make_unique<BoxCollider>();
 	boxCollider->Create(size);
 	m_collider = move(boxCollider);
-	CreateCommon(pos, rot/*, move(boxCollider)*/);
+	CreateCommon(pos, rot);
 }
 void PhysicsGhostObject::CreateCapsule(CVector3 pos, CQuaternion rot, float radius, float height)
 {
 	Release();
 	auto capusuleCollider = make_unique<CapsuleCollider>();
 	capusuleCollider->Create(radius, height);
-	CreateCommon(pos, rot/*, move(capusuleCollider)*/);
+	CreateCommon(pos, rot, move(capusuleCollider));
 }
 
 void PhysicsGhostObject::CreateSphere(CVector3 pos, CQuaternion rot, float radius)
@@ -57,7 +70,7 @@ void PhysicsGhostObject::CreateSphere(CVector3 pos, CQuaternion rot, float radiu
 	Release();
 	auto sphereCollider = make_unique<SphereCollider>();
 	sphereCollider->Create(radius);
-	CreateCommon(pos, rot/*, move(sphereCollider)*/);
+	CreateCommon(pos, rot, move(sphereCollider));
 }
 /*!
 * @brief	メッシュ形状のゴーストオブジェクトを作成。
@@ -70,6 +83,6 @@ void PhysicsGhostObject::CreateMesh(CVector3 pos, CQuaternion rot, const SkinMod
 	Release();
 	auto meshCollider = make_unique<MeshCollider>();
 	meshCollider->CreateFromSkinModel(skinModelData, nullptr);
-	CreateCommon(pos, rot/*, move(meshCollider)*/);
+	CreateCommon(pos, rot, move(meshCollider));
 }
 

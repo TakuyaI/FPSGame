@@ -122,7 +122,7 @@ void CharacterController::Init(float radius, float height, const CVector3& posit
 	g_physics.AddRigidBody(m_rigidBody);
 
 }
-const CVector3& CharacterController::Execute(float deltaTime, CVector3& moveSpeed)
+const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& moveSpeed)
 {
 	if (moveSpeed.y > 0.0f) {
 		//吹っ飛び中にする。
@@ -171,52 +171,57 @@ const CVector3& CharacterController::Execute(float deltaTime, CVector3& moveSpee
 			callback.startPos = posTmp;
 			//衝突検出。
 			g_physics.ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
-
 			if (callback.isHit) {
+				m_state = enHit;
 				//当たった。
 				//壁。
-#if 0
-				//こちらを有効にすると衝突解決が衝突点に戻すになる。
-				nextPosition.x = callback.hitPos.x;
-				nextPosition.z = callback.hitPos.z;
-				//法線の方向に半径分押し戻す。
-				nextPosition.x += callback.hitNormal.x * m_radius;
-				nextPosition.z += callback.hitNormal.z * m_radius;
-#else
-				CVector3 vT0, vT1;
-				//XZ平面上での移動後の座標をvT0に、交点の座標をvT1に設定する。
-				vT0.Set(nextPosition.x, 0.0f, nextPosition.z);
-				vT1.Set(callback.hitPos.x, 0.0f, callback.hitPos.z);
-				//めり込みが発生している移動ベクトルを求める。
-				CVector3 vMerikomi;
-				vMerikomi = vT0 - vT1;
-				//XZ平面での衝突した壁の法線を求める。。
-				CVector3 hitNormalXZ = callback.hitNormal;
-				hitNormalXZ.y = 0.0f;
-				hitNormalXZ.Normalize();
-				//めり込みベクトルを壁の法線に射影する。
-				float fT0 = hitNormalXZ.Dot(vMerikomi);
-				//押し戻し返すベクトルを求める。
-				//押し返すベクトルは壁の法線に射影されためり込みベクトル+半径。
-				CVector3 vOffset;
-				vOffset = hitNormalXZ;
-				vOffset *= -fT0 + m_radius;
-				nextPosition += vOffset;
-				CVector3 currentDir;
-				currentDir = nextPosition - m_position;
-				currentDir.y = 0.0f;
-				currentDir.Normalize();
-				if (currentDir.Dot(originalXZDir) < 0.0f) {
-					//角に入った時のキャラクタの振動を防止するために、
-					//移動先が逆向きになったら移動をキャンセルする。
-					nextPosition.x = m_position.x;
-					nextPosition.z = m_position.z;
-					break;
+//#if i
+				if (i != 0) {
+					//こちらを有効にすると衝突解決が衝突点に戻すになる。
+					nextPosition.x = callback.hitPos.x;
+					nextPosition.z = callback.hitPos.z;
+					//法線の方向に半径分押し戻す。
+					nextPosition.x += callback.hitNormal.x * m_radius;
+					nextPosition.z += callback.hitNormal.z * m_radius;
 				}
-#endif
+				else {
+					//#else
+					CVector3 vT0, vT1;
+					//XZ平面上での移動後の座標をvT0に、交点の座標をvT1に設定する。
+					vT0.Set(nextPosition.x, 0.0f, nextPosition.z);
+					vT1.Set(callback.hitPos.x, 0.0f, callback.hitPos.z);
+					//めり込みが発生している移動ベクトルを求める。
+					CVector3 vMerikomi;
+					vMerikomi = vT0 - vT1;
+					//XZ平面での衝突した壁の法線を求める。。
+					CVector3 hitNormalXZ = callback.hitNormal;
+					hitNormalXZ.y = 0.0f;
+					hitNormalXZ.Normalize();
+					//めり込みベクトルを壁の法線に射影する。
+					float fT0 = hitNormalXZ.Dot(vMerikomi);
+					//押し戻し返すベクトルを求める。
+					//押し返すベクトルは壁の法線に射影されためり込みベクトル+半径。
+					CVector3 vOffset;
+					vOffset = hitNormalXZ;
+					vOffset *= -fT0 + m_radius;
+					nextPosition += vOffset;
+					CVector3 currentDir;
+					currentDir = nextPosition - m_position;
+					currentDir.y = 0.0f;
+					currentDir.Normalize();
+					if (currentDir.Dot(originalXZDir) < 0.0f) {
+						//角に入った時のキャラクタの振動を防止するために、
+						//移動先が逆向きになったら移動をキャンセルする。
+						nextPosition.x = m_position.x;
+						nextPosition.z = m_position.z;
+						break;
+					}
+				}
+//#endif
 			}
 			else {
 				//どことも当たらないので終わり。
+				m_state = enNotHit;
 				break;
 			}
 			loopCount++;
@@ -273,14 +278,22 @@ const CVector3& CharacterController::Execute(float deltaTime, CVector3& moveSpee
 				m_isJump = false;
 				m_isOnGround = true;
 				nextPosition.y = callback.hitPos.y;
+				m_state2 = enHit;
+				m_hitFlug = true;
 			}
 			else {
 				//地面上にいない。
 				m_isOnGround = false;
-
+				m_state2 = enNotHit;
 			}
 		}
 	}
+	/*if (m_state == enHit || m_state2 == enHit) {
+		m_hitFlug = true;
+	}
+	else {
+		m_hitFlug = false;
+	}*/
 	//移動確定。
 	m_position = nextPosition;
 	btRigidBody* btBody = m_rigidBody.GetBody();

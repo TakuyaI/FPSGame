@@ -10,8 +10,12 @@
 Texture2D<float4> albedoTexture : register(t0);	
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
-//todo シャドウマップ。
+//シャドウマップ。
 Texture2D<float4> g_shadowMap : register(t2);	
+//法線マップ。
+Texture2D<float4> normalMap : register(t3);
+//スペキュラマップ。
+Texture2D<float4> specularMap : register(t4);
 /////////////////////////////////////////////////////////////
 // SamplerState
 /////////////////////////////////////////////////////////////
@@ -27,23 +31,36 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mWorld;
 	float4x4 mView;
 	float4x4 mProj;
-
 	//todo ライトビュー行列を追加。
 	float4x4 mLightView;	//ライトビュー行列。
 	float4x4 mLightProj;	//ライトプロジェクション行列。
 	int isShadowReciever;	//シャドウレシーバーフラグ。
+	int isHasNormalMap;     //法線マップのフラグ。
+	int isHasSpecuraMap;    //スペキュラマップのフラグ。
 };
-
+static const int NUM_DIRECTION_LIGHT = 4;
 /*!
 *@brief	ライト用の定数バッファ。
 */
 cbuffer LightCb : register(b1) {
-	float4 dligDirection[4];
-	float4 dligColor[4];
-	float3 eyePos;
-	float specPow;
+	float4 dligDirection[NUM_DIRECTION_LIGHT];
+	float4 dligColor[NUM_DIRECTION_LIGHT];
+	float4 eyePos[NUM_DIRECTION_LIGHT];
+	float4 specPow[NUM_DIRECTION_LIGHT];
 	float envPow;
 };
+static const int NUM_POINT_LIGHT = 5;
+
+struct SPointLight {
+	float4	position[NUM_POINT_LIGHT];		//位置。
+	float4	color[NUM_POINT_LIGHT];			//カラー。
+	float4	attn[NUM_POINT_LIGHT];			//減衰定数。(xを小さくするとライトの明るさが増す、yとzを小さくするとライトが遠くまで届くようになる。)
+};
+
+cbuffer PointLightCb : register(b2) {
+	SPointLight pointLights;
+};
+
 /// <summary>
 /// シャドウマップ用の定数バッファ。
 /// </summary>
@@ -85,6 +102,7 @@ struct PSInput{
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
 	float4 posInLVP		: TEXCOORD1;	//ライトビュープロジェクション空間での座標。
+	float3 WorldPos	    : TEXCOORD2;	//ワールド座標。
 };
 /// <summary>
 /// シャドウマップ用のピクセルシェーダへの入力構造体。
@@ -116,6 +134,9 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 {
 	PSInput psInput = (PSInput)0;
 	float4 worldPos = mul(mWorld, In.Position);
+
+	psInput.WorldPos = worldPos;
+
 	psInput.Position = mul(mView, worldPos);
 	psInput.Position = mul(mProj, psInput.Position);
 
@@ -162,6 +183,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	  	//頂点座標にスキン行列を乗算して、頂点をワールド空間に変換。
 		//mulは乗算命令。
 	    pos = mul(skinning, In.Position);
+		psInput.WorldPos = pos;
 	}
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
@@ -175,18 +197,68 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 //--------------------------------------------------------------------------------------
 // ピクセルシェーダーのエントリ関数。
 //--------------------------------------------------------------------------------------
-float4 PSMain( PSInput In ) : SV_Target0
+float4 PSMain(PSInput In) : SV_Target0
 {
 	//albedoテクスチャからカラーをフェッチする。
 	float4 albedo = albedoTexture.Sample(
 		Sampler,
 		In.TexCoord
 	);
-	//ディレクションライトの拡散反射光を計算する。
-	float3 lig = 0.0f;
-	for (int i = 0; i < 4; i++) {
-		lig += max(0.0f, dot(In.Normal, dligDirection[i].xyz * -1.0f)) * dligColor[i];
+
+	//法線を計算する。
+	float3 normal = 0;
+	if (isHasNormalMap == 1) {
+		//法線マップがある。
+		//法線と接ベクトルの外積を計算して、従ベクトルを計算する。
+		float3 biNormal = cross(In.Normal, In.Tangent);
+		normal = normalMap.Sample(Sampler, In.TexCoord);
+		//0.0～1.0の範囲になっているタンジェントスペース法線を
+		//-1.0～1.0の範囲に変換する。
+		normal = (normal * 2.0f) - 1.0f;
+		//法線をタンジェントスペースから、ワールドスペースに変換する。
+		normal = In.Tangent * normal.x + biNormal * normal.y + In.Normal * normal.z;
 	}
+	else {
+		//ない。
+		normal = In.Normal;
+	}
+	
+	float3 lig = 0.0f;
+	//ポイントライトを計算。
+	float3 ligDir[NUM_POINT_LIGHT];
+	for (int i = 0; i < NUM_POINT_LIGHT; i++) {
+		ligDir[i] = normalize(In.WorldPos - pointLights.position[i].xyz);
+
+		float distance = length(In.WorldPos - pointLights.position[i].xyz);
+
+		float t = max(0.0f, dot(-ligDir[i], normal));
+
+		float affect = 1.0f - min(1.0f, distance / pointLights.attn[i].x);
+
+		lig += pointLights.color[i] * t * affect;
+	}
+	//ディレクションライトの拡散反射光を計算する。
+	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
+		lig += max(0.0f, dot(normal, ligDir[i + 1].xyz * -1.0f)) * dligColor[i];
+	}
+
+	//スペキュラライト。
+	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
+		//視線ベクトルを求める。
+		float3 E = normalize(eyePos[i] - In.WorldPos);
+		//反射ベクトルを求める。
+		float3 R = -E + 2 * dot(normal, E) * normal;
+		//ライトの方向と、反射ベクトルの内積を求める。
+		float3 D = dot(-1.0f * ligDir[i + 1].xyz, R);
+		float t = max(0.0f, D);
+		float specPower = 1.0f;
+		if (isHasSpecuraMap == 1) {
+			specPower = specularMap.Sample(Sampler, In.TexCoord).r;
+		}
+		float3 F = pow(t, 2.0f) * pointLights.color[i] * dligColor[i] * specPower *1.0f; //dligColor[i].xyz * pow(t, /*specPow[i]*/specPower.x);
+		lig += F;
+	}
+
 	if (isShadowReciever == 1) {	//シャドウレシーバー。
 									//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する。
 		float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
@@ -214,7 +286,6 @@ float4 PSMain( PSInput In ) : SV_Target0
 	float4 final;
 	final.xyz = albedo.xyz *lig;
 	return float4(final.xyz, 1.0f);
-	//return albedoTexture.Sample(Sampler, In.TexCoord);
 }
 /// <summary>
 /// シャドウマップ生成用の頂点シェーダー。

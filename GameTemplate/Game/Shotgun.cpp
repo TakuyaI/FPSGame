@@ -1,13 +1,10 @@
 #include "stdafx.h"
 #include "Shotgun.h"
-//#include "GameManager.h"
-#include "GunGenerator.h"
 #include "GameCamera.h"
 
 Shotgun::Shotgun()
 {
-	m_model.Init(L"Assets/modelData/gun2.cmo");
-	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
+	m_model.Init(L"Assets/modelData/shotGun.cmo");
 	m_gunShot.Init(L"Assets/sound/shotgunS.wav");
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
@@ -15,6 +12,7 @@ Shotgun::Shotgun()
 	);
 	m_ammo = m_gunGen->GetGunAmmo();
 	m_loading = m_gunGen->GetGunLoading();
+	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
@@ -112,6 +110,7 @@ void Shotgun::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos
 
 	if (g_pad->IsPress(enButtonLB1)) {
 		//エイムしている。
+		m_gunGen->SetmAimFlug(true);
 		PosRot.Multiply(aimPos);
 		PosRot.Multiply(notaimPos);
 
@@ -145,7 +144,7 @@ void Shotgun::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos
 			m_gunLocalPosition -= m_aimMoveSpeed;
 			//画角を広くする。。
 			m_gameCam->SetGameCameraViewAngle(GameCameraViewAngle + 3.0f);
-			m_gameCam->SetRotSpeed(3.0f);
+			m_gameCam->SetRotSpeed(m_rotSpeed);
 			m_count--;
 		}
 		else {

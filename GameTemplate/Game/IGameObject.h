@@ -71,6 +71,7 @@ protected:
 
 	const enum objectNum {
 		background,
+		pointlight,
 		bullet,
 		font,
 		enemy,
@@ -81,6 +82,7 @@ protected:
 		player,
 		gungenerator,
 		itemgenerator,
+		itemobject,
 		title,
 		rifle,
 		shotgun,

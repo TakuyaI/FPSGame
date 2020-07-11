@@ -1,13 +1,10 @@
 #include "stdafx.h"
 #include "Sniper.h"
-//#include "GameManager.h"
-#include "GunGenerator.h"
 #include "GameCamera.h"
 
 Sniper::Sniper()
 {
 	m_model.Init(L"Assets/modelData/sniper_rifle.cmo");
-	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_gunShot.Init(L"Assets/sound/sniperS.wav");
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
@@ -17,6 +14,7 @@ Sniper::Sniper()
 	SetPostRenderPriority(true);
 	m_ammo = m_gunGen->GetGunAmmo();
 	m_loading = m_gunGen->GetGunLoading();
+	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
@@ -124,6 +122,7 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 
 	if (g_pad->IsPress(enButtonLB1)) {
 		//ƒGƒCƒ€‚µ‚Ä‚¢‚éB
+		m_gunGen->SetmAimFlug(true);
 		PosRot.Multiply(aimPos);
 		PosRot.Multiply(notaimPos);
 
@@ -141,7 +140,7 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 		else {
 			m_gunLocalPosition = *aimingPos;
 			PosRot.Multiply(m_gunLocalPosition);
-			m_gameCam->SetGameCameraViewAngle(6.0f);
+			m_gameCam->SetGameCameraViewAngle(24.0f);
 			m_flug = true;
 		}
 	}
@@ -154,7 +153,7 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 			m_aimMoveSpeed = aimPos - notaimPos;
 			m_aimMoveSpeed /= DIVIDE_NUM;
 			m_gunLocalPosition -= m_aimMoveSpeed;
-			m_gameCam->SetRotSpeed(3.0f);
+			m_gameCam->SetRotSpeed(m_rotSpeed);
 			m_count--;
 		}
 		else {

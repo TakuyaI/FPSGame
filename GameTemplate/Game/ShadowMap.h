@@ -29,7 +29,6 @@ public:
 		return m_lightProjMatrix;
 	}
 	//シャドウマップ生成用のレンダリングターゲットを作成。
-	//解像度は2048×2048。
 	//テクスチャのフォーマットはR成分のみの32bit浮動小数点型。
 	void SetShadowMapRT(int w, int h)
 	{

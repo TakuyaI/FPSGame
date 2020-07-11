@@ -16,5 +16,5 @@ bool Kaihuku::Start()
 }
 void Kaihuku::Update()
 {
-	ItemUpdate(&m_position, &m_number);
+
 }

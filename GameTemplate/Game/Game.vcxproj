@@ -142,6 +142,7 @@
     <ClCompile Include="physics\Physics.cpp" />
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
+    <ClCompile Include="PointLightObject.cpp" />
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Shotgun.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="physics\Physics.h" />
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="physics\RigidBody.h" />
+    <ClInclude Include="PointLightObject.h" />
     <ClInclude Include="Rifle.h" />
     <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Shotgun.h" />
@@ -231,8 +233,12 @@
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
     <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\item01.fbx" />
+    <MeshContentTask Include="Assets\modelData\item_dangan.fbx" />
+    <MeshContentTask Include="Assets\modelData\item_kaihuku.fbx" />
     <MeshContentTask Include="Assets\modelData\player.fbx" />
+    <MeshContentTask Include="Assets\modelData\pointLightObj.fbx" />
     <MeshContentTask Include="Assets\modelData\riful.fbx" />
+    <MeshContentTask Include="Assets\modelData\shotGun.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
@@ -266,7 +272,24 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
-    <Image Include="Assets\sprite\item_kaihuku.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_03_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Light_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Plates_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Platforms_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_02_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_01_MetallicSmoothness.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_01_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_03_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Light_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Platforms_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_02_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_Normal.png" />
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Plates_Normal.png" />
+    <ImageContentTask Include="Assets\sprite\item2.png" />
+    <ImageContentTask Include="Assets\sprite\sniper.png" />
+    <ImageContentTask Include="Assets\sprite\Arifle.png" />
+    <ImageContentTask Include="Assets\sprite\item_kaihuku.png" />
     <ImageContentTask Include="Assets\sprite\SR_scope.png" />
     <ImageContentTask Include="Assets\sprite\item_danyaku.png" />
     <ImageContentTask Include="Assets\sprite\item.png" />

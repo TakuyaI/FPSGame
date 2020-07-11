@@ -1,22 +1,19 @@
 #include "stdafx.h"
 #include "Rifle.h"
-//#include "GameManager.h"
-#include "GunGenerator.h"
 #include "GameCamera.h"
 
 Rifle::Rifle()
 {
-	//m_model.Init(L"Assets/modelData/riful.cmo");
 	m_model.Init(L"Assets/modelData/Arifle.cmo");
-	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_gunShot.Init(L"Assets/sound/raifulS.wav");
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
-		(const EFK_CHAR*)L"Assets/effect/shot.efk"
+		(const EFK_CHAR*)L"Assets/effect/gunShot.efk"
 	);
-
+	
 	m_ammo = m_gunGen->GetGunAmmo();
 	m_loading = m_gunGen->GetGunLoading();
+	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
@@ -45,6 +42,7 @@ void Rifle::Update()
 
 void Rifle::SetRegistShadowCaster()
 {
+	
 	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Rifle::Render()
@@ -57,6 +55,7 @@ void Rifle::Render()
 }
 void Rifle::PostRender()
 {
+	
 	GunPostRender(
 		&m_reloadTime,
 		&m_ammo,
@@ -75,6 +74,7 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.Normalize();
 	effectPos += pos * 100.0f;
+	g_goMgr.SetPointLightPos(effectPos, 0);
 
 	auto effMgr = g_goMgr.GetEffekseerManager();
 	m_playEffectHandle = effMgr->Play(
@@ -100,8 +100,6 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	}
 	
 	effMgr->SetBaseMatrix(m_playEffectHandle, effMat);
-	m_gameCam->SetShotFlug(true);
-
 }
 void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, CVector3* notAimPos)
 {
@@ -116,6 +114,7 @@ void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, 
 
 	if (g_pad->IsPress(enButtonLB1)) {
 		//エイムしている。
+		m_gunGen->SetmAimFlug(true);
 		PosRot.Multiply(aimPos);
 		PosRot.Multiply(notaimPos);
 
@@ -149,7 +148,7 @@ void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, 
 			m_gunLocalPosition -= m_aimMoveSpeed;
 			//画角を広くする。。
 			m_gameCam->SetGameCameraViewAngle(GameCameraViewAngle + 3.0f);
-			m_gameCam->SetRotSpeed(3.0f);
+			m_gameCam->SetRotSpeed(m_rotSpeed);
 			m_count--;
 		}
 		else {

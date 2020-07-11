@@ -38,14 +38,14 @@ public:
 	{
 		return m_enemyNumber;
 	}
-	void SetAttackFlug(bool flug)
+	/*void SetAttackFlug(bool flug)
 	{
 		m_attackFlug = flug;
 	}
 	bool GetAttackFlug()
 	{
 		return m_attackFlug;
-	}
+	}*/
 	void DeleteEnemy();
 	//Player‚Æ1”Ô‹ß‚¢EnemyB
 	Enemy* GetClosestEnemyToPlayer();
@@ -71,7 +71,7 @@ private:
 	const int m_enemyMax = 10;
 	CVector3 m_enemyInitPos = { 0.0f, 300.0f, 300.0f };
 	int t = 0;
-	bool m_attackFlug = false;
+	//bool m_attackFlug = false;
 	int m_enemyNumber = 0;  //Enemy‚Ì”B
 };
 

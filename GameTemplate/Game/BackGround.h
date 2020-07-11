@@ -1,6 +1,7 @@
 #pragma once
 #include "IGameObject.h"
 #include "physics\PhysicsStaticObject.h"
+#include "PhysicsGhostObject.h"
 class BackGround : public IGameObject
 {
 public:
@@ -29,12 +30,16 @@ public:
 	{
 		return m_rotation;
 	}
+	PhysicsStaticObject* GetPhysicsStaticObject()
+	{
+		return &m_physicsStaticObject;
+	}
 private:
 	SkinModel m_model;
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotation = CQuaternion::Identity();
 
 	PhysicsStaticObject m_physicsStaticObject;
-	int a = 0;
+	PhysicsGhostObject m_GhostObj;
 };
 

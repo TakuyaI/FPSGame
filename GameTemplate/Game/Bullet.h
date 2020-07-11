@@ -6,6 +6,7 @@ class Game;
 #include "Rifle.h"
 #include "Shotgun.h"
 #include "Sniper.h"
+#include "BackGround.h"
 class Bullet : public IGameObject
 {
 public:
@@ -31,6 +32,10 @@ public:
 	{
 		m_moveSpeed = moveSpeed;
 	}
+	CharacterController* GetCharaCon()
+	{
+		return &m_charaCon;
+	}
 private:
 	/// <summary>
 	/// ’eŠÛ‚Æ“G‚ÌÕ“Ë”»’è
@@ -43,6 +48,7 @@ private:
 	GunGenerator* m_gunGen;
 	EnemyGenerator* m_enemyGen;
 	Game* m_game;
+	BackGround* m_backGro;
 	Rifle* m_rifle;
 	Shotgun* m_shotgun;
 	Sniper* m_sniper;
@@ -53,9 +59,10 @@ private:
 	int m_timer = 0;
 	bool m_deleteEenmyFlug = false;
 	int m_bulletPower = 0;
-	float m_bulletAccuracy = 0.0f;
 	int m_knockDownEnemyNum = 0; //“|‚·“G‚Ì”B
 	CQuaternion m_rotation = CQuaternion::Identity();
 	PhysicsGhostObject m_GhostObject;
+	CharacterController m_charaCon;
+	CVector3 m_hitJudgmentRange = CVector3::Zero(); //’e‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍB
 };
 
