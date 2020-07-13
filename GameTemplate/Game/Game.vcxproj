@@ -227,20 +227,15 @@
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\Arifle.fbx" />
-    <MeshContentTask Include="Assets\modelData\background.fbx" />
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
     <MeshContentTask Include="Assets\modelData\dogEnemy.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
-    <MeshContentTask Include="Assets\modelData\gun2.fbx" />
     <MeshContentTask Include="Assets\modelData\item01.fbx" />
     <MeshContentTask Include="Assets\modelData\item_dangan.fbx" />
-    <MeshContentTask Include="Assets\modelData\item_kaihuku.fbx" />
     <MeshContentTask Include="Assets\modelData\player.fbx" />
     <MeshContentTask Include="Assets\modelData\pointLightObj.fbx" />
-    <MeshContentTask Include="Assets\modelData\riful.fbx" />
     <MeshContentTask Include="Assets\modelData\shotGun.fbx" />
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
-    <MeshContentTask Include="Assets\modelData\sniper.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
     <MeshContentTask Include="Assets\modelData\stage.fbx" />
@@ -248,7 +243,6 @@
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\zombie01.fbx" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gage.png" />
@@ -265,7 +259,6 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\start.png" />
-    <ImageContentTask Include="Assets\sprite\title_test.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\st.png" />

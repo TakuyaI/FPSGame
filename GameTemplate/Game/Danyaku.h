@@ -1,14 +1,11 @@
 #pragma once
 #include "ItemObject.h"
-class Danyaku : public ItemObject
+class Danyaku
 {
 public:
 	Danyaku();
 	~Danyaku();
-
-	bool Start();
-	void Update();
 private:
-	CVector3 m_position = CVector3::Zero();//ç¿ïWÅB
+
 };
 

@@ -9,16 +9,7 @@ const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
 Player::Player()
 {
 	m_greenSprite.Init(L"Resource/sprite/oamidori.dds", 200.0f, 15.0f);
-	m_redSprite.Init(L"Resource/sprite/aka.dds", 200.0f, 15.0f);
 	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
-	
-	//cmoファイルの読み込み。
-	//m_model.Init(L"Assets/modelData/player.cmo");
-	/*m_charaCon.Init(
-		PLAYER_CONTROLLER_RADIUS,
-		PLAYER_CONTROLLER_HEIGHT,
-		m_position
-	);*/
 }
 
 
@@ -55,16 +46,11 @@ void Player::Update()
 
 	if (g_pad->IsPress(enButtonLB3)) {
 		//Bボタン長押しでダッシュする。
-		if (m_jumpFlag != true) {
-			//ジャンプ中はダッシュできない。
 			m_playerSpeed = 40.0f;
-			m_dashFlug = true;
-		}
 	}
 	else {
 		//離したら戻る。
 		m_playerSpeed = 20.0f;
-		m_dashFlug = false;
 	}
 	if (g_pad->GetLStickXF() >= 0.5f || g_pad->GetLStickYF() >= 0.5f) {
 		//移動中はリコイルのブレが大きくなる。
@@ -144,32 +130,12 @@ void Player::PostRender()
 		if (m_greenScale.x <= 0.0f) {
 			m_deathFlug = true;
 		}
-			if (m_damageFlug != false) {
-				m_flug = true;
-			
-				m_greenScale.x -= m_damage;
-				m_redDamage += m_damage;
-				m_redDamage /= 2.0f;
-				m_damage = 0.0f;
-				m_damageFlug = false;
-			}
-			if (m_flug != false) {
-				float aa = 0.01;
-				m_redScale.x -= aa;
-				m_redDamage -= aa;
-				if (m_redDamage <= 0.0f) {
-					m_flug = false;
-				}
-			}
-
-		if (m_greenScale.x < m_redScale.x) {
-			m_recoveryTimer++;
-			if (m_recoveryTimer >= 60) {
-				m_greenScale.x += 0.005f;
-				m_recoveryTimer = 0;
-			}
+		if (m_damageFlug != false) {
+			//ダメージを受けた。
+			m_greenScale.x -= m_damage;
+			m_damageFlug = false;
 		}
-
+			
 		//1番後ろの黒ゲージ。
 		m_hpBlackSprite.Update(
 			m_blackGaugePos,
@@ -177,13 +143,7 @@ void Player::PostRender()
 			m_blackScale,
 			CVector2::Zero()
 		);
-		//真ん中の赤ゲージ。
-		m_redSprite.Update(
-			m_gaugePos,
-			CQuaternion::Identity(),
-			m_redScale,
-			CVector2::Zero()
-		);
+		
 		//1番前の緑ゲージ
 		m_greenSprite.Update(
 			m_gaugePos,
@@ -193,7 +153,6 @@ void Player::PostRender()
 		);
 
 		m_hpBlackSprite.Draw();
-		m_redSprite.Draw();
 		m_greenSprite.Draw();
 
 	}

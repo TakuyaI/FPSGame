@@ -5,6 +5,7 @@ class Game;
 class ItemObject;
 #include "IGameObject.h"
 #include "IEnemyObject.h"
+//#include "Player.h"
 #include "graphics\animation\AnimationClip.h"
 class IEnemyObject : public IGameObject
 {
@@ -16,7 +17,7 @@ public:
 	/// </summary>
 	/// <param name="position">座標。</param>
 	/// <param name="initPos">初期座標。</param>
-	void Saty(CVector3* position, CVector3* initPos);
+	//void Saty(CVector3* position, CVector3* initPos);
 	/// <summary>
 	///追跡。
 	/// </summary>
@@ -24,7 +25,7 @@ public:
 	/// <summary>
 	/// 攻撃。
 	/// </summary>
-	void Attack();
+	//void Attack(float AttackPow);
 	/// <summary>
 	/// 突き飛ばされる。
 	/// </summary>
@@ -40,7 +41,7 @@ public:
 	/// </summary>
 	/// <param name="position">座標。</param>
 	void ReceiveDamage(CVector3* position);
-	void EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime);
+	void EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime, float* AttackPow);
 	void Update();
 
 	void SetInitPos(CVector3 initpos)
@@ -63,10 +64,10 @@ public:
 	{
 		return m_enemyHp;
 	}
-	float GetEnemyAttackPow()
+	/*float GetEnemyAttackPow()
 	{
 		return m_enemyAttackPow;
-	}
+	}*/
 	float GetDamage()
 	{
 		return m_damage;
@@ -87,6 +88,17 @@ public:
 	{
 		m_bulletPos = pos;
 	}
+private:
+	/// <summary>
+	/// 滞在。
+	/// </summary>
+	/// <param name="position">座標。</param>
+	/// <param name="initPos">初期座標。</param>
+	virtual void Saty(CVector3* position, CVector3* initPos){}
+	/// <summary>
+	/// 攻撃。
+	/// </summary>
+	virtual void Attack(float AttackPow){}
 protected:
 	const enum anim {
 		enAnimationCrip_stay,   //待機。
@@ -97,16 +109,21 @@ protected:
 		enAnimationCrip_Num     //アニメーションクリップの数。
 	};
 	int m_animationFlug = 0;
-	//const float ENEMY_CONTROLLER_RADIUS = 30.0f;
 	const float ENEMY_CONTROLLER_RADIUS = 100.0f;
 	const float ENEMY_CONTROLLER_HEIGHT = 200.0f;
+
+	Player* m_player;                                 //Playerのインスタンス。
+	CVector3 m_moveSpeed = CVector3::Zero();          //ムーブスピード。
+	CVector3 m_targetPos = CVector3::Zero();
+	int m_AttackTimer = 0;
+	float m_damage = 0.0f;
+	CSoundSource m_damageS;
 private:
-		Player* m_player;                                 //Playerのインスタンス。
 	EnemyGenerator* m_enemyGen;                       //EnemyGeneratorのインスタンス。
 	Game* m_game;
 	ItemObject* m_itemObj;
 
-	CVector3 m_moveSpeed = CVector3::Zero();          //ムーブスピード。
+	
 	CVector3 m_initPos = CVector3::Zero();            //初期座標。
 	CVector3 m_toPlayerVec = CVector3::Zero();        //EnemyからPlayerへ向かうベクトル。
 	int m_state = 0;                                  //Enemyの状態。
@@ -115,16 +132,13 @@ private:
 	bool m_endPushAwayflug = false;                   //突き放し終えたかどうか。
 	int m_enemyHp = 50;                               //EnemyのHP。
 	float m_playerHp = 100.0f;
-	int m_AttackTimer = 0;
-	float m_enemyAttackPow = 10.0f;
-	float m_damage = 0.0f;
+	
 	//bool m_damageFlug = false; //ダメージを与えたかどうか。
 	bool m_receiveDamageFlug = false; //ダメージを受けたかどうか。
 	int m_scaredTimer = 0; //怯む時間。
 	bool m_death = false; //死亡フラグ。
 	int m_deathAnimtime = 0; //死亡アニメーションタイム。
 	CVector3 m_toTargetVec = CVector3::Zero();
-	CVector3 m_targetPos = CVector3::Zero();
 	CVector3 m_bulletPos = CVector3::Zero();
 	CVector3 m_effectVec = CVector3::Zero();
 	Effekseer::Effect* m_sampleEffect = nullptr;
@@ -132,7 +146,7 @@ private:
 
 	CSoundSource m_bgm;
 	CSoundSource m_walk;
-	CSoundSource m_damageS;
+	
 	CVector3 m_lockTargetPos = CVector3::Zero();
 	bool m_lockTargetPosFlug = false; //ターゲットの座標を固定するフラグ。
 

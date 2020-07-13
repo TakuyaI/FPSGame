@@ -116,7 +116,9 @@ void IGunObject::GunUpdate(
 	//ƒŠƒ[ƒhB
 	if (g_pad->IsTrigger(enButtonX)) {
 		//Xƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½B
-		if (*maxLoading > *loading) {
+		if (*maxLoading > *loading && *ammo > 0) {
+			//‘•“U‚³‚ê‚Ä‚¢‚é’e‚ªAÅ‘å‘•“U’e”‚æ‚è­‚È‚¢‚©‚ÂA
+			//’e‚ªŽc‚Á‚Ä‚¢‚éB
 			m_reloadFlug = true;
 			m_gunGen->SetReloadFlug(true);
 		}
@@ -175,14 +177,9 @@ void IGunObject::GunPostRender(int* reloadTime, int* ammo, int* loading, int* ma
 		scale.x = 0.0f;
 	}
 
-	if (ammo <= 0) {
+	if (ammo < 0) {
 		m_red = 1.0f;
 		m_green = 0.0f;
-		m_blue = 0.0f;
-	}
-	else if (*maxLoading / 2 >= *ammo) {
-		m_red = 1.0f;
-		m_green = 1.0f;
 		m_blue = 0.0f;
 	}
 	else {

@@ -11,6 +11,10 @@ public:
 	void Update();
 	void SetRegistShadowCaster();
 	void Render();
+
+	void Saty(CVector3* position, CVector3* initPos);
+	void Attack(float AttackPow);
+
 	void SetPosition(CVector3 pos)
 	{
 		m_position = pos;
@@ -31,6 +35,7 @@ private:
 	SkinModel m_model;                                //スキンモデル。
 	CVector3 m_position = CVector3::Zero();
 	CQuaternion m_rotation = CQuaternion::Identity();
+	float m_attackPow = 7.0f; //攻撃力。
 	CharacterController m_charaCon;                   //キャラクターコントローラー。
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                    //アニメーション。

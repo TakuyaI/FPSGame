@@ -48,10 +48,6 @@ public:
 	{
 		return m_moveSpeed;
 	}
-	bool GetJumpFlug()
-	{
-		return m_jumpFlag;
-	}
 	void SetPushAwayFlug(bool t)
 	{
 		m_pushAwayFlug = t;
@@ -67,14 +63,6 @@ public:
 	float GetDamage()
 	{
 		return m_damage;
-	}
-	void SetRedDamage(float d)
-	{
-		m_redDamage = d;
-	}
-	float GetRedDamage()
-	{
-		return m_redDamage;
 	}
 	void SetDamageFlug(bool damageFlug) 
 	{
@@ -104,6 +92,10 @@ public:
 	{
 		return m_playerSpeed;
 	}
+	float GetPlayerHp()
+	{
+		return m_playerHp;
+	}
 private:
 	GameCamera* m_gameCamera;
 	EnemyGenerator* m_enemyGen;
@@ -115,29 +107,21 @@ private:
 	float ySpeed = 0.0f;                    //重力。
 	CVector3 m_moveSpeed = CVector3::Zero();//ムーブスピード。
 	CharacterController m_charaCon;         //キャラクターコントローラー。
-	bool m_jumpFlag = false;                     //ジャンプフラグ。
 	float m_playerSpeed = 20.0f;            //Playerのスピード。
-	float m_pushAwayNum = 0;
-	bool m_moveStickFlug = false;
-	bool m_pushAwayFlug = false;
-	float m_damage = 0.0f;
-	float m_redDamage = 0.0f;
-	int m_recoveryTimer = 0;
-	bool m_damageFlug = false;
+	float m_playerHp = 100.0f; //プレイヤーのHP。
+	float m_pushAwayNum = 0; 
+	float m_damage = 0.0f; //プレイヤーが受けるダメージ量。
+
 	Sprite m_greenSprite;
 	Sprite m_hpBlackSprite;
-	Sprite m_redSprite;
-	
 	CVector3 m_greenScale = CVector3::One();
-	CVector3 m_redScale = CVector3::One();
 	CVector3 m_blackScale = CVector3::One();
 	CVector3 m_gaugePos = { -500.0f, -300.0f, 0.0f };
 	CVector3 m_blackGaugePos = { -500.0f, -301.0f, 0.0f };
 	
-	bool m_flug = false;
-	bool m_dashFlug = false;
-	bool m_deathFlug = false;
+	bool m_deathFlug = false; //プレイヤーが死亡したかどうか。
 	bool m_stopFlug = false; //Playerが止まっているかどうか。
-
-	bool test = false;
+	bool m_damageFlug = false; //ダメージを受けたかどうか。
+	bool m_moveStickFlug = false;
+	bool m_pushAwayFlug = false; //敵を突き飛ばしたかどうか。
 };

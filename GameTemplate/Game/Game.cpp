@@ -7,7 +7,6 @@ Game::Game()
 {
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
-	
 	m_level.Init(
 		L"Assets/level/stage_01.tkl",
 		[&](const LevelObjectData & object) {

@@ -10,13 +10,3 @@ Danyaku::Danyaku()
 Danyaku::~Danyaku()
 {
 }
-
-bool Danyaku::Start()
-{
-	return true;
-}
-
-void Danyaku::Update()
-{
-
-}

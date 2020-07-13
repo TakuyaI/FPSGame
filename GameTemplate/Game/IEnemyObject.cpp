@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "EnemyGenerator.h"
-#include "Player.h"
 #include "Game.h"
 #include "ItemObject.h"
 const int ENEMY_STAY = 0; //滞在中
@@ -11,7 +10,6 @@ const int ENEMY_DEATH = 4; //死亡。
 const float ENEMY_CONTROLLER_RADIUS = 30.0f;
 const float ENEMY_CONTROLLER_HEIGHT = 100.0f;
 const float TRACKING_DISTANCE = 750.0f; //追跡してくる距離。
-//const float ATTACK_DISTANCE = 70.0f;  //攻撃してくる距離。
 const float ATTACK_DISTANCE = 150.0f;  //攻撃してくる距離。
 IEnemyObject::IEnemyObject()
 {
@@ -69,42 +67,42 @@ void IEnemyObject::ReceiveDamage(CVector3* position)
 	effMgr->SetScale(m_playEffectHandle, 2.0f, 2.0f, 2.0f);
 	m_moveSpeed = CVector3::Zero();
 }
-void IEnemyObject::Saty(CVector3* position, CVector3* initPos)
-{
-	//走るアニメーション。
-	m_animationFlug = enAnimationCrip_run;
-	m_targetPos = *initPos;
-	CVector3 v = *initPos - *position;
-	float fds = v.Length();
-	if (fds <= 15.0f) {
-		m_moveSpeed = CVector3::Zero();
-		*position = *initPos;
-		m_animationFlug = enAnimationCrip_stay;
-	}
-}
+//void IEnemyObject::Saty(CVector3* position, CVector3* initPos)
+//{
+//	//走るアニメーション。
+//	m_animationFlug = enAnimationCrip_run;
+//	m_targetPos = *initPos;
+//	CVector3 v = *initPos - *position;
+//	float fds = v.Length();
+//	if (fds <= 15.0f) {
+//		m_moveSpeed = CVector3::Zero();
+//		*position = *initPos;
+//		m_animationFlug = enAnimationCrip_stay;
+//	}
+//}
 void IEnemyObject::Tracking()
 {
 	//走るアニメーション。
 	m_animationFlug = enAnimationCrip_run;
 	m_targetPos = m_player->GetPosition();
 }
-void IEnemyObject::Attack()
-{
-	m_targetPos = m_player->GetPosition();
-	m_player->SetStopFlug(true);
-	//攻撃アニメーション。
-	m_animationFlug = enAnimationCrip_attack;
-
-	m_AttackTimer++;
-	if (m_AttackTimer >= 30) {
-		m_player->SetDamageFlug(true);
-		m_damage = m_enemyAttackPow / m_playerHp;
-		m_player->SetDamage(m_damage);
-		m_damageS.Stop();
-		m_damageS.Play(false);
-		m_AttackTimer = 0;
-	}
-}
+//void IEnemyObject::Attack(float AttackPow)
+//{
+//	m_targetPos = m_player->GetPosition();
+//	m_player->SetStopFlug(true);
+//	//攻撃アニメーション。
+//	m_animationFlug = enAnimationCrip_attack;
+//
+//	m_AttackTimer++;
+//	if (m_AttackTimer >= 30) {
+//		m_player->SetDamageFlug(true);
+//		m_damage = AttackPow / m_player->GetPlayerHp();
+//		m_player->SetDamage(m_damage);
+//		m_damageS.Stop();
+//		m_damageS.Play(false);
+//		m_AttackTimer = 0;
+//	}
+//}
 void IEnemyObject::PushAway()
 {
 	//プレイヤーから敵に向かって伸びるベクトルを求める。
@@ -146,7 +144,7 @@ void IEnemyObject::Death(CVector3* pos, int* time)
 void IEnemyObject::Update()
 {
 }
-void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime)
+void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime, float* AttackPow)
 {
 	m_player = g_goMgr.FindGameObject<Player>(player);
 	//EnemyからPlayerへ向かうベクトル。
@@ -209,7 +207,7 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 	}
 	else if (m_state == ENEMY_ATTACK) {
 		//攻撃。
-		Attack();
+		Attack(*AttackPow);
 	}
 	else if (m_state == ENEMY_PUSH_AWAY) {
 		//突き飛ばされた。

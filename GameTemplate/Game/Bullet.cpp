@@ -60,7 +60,7 @@ void Bullet::InitGhost()
 bool Bullet::Start()
 {
 	InitGhost();
-	m_charaCon.Init(m_hitJudgmentRange.x / 2.0f, m_hitJudgmentRange.y, m_position);
+	m_charaCon.Init(50.0f, 50.0f, m_position);
 	return true;
 }
 void Bullet::CollisionBulletToEnemy()
