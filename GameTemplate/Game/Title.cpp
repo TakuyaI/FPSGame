@@ -25,17 +25,11 @@ bool Title::Start()
 }
 void Title::Update()
 {
-	//m_soundEngine.Update();
-	if (g_pad->IsPress(enButtonB)/*GetAsyncKeyState('A')*/) {
+	if (g_pad->IsPress(enButtonB)) {
 		g_goMgr.NewGameObject<Game>(game);
 		m_bgm.Stop();
 		g_goMgr.DeleteGameObject(this);
 	}
-	/*
-	if (g_pad->IsPress(enButtonB)) {
-		m_cio.Play(false);
-	}
-	*/
 }
 void Title::PostRender()
 {

@@ -222,6 +222,9 @@
     <ClCompile Include="PointLightObject.cpp">
       <Filter>stage</Filter>
     </ClCompile>
+    <ClCompile Include="IItemObject.cpp">
+      <Filter>item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -397,6 +400,9 @@
     <ClInclude Include="PointLightObject.h">
       <Filter>stage</Filter>
     </ClInclude>
+    <ClInclude Include="IItemObject.h">
+      <Filter>item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -530,8 +536,12 @@
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_MetallicSmoothness.png">
       <Filter>Assets\modelData</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\item2.png" />
-    <ImageContentTask Include="Assets\sprite\item_kaihuku.png" />
+    <ImageContentTask Include="Assets\sprite\item_kaihuku.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\item2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">

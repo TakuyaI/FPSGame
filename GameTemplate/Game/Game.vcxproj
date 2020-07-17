@@ -104,6 +104,7 @@
     <ClCompile Include="DogEnemy.cpp" />
     <ClCompile Include="IEnemyObject.cpp" />
     <ClCompile Include="IGunObject.cpp" />
+    <ClCompile Include="IItemObject.cpp" />
     <ClCompile Include="ItemGenerator.cpp" />
     <ClCompile Include="ItemObject.cpp" />
     <ClCompile Include="Kaihuku.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="DogEnemy.h" />
     <ClInclude Include="IEnemyObject.h" />
     <ClInclude Include="IGunObject.h" />
+    <ClInclude Include="IItemObject.h" />
     <ClInclude Include="ItemGenerator.h" />
     <ClInclude Include="ItemObject.h" />
     <ClInclude Include="Kaihuku.h" />

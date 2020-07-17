@@ -134,13 +134,13 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 		if (m_count < (int)DIVIDE_NUM) {
 			//m_count‚ªDIVIDE_NUM‚æ‚è­‚È‚¢‚È‚çˆÚ“®‚·‚éB
 			m_gunLocalPosition += m_aimMoveSpeed;
-			m_gameCam->SetRotSpeed(0.1f);
+			m_gameCam->SetRotSpeed(0.5f);
 			m_count++;
 		}
 		else {
 			m_gunLocalPosition = *aimingPos;
 			PosRot.Multiply(m_gunLocalPosition);
-			m_gameCam->SetGameCameraViewAngle(24.0f);
+			m_gameCam->SetGameCameraViewAngle(10.0f);
 			m_flug = true;
 		}
 	}

@@ -10,3 +10,7 @@ Kaihuku::Kaihuku()
 Kaihuku::~Kaihuku()
 {
 }
+void Kaihuku::ItemEffects()
+{
+
+}

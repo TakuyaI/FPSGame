@@ -45,7 +45,7 @@ static const int NUM_DIRECTION_LIGHT = 4;
 cbuffer LightCb : register(b1) {
 	float4 dligDirection[NUM_DIRECTION_LIGHT];
 	float4 dligColor[NUM_DIRECTION_LIGHT];
-	float4 eyePos[NUM_DIRECTION_LIGHT];
+	float4 eyePos;
 	float4 specPow[NUM_DIRECTION_LIGHT];
 	float envPow;
 };
@@ -224,38 +224,55 @@ float4 PSMain(PSInput In) : SV_Target0
 	}
 	
 	float3 lig = 0.0f;
+	float affect = 0.0f;
 	//ポイントライトを計算。
 	float3 ligDir[NUM_POINT_LIGHT];
 	for (int i = 0; i < NUM_POINT_LIGHT; i++) {
+		//拡散反射。
 		ligDir[i] = normalize(In.WorldPos - pointLights.position[i].xyz);
-
 		float distance = length(In.WorldPos - pointLights.position[i].xyz);
-
 		float t = max(0.0f, dot(-ligDir[i], normal));
-
-		float affect = 1.0f - min(1.0f, distance / pointLights.attn[i].x);
-
+		affect = 1.0f - min(1.0f, distance / pointLights.attn[i].x);
 		lig += pointLights.color[i] * t * affect;
+
+		//視線ベクトルを求める。
+		float3 E = normalize(In.WorldPos - eyePos);
+		//反射ベクトルを求める。
+		float3 R = reflect(E, normal);
+		//ライトの方向と、反射ベクトルの内積を求める。
+		float3 D = dot(-1.0f * ligDir[i].xyz, R);
+		float T = max(0.0f, D);
+		float specPower = 0.0f;
+		if (isHasSpecuraMap == 1) {
+			specPower = specularMap.Sample(Sampler, In.TexCoord).r;
+		}
+		float3 F = pow(T, 5.0f) * pointLights.color[i] * specPower * pointLights.color[i].w;
+		lig += F * affect;
 	}
+	//スペキュラ反射。
+	/*for (int i = 0; i < NUM_POINT_LIGHT; i++) {
+		
+	}*/
+
 	//ディレクションライトの拡散反射光を計算する。
 	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
-		lig += max(0.0f, dot(normal, ligDir[i + 1].xyz * -1.0f)) * dligColor[i];
+		lig += max(0.0f, dot(normal, dligDirection[i].xyz * -1.0f)) * dligColor[i];
 	}
 
 	//スペキュラライト。
 	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {
 		//視線ベクトルを求める。
-		float3 E = normalize(eyePos[i] - In.WorldPos);
+		float3 E = normalize(In.WorldPos - eyePos);
 		//反射ベクトルを求める。
-		float3 R = -E + 2 * dot(normal, E) * normal;
+		float3 R = reflect( E, normal );
 		//ライトの方向と、反射ベクトルの内積を求める。
-		float3 D = dot(-1.0f * ligDir[i + 1].xyz, R);
+		float3 D = dot(-1.0f * dligDirection[i].xyz, R);
 		float t = max(0.0f, D);
-		float specPower = 1.0f;
+		float specPower = 0.0f;
 		if (isHasSpecuraMap == 1) {
 			specPower = specularMap.Sample(Sampler, In.TexCoord).r;
 		}
-		float3 F = pow(t, 2.0f) * pointLights.color[i] * dligColor[i] * specPower *1.0f; //dligColor[i].xyz * pow(t, /*specPow[i]*/specPower.x);
+		float3 F = pow(t, 2.0f) * dligColor[i] * specPower * dligColor[i].w; 
 		lig += F;
 	}
 
@@ -282,7 +299,7 @@ float4 PSMain(PSInput In) : SV_Target0
 			}
 		}
 	}
-	lig += float4(0.5f, 0.5f, 0.5f, 1.0f);
+	lig += float4(0.4f, 0.4f, 0.4f, 1.0f);
 	float4 final;
 	final.xyz = albedo.xyz *lig;
 	return float4(final.xyz, 1.0f);

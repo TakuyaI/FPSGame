@@ -10,3 +10,7 @@ Danyaku::Danyaku()
 Danyaku::~Danyaku()
 {
 }
+void Danyaku::ItemEffects()
+{
+
+}

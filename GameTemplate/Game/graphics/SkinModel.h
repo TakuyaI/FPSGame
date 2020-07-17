@@ -140,7 +140,7 @@ private:
 	struct SDirectionLight {
 		CVector4 direction[NUM_DIRECTION_LIGHT];
 		CVector4 color[NUM_DIRECTION_LIGHT];
-		CVector4 eyePos[NUM_DIRECTION_LIGHT];
+		CVector4 eyePos;
 		CVector4 specPow[NUM_DIRECTION_LIGHT];
 	};
 	struct SLight {

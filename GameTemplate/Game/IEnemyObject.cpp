@@ -144,13 +144,13 @@ void IEnemyObject::Death(CVector3* pos, int* time)
 void IEnemyObject::Update()
 {
 }
-void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime, float* AttackPow)
+void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternion* rotation, CharacterController& charaCon, int* deathTime, float* AttackPow, float* speed)
 {
 	m_player = g_goMgr.FindGameObject<Player>(player);
 	//EnemyからPlayerへ向かうベクトル。
 	m_toPlayerVec = m_player->GetPosition() - *position;
-
-	if (m_toPlayerVec.Length() <= TRACKING_DISTANCE) {
+	float len = m_toPlayerVec.Length();
+	if (len <= TRACKING_DISTANCE) {
 		//プレイヤーとの距離が750以内になった。
 		if (m_toPlayerVec.Length() <= ATTACK_DISTANCE) {
 			//プレイヤーとの距離が70以内になった。
@@ -185,7 +185,7 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 	m_toTargetVec = m_targetPos - *position;
 	m_toTargetVec.y = 0.0f;
 	m_toTargetVec.Normalize();
-	m_moveSpeed = m_toTargetVec * 10.0f;
+	m_moveSpeed = m_toTargetVec * *speed;
 	float rot = atan2(m_toTargetVec.x, m_toTargetVec.z);
 	rotation->SetRotation(CVector3::AxisY(), rot);
 	rotation->Multiply(m_targetPos);

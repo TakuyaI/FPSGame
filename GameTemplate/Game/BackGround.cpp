@@ -114,7 +114,7 @@ void BackGround::Update()
 }
 void BackGround::SetRegistShadowCaster()
 {
-	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
+//	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 
 void BackGround::Render()

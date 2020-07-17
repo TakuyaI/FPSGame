@@ -44,7 +44,8 @@ void Enemy::Update()
 		&m_rotation,
 		m_charaCon,
 		&m_deathAnimTime,
-		&m_attackPow
+		&m_attackPow,
+		&m_speed
 	);
 	//アニメーションを決定。
 	m_animation.Play(m_animationFlug);
@@ -66,7 +67,7 @@ void Enemy::Render()
 void Enemy::Saty(CVector3* position, CVector3* initPos)
 {
 	//走るアニメーション。
-	m_animationFlug = enAnimationCrip_run;
+	m_animationFlug = enAnimationCrip_stay;
 	m_targetPos = *initPos;
 	CVector3 v = *initPos - *position;
 	float fds = v.Length();

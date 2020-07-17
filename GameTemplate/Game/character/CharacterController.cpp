@@ -175,7 +175,7 @@ const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& m
 				m_state = enHit;
 				//当たった。
 				//壁。
-//#if i
+//#if 0
 				if (i != 0) {
 					//こちらを有効にすると衝突解決が衝突点に戻すになる。
 					nextPosition.x = callback.hitPos.x;

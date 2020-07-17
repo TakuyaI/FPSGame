@@ -64,6 +64,10 @@ public:
 	{
 		m_aimFlug = flug;
 	}
+	bool GetAimFlug()
+	{
+		return m_aimFlug;
+	}
 	bool Start();
 	void Update();
 	void PostRender();

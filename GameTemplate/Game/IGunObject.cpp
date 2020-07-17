@@ -21,7 +21,6 @@ IGunObject::~IGunObject()
 			g_goMgr.DeleteGameObject(bul);
 			return true;
 		});
-	//g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 }
 
 void IGunObject::GunRotation(CQuaternion* rotation)
@@ -116,7 +115,7 @@ void IGunObject::GunUpdate(
 	//リロード。
 	if (g_pad->IsTrigger(enButtonX)) {
 		//Xボタンを押した。
-		if (*maxLoading > *loading && *ammo > 0) {
+		if (*maxLoading > *loading && *ammo > 0 && m_gunGen->GetAimFlug() != true) {
 			//装填されている弾が、最大装填弾数より少ないかつ、
 			//弾が残っている。
 			m_reloadFlug = true;

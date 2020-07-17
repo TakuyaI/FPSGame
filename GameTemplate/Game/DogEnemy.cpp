@@ -28,6 +28,7 @@ DogEnemy::~DogEnemy()
 }
 bool DogEnemy::Start()
 {
+	m_initPos = m_position;
 	m_charaCon.Init(
 		ENEMY_CONTROLLER_RADIUS,
 		ENEMY_CONTROLLER_HEIGHT,
@@ -39,11 +40,12 @@ void DogEnemy::Update()
 {
 	EnemyUpdate(
 		&m_position,
-		&m_position,
+		&m_initPos,
 		&m_rotation,
 		m_charaCon,
 		&m_deathAnimTime,
-		&m_attackPow
+		&m_attackPow,
+		&m_speed
 	);
 	//アニメーションを決定。
 	m_animation.Play(m_animationFlug);
@@ -66,8 +68,14 @@ void DogEnemy::Render()
 void DogEnemy::Saty(CVector3* position, CVector3* initPos)
 {
 	//走るアニメーション。
-	m_animationFlug = enAnimationCrip_run;
-	m_targetPos = *initPos;
+	m_animationFlug = enAnimationCrip_stay;
+	float sd = m_toPlayerVec.Length();
+	if ( sd <= 1500.0f) {
+		m_targetPos = m_player->GetPosition();
+	}
+	else {
+		m_targetPos = *initPos;
+	}
 	CVector3 v = *initPos - *position;
 	float fds = v.Length();
 	if (fds <= 15.0f) {
@@ -84,7 +92,7 @@ void DogEnemy::Attack(float AttackPow)
 	m_animationFlug = enAnimationCrip_attack;
 
 	m_AttackTimer++;
-	if (m_AttackTimer >= 30) {
+	if (m_AttackTimer >= 20) {
 		m_player->SetDamageFlug(true);
 		m_damage = AttackPow / m_player->GetPlayerHp();
 		m_player->SetDamage(m_damage);

@@ -2,7 +2,7 @@
 #include "GameManager.h"
 //GameManagerクラスのインスタンス。
 GameManager g_goMgr;
-const float LIGHT_CAMERA_POS_Y = 500.0f; //ライトカメラのY座標。
+const float LIGHT_CAMERA_POS_Y = 200.0f; //ライトカメラのY座標。
 GameManager::GameManager()
 {
 }
@@ -173,6 +173,7 @@ void GameManager::Update()
 		go->SetRegistShadowCaster();
 	}
 	CVector3 m_lightCameraPos = m_playerPos; //ライトの座標。
+	m_lightCameraPos.x += 200.0f;
 	m_lightCameraPos.y = LIGHT_CAMERA_POS_Y;
 	m_shadowMap.Update(
 		m_lightCameraPos,

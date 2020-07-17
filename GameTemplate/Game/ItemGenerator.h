@@ -1,12 +1,13 @@
 #pragma once
+class Danyaku;
+class Kaihuku;
 #include "IGameObject.h"
 #include "Sprite.h"
+#include "IItemObject.h"
+#include "Danyaku.h"
+#include "Kaihuku.h"
 #include "FontRender.h"
-struct ItemName {
-	bool getFlug; //取得しているかどうか。
-	int num;          //取得している個数。
-	int number;       //番号。
-};
+
 class ItemGenerator : public IGameObject
 {
 public:
@@ -15,8 +16,9 @@ public:
 
 	void Update();
 	void PostRender();
-	void InitItem();
-	void GetItem(bool* flug, ItemName* item);
+	void GetItem(bool* flug, IItemObject* item);
+	void SelectItem();
+	void UseItem();
 
 	void SetKaihukuyakuFkug(bool flug)
 	{
@@ -30,14 +32,13 @@ public:
 	
 private:
 	
+	Danyaku* m_danyaku;
+	Kaihuku* m_kaihuku;
+	static const int m_maxHaveNum = 30;
+	IItemObject* m_getItemList[m_maxHaveNum] = { nullptr };
+
 	int m_stateNumber = 0; //表示されるアイテムの番号。
 	int m_stateNum = 0; //表示されるアイテムの個数。
-	int m_itemNumber = 0;
-	const int m_firstNum = 0;
-	int m_endNum = 0;
-
-	ItemName m_kaihukuyaku;
-	ItemName m_danyaku;
 
 	bool m_getKaihukuyakuFlug = false;
 	bool m_getDanyakuFlug = false;
@@ -49,7 +50,7 @@ private:
 	
 	bool m_pushLB2Flug = false;//LB2ボタンを押しているかどうか。
 	bool m_pushRB2Flug = false;//RB2ボタンを押しているかどうか。
-	
+	bool m_pushAFlug = false;//Aボタンを押しているかどうか。
 	FontRender m_font;
 };
 

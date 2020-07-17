@@ -6,12 +6,12 @@ ItemObject::ItemObject()
 {
 	m_itemGen = g_goMgr.FindGameObject<ItemGenerator>(itemgenerator);
 	m_player = g_goMgr.FindGameObject<Player>(player);
-
-	item = g_goMgr.Rand(--m_itemNumber);
-	if (item == 0) {
+	m_game = g_goMgr.FindGameObject<Game>(game);
+	item = g_goMgr.Rand(1);
+	if (item == danyaku) {
 		m_model.Init(L"Assets/modelData/item01.cmo");
 	}
-	else if (item == 1) {
+	else if (item == kaihuku) {
 		m_model.Init(L"Assets/modelData/item01.cmo");
 	}
 }
@@ -27,15 +27,18 @@ bool ItemObject::Start()
 }
 void ItemObject::Update()
 {
+	if (m_game->GetEndFlug() != false) {
+		g_goMgr.DeleteGameObject(this);
+	}
 	//アイテムからプレイヤーに向かって伸びるベクトルを求める。
 	CVector3 toPlayerV = m_player->GetPosition() - m_position;
 	float len = toPlayerV.Length();
 	if (len <= 200.0f) {
 		ItemGenerator* itemGen = g_goMgr.FindGameObject<ItemGenerator>(itemgenerator);
-		if (item == 0) {
+		if (item == danyaku) {
 			itemGen->SetDanyakuFkug(true);
 		}
-		else if (item == 1) {
+		else if (item == kaihuku) {
 			itemGen->SetKaihukuyakuFkug(true);
 		}
 		g_goMgr.DeleteGameObject(this);

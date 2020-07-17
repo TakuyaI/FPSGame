@@ -38,7 +38,7 @@ private:
 	int m_loading = 0;                                //装填弾数。
 	int m_maxLoading = 4;                            //最大装填弾数。
 	int m_bulletIntervalTime = 30;                     //弾のインターバル。
-	float m_bulletMoveSpeed = 500.0f;                 //弾の速度。
+	float m_bulletMoveSpeed = 700.0f;                 //弾の速度。
 	float m_reaction = 10.0f;                          //銃の反動。
 	int m_reloadTime = 90;                            //リロード時間。
 	CSoundSource m_gunShot; //銃声の音。

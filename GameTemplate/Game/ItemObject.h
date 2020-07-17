@@ -1,6 +1,7 @@
 #pragma once
-//class ItemGenerator;
+class ItemGenerator;
 #include "Player.h"
+#include "Game.h"
 #include "ItemGenerator.h"
 class ItemObject : public IGameObject
 {
@@ -22,11 +23,16 @@ public:
 	}
 private:
 	Player* m_player;
+	Game* m_game;
 	ItemGenerator* m_itemGen;
-
 	SkinModel m_model;
+
+	const enum {
+		danyaku,
+		kaihuku
+	};
 	CVector3 m_position = CVector3::Zero();
 	int item = 0;
-	int m_itemNumber = 2;
+	
 };
 

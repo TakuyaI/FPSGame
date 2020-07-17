@@ -132,6 +132,7 @@ public:
 	{
 		return m_shotFlug;
 	}
+	
 private:
 	std::list <IGameObject*> m_goList; //可変長配列。
 
@@ -146,7 +147,6 @@ private:
 	CVector3 m_playerPos = CVector3::Zero(); //プレイヤーの座標。
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
-
 	CVector3 m_pointLightPos[5]; //ポイントライトの座標。
 	bool m_shotFlug = false; //弾を撃ったかどうか。
 };

@@ -123,7 +123,8 @@ void Bullet::CollisionBulletToDogEnemy()
 }
 void Bullet::Update()
 {
-	if (m_game->GetEndFlug() != false) {
+	m_timer++;
+	if (m_game->GetEndFlug() != false || m_timer >= 10) {
 		g_goMgr.DeleteGameObject(this);
 	}
 	//’eŠÛ‚Æ“G‚Ì“–‚½‚è”»’è‚ğÀsB
@@ -131,7 +132,6 @@ void Bullet::Update()
 	CollisionBulletToDogEnemy();
 
 	m_backGro = g_goMgr.FindGameObject<BackGround>(background);
-	
 	
 	m_position = m_charaCon.Execute(1.0f,1, m_moveSpeed);
 

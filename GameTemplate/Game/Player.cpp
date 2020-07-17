@@ -110,6 +110,7 @@ void Player::Update()
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 0.5f);
 	g_goMgr.SetmPlayerPos(m_position);
+	g_goMgr.SetPointLightPos(m_position, 0);
 }
 void Player::SetRegistShadowCaster()
 {
