@@ -1,6 +1,6 @@
 #pragma once
 class GameCamera;
-class EnemyGenerator;
+//class EnemyGenerator;
 class Sprite;
 class GunGenerator;
 #include "IGameObject.h"
@@ -10,7 +10,6 @@ class GunGenerator;
 #include "Enemy.h"
 #include "DogEnemy.h"
 #include "PointLightObject.h"
-#include "EnemyGenerator.h"
 #include "Sprite.h"
 #include "FontRender.h"
 #include "ItemGenerator.h"
@@ -47,7 +46,7 @@ private:
 	BackGround* m_backGro;
 	GameCamera* m_gameCam;
 	Enemy* m_enemy;
-	EnemyGenerator* m_enemyGen;
+	//EnemyGenerator* m_enemyGen;
 	GunGenerator* m_gunGen;
 	ItemGenerator* m_itemGen;
 	DogEnemy* m_dogEnemy;

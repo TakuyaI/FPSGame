@@ -147,7 +147,7 @@ private:
 		SDirectionLight directionLight;
 		float envPow;
 	};
-	static const int NUM_POINT_LIGHT = 5;	//ポイントライトの数。 
+	static const int NUM_POINT_LIGHT = 13;	//ポイントライトの数。 
 	//ポイントライト。
 	struct SPointLight {
 		CVector4	position[NUM_POINT_LIGHT];		//位置。

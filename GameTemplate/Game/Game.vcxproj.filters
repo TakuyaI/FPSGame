@@ -162,9 +162,6 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>enemy</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyGenerator.cpp">
-      <Filter>enemy</Filter>
-    </ClCompile>
     <ClCompile Include="IEnemyObject.cpp">
       <Filter>enemy</Filter>
     </ClCompile>
@@ -340,9 +337,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyGenerator.h">
-      <Filter>enemy</Filter>
-    </ClInclude>
     <ClInclude Include="IEnemyObject.h">
       <Filter>enemy</Filter>
     </ClInclude>
@@ -447,6 +441,9 @@
     <MeshContentTask Include="Assets\modelData\item_dangan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_02.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gameclear.png">
@@ -541,6 +538,27 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\item2.png">
       <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_01_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_03_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Light_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Plates_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Platforms_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_02_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_AlbedoTransparency.png">
+      <Filter>Assets\modelData</Filter>
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>

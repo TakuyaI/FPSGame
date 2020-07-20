@@ -1,12 +1,10 @@
 #include "stdafx.h"
 #include "Bullet.h"
-//#include "GameManager.h"
 #include "Enemy.h"
 #include "DogEnemy.h"
 #include "Game.h"
 #include "GameCamera.h"
 #include "GunGenerator.h"
-#include "EnemyGenerator.h"
 struct BulletInformation {
 	const int RIFLE_BULLET_POWER = 10;
 	const int SHOTGUN_BULLET_POWER = 7;
@@ -14,20 +12,18 @@ struct BulletInformation {
 };
 Bullet::Bullet()
 {
-
-	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	m_game = g_goMgr.FindGameObject<Game>(game);
 	GunNumber gunNum;
 	BulletInformation bulletInf;
-	if (m_gunGen->GetNextNum() == gunNum.RIFLE_NUMBER) {
+	if (m_gunGen->GetGunNum() == gunNum.RIFLE_NUMBER) {
 		m_model.Init(L"Assets/modelData/bullet_test.cmo");
 		m_bulletPower = bulletInf.RIFLE_BULLET_POWER;
 		m_rifle = g_goMgr.FindGameObject<Rifle>(rifle);
 		m_rotation = m_rifle->GetRotation();
 		m_hitJudgmentRange = m_rifle->GetHitJudgmentRange();
 	}
-	else if (m_gunGen->GetNextNum() == gunNum.SHOTGUN_NUMBER) {
+	else if (m_gunGen->GetGunNum() == gunNum.SHOTGUN_NUMBER) {
 		m_model.Init(L"Assets/modelData/shotgun_bullet.cmo");
 		m_bulletPower = bulletInf.SHOTGUN_BULLET_POWER;
 		m_shotgun = g_goMgr.FindGameObject<Shotgun>(shotgun);
@@ -35,7 +31,7 @@ Bullet::Bullet()
 		m_hitJudgmentRange = m_shotgun->GetHitJudgmentRange();
 
 	}
-	else if (m_gunGen->GetNextNum() == gunNum.SNIPER_NUMBER) {
+	else if (m_gunGen->GetGunNum() == gunNum.SNIPER_NUMBER) {
 		m_model.Init(L"Assets/modelData/sniper_bullet.cmo");
 		m_bulletPower = bulletInf.SNIPER_BULLET_POWER;
 		m_sniper = g_goMgr.FindGameObject<Sniper>(sniper);

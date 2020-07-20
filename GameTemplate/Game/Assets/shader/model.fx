@@ -49,7 +49,7 @@ cbuffer LightCb : register(b1) {
 	float4 specPow[NUM_DIRECTION_LIGHT];
 	float envPow;
 };
-static const int NUM_POINT_LIGHT = 5;
+static const int NUM_POINT_LIGHT = 13;
 
 struct SPointLight {
 	float4	position[NUM_POINT_LIGHT];		//位置。
@@ -249,10 +249,6 @@ float4 PSMain(PSInput In) : SV_Target0
 		float3 F = pow(T, 5.0f) * pointLights.color[i] * specPower * pointLights.color[i].w;
 		lig += F * affect;
 	}
-	//スペキュラ反射。
-	/*for (int i = 0; i < NUM_POINT_LIGHT; i++) {
-		
-	}*/
 
 	//ディレクションライトの拡散反射光を計算する。
 	for (int i = 0; i < NUM_DIRECTION_LIGHT; i++) {

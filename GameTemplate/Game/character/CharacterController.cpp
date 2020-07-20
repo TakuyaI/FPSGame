@@ -172,7 +172,6 @@ const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& m
 			//衝突検出。
 			g_physics.ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
 			if (callback.isHit) {
-				m_state = enHit;
 				//当たった。
 				//壁。
 //#if 0
@@ -221,7 +220,6 @@ const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& m
 			}
 			else {
 				//どことも当たらないので終わり。
-				m_state = enNotHit;
 				break;
 			}
 			loopCount++;
@@ -278,22 +276,14 @@ const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& m
 				m_isJump = false;
 				m_isOnGround = true;
 				nextPosition.y = callback.hitPos.y;
-				m_state2 = enHit;
-				m_hitFlug = true;
 			}
 			else {
 				//地面上にいない。
 				m_isOnGround = false;
-				m_state2 = enNotHit;
 			}
 		}
 	}
-	/*if (m_state == enHit || m_state2 == enHit) {
-		m_hitFlug = true;
-	}
-	else {
-		m_hitFlug = false;
-	}*/
+	
 	//移動確定。
 	m_position = nextPosition;
 	btRigidBody* btBody = m_rigidBody.GetBody();

@@ -5,7 +5,6 @@ class Enemy;
 #include "GameCamera.h"
 #include "Sprite.h"
 #include "FontRender.h"
-#include "EnemyGenerator.h"
 #include "Enemy.h"
 class GameCamera;
 class Player:public IGameObject
@@ -98,7 +97,6 @@ public:
 	}
 private:
 	GameCamera* m_gameCamera;
-	EnemyGenerator* m_enemyGen;
 	Enemy* m_enemy;
 
 	SkinModel m_model;						//スキンモデル。

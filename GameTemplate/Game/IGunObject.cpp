@@ -11,7 +11,6 @@ IGunObject::IGunObject()
 	m_player = g_goMgr.FindGameObject<Player>(player);
 
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
-	m_gunShot.Init(L"Assets/sound/raifulS.wav");
 }
 
 IGunObject::~IGunObject()
@@ -105,7 +104,6 @@ void IGunObject::GunUpdate(
 			}
 		}
 		else {
-			//m_bulletIntervalTimer = *bulletIntervalTime;
 			m_gunGen->SetShootingBulletFlug(false);
 			g_goMgr.SetShotFlug(false);
 		}
@@ -115,49 +113,42 @@ void IGunObject::GunUpdate(
 	//リロード。
 	if (g_pad->IsTrigger(enButtonX)) {
 		//Xボタンを押した。
-		if (*maxLoading > *loading && *ammo > 0 && m_gunGen->GetAimFlug() != true) {
-			//装填されている弾が、最大装填弾数より少ないかつ、
-			//弾が残っている。
+		if (
+			*maxLoading > *loading &&        //装填弾数が最大でない。
+			*ammo > 0 &&                     //弾数が残っている。
+			m_gunGen->GetAimFlug() != true   //エイム中でない。
+			) {
+			//フラグを設定する。
 			m_reloadFlug = true;
 			m_gunGen->SetReloadFlug(true);
 		}
 	}
-
 	if (m_reloadFlug != false) {
+		//リロードのフラグが立った。
+		//タイマーを加算していく。
 		m_reloadTimer++;
 		if (m_reloadTimer > *reloadTime) {
-
 			//装填されている弾が最大でない。
 			if (*maxLoading - *loading > *ammo) {
-				//残り弾数が最大装填弾数より少ない。
+				//残り弾数が装填可能弾数より少ない。
 				//残りの弾数を装填する。
 				*loading += *ammo;
 				*ammo = 0;
-				m_reloadFlug = false;
-				m_gunGen->SetReloadFlug(false);
-				m_reloadTimer = 0;
 			}
 			else {
-
 				//使った弾数分、装填する。
 				m_usedBullet = *maxLoading - *loading;
 				*loading += m_usedBullet;
 				*ammo -= m_usedBullet;
-				m_reloadFlug = false;
-				m_gunGen->SetReloadFlug(false);
-				m_reloadTimer = 0;
 			}
+			//フラグを戻す。
+			m_reloadFlug = false;
+			m_gunGen->SetReloadFlug(false);
+			//タイマーをリセット。
+			m_reloadTimer = 0;
 		}
 	}
-
 }
-
-
-
-void IGunObject::Update()
-{
-}
-
 void IGunObject::GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading)
 {
 	if (m_reloadFlug != false) {

@@ -49,7 +49,6 @@ public:
 	/// </summary>
 	/// <param name="rotation">‰ñ“]B</param>
 	void GunRotation(CQuaternion* rotation);
-	void Update();
 private:
 	/// <summary>
 	/// ’e‚ğŒ‚‚Á‚½‚ÉŒÄ‚Î‚ê‚éŠÖ”B
@@ -73,7 +72,6 @@ protected:
 	int m_count = 0;
 
 private:
-	CSoundSource m_gunShot; //eº‚Ì‰¹B
 	Player* m_player;
 	Enemy* m_enemy;
 	Bullet* m_bullet;

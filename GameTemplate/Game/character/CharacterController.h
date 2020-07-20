@@ -77,10 +77,7 @@ public:
 	{
 		return &m_rigidBody;
 	}
-	bool GetHitFlug()
-	{
-		return m_hitFlug;
-	}
+	
 	/*!
 	* @brief	剛体を物理エンジンから削除。。
 	*/
@@ -93,13 +90,4 @@ private:
 	float				m_radius = 0.0f;
 	float				m_height = 0.0f;		
 	RigidBody			m_rigidBody;					//剛体。
-
-	enum {
-		enHit,
-		enNotHit
-	};
-	int m_state = 0;
-	int m_state2 = 0;
-	bool m_hitFlug = false;
-
 };

@@ -11,7 +11,7 @@ public:
 	/// <summary>
 	/// 更新関数。
 	/// </summary>
-	virtual void Update() = 0;
+	virtual void Update() {};
 	virtual void SetRegistShadowCaster() {}
 	/// <summary>
 	/// 描画。
@@ -76,7 +76,6 @@ protected:
 		font,
 		enemy,
 		dogenemy,
-		enemygenerator,
 		game,
 		gamecamera,
 		player,

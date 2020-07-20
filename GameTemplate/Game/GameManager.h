@@ -147,7 +147,7 @@ private:
 	CVector3 m_playerPos = CVector3::Zero(); //プレイヤーの座標。
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
-	CVector3 m_pointLightPos[5]; //ポイントライトの座標。
+	CVector3 m_pointLightPos[13]; //ポイントライトの座標。
 	bool m_shotFlug = false; //弾を撃ったかどうか。
 };
 //外部からアクセスするので、extern宣言も必要。

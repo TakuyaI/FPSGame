@@ -8,7 +8,7 @@ Game::Game()
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
 	m_level.Init(
-		L"Assets/level/stage_01.tkl",
+		L"Assets/level/stage_02.tkl",
 		[&](const LevelObjectData & object) {
 			if (wcscmp(object.name, L"player") == 0) {
 				m_player = g_goMgr.NewGameObject<Player>(player);
@@ -32,7 +32,7 @@ Game::Game()
 				m_knockDownEnemyNum++;
 				return true;
 			}
-			else if (wcscmp(object.name, L"stage") == 0) {
+			else if (wcscmp(object.name, L"stage_02") == 0) {
 				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 				m_backGro->SetPosition(object.position);
 				m_backGro->SetRotation(object.rotation);
@@ -48,7 +48,6 @@ Game::Game()
 			return false;
 		});
 	m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
-	m_enemyGen = g_goMgr.NewGameObject<EnemyGenerator>(enemygenerator);
 	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
 	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);
 }
@@ -59,7 +58,6 @@ Game::~Game()
 	g_goMgr.DeleteGameObject(m_player);
 	g_goMgr.DeleteGameObject(m_backGro);
 	g_goMgr.DeleteGameObject(m_gameCam);
-	g_goMgr.DeleteGameObject(m_enemyGen);
 	g_goMgr.DeleteGameObject(m_gunGen);
 	g_goMgr.DeleteGameObject(m_itemGen);
 	g_goMgr.QueryGameObject<Enemy>(enemy, [](Enemy * enemy)->bool

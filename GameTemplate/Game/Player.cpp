@@ -24,7 +24,7 @@ bool Player::Start()
 		PLAYER_CONTROLLER_HEIGHT,
 		m_position
 	);
-	m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
+	//m_enemyGen = g_goMgr.FindGameObject<EnemyGenerator>(enemygenerator);
 	return true;
 }
 void Player::Update()

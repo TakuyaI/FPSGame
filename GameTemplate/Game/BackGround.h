@@ -5,41 +5,64 @@
 class BackGround : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	BackGround();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~BackGround();
-
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
-	void SetRegistShadowCaster();
+	/// <summary>
+	/// 3D描画。
+	/// </summary>
 	void Render();
-
+	/// <summary>
+	/// 座標を設定する。
+	/// </summary>
+	/// <param name="position">座標。</param>
 	void SetPosition(CVector3 position)
 	{
 		m_position = position;
 	}
-
+	/// <summary>
+	/// 座標を返す。
+	/// </summary>
+	/// <returns></returns>
 	CVector3 GetPosition()
 	{
 		return m_position;
 	}
+	/// <summary>
+	/// 回転を設定する。
+	/// </summary>
+	/// <param name="rotation">回転。</param>
 	void SetRotation(CQuaternion rotation)
 	{
 		m_rotation = rotation;
 	}
+	/// <summary>
+	/// 回転を返す。
+	/// </summary>
+	/// <returns></returns>
 	CQuaternion GetRotation() 
 	{
 		return m_rotation;
 	}
-	PhysicsStaticObject* GetPhysicsStaticObject()
-	{
-		return &m_physicsStaticObject;
-	}
 private:
-	SkinModel m_model;
-	CVector3 m_position = CVector3::Zero();
-	CQuaternion m_rotation = CQuaternion::Identity();
-
-	PhysicsStaticObject m_physicsStaticObject;
-	PhysicsGhostObject m_GhostObj;
+	SkinModel m_model;                                 //スキンモデル。
+	CVector3 m_position = CVector3::Zero();            //座標。
+	CQuaternion m_rotation = CQuaternion::Identity();  //回転。
+	PhysicsStaticObject m_physicsStaticObject;         //静的物理オブジェクト。
+	PhysicsGhostObject m_GhostObj;                     //ゴーストオブジェクト。
 };
 

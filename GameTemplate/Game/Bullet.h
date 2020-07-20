@@ -10,9 +10,17 @@ class Game;
 class Bullet : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	Bullet();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~Bullet();
-
+	/// <summary>
+	/// 
+	/// </summary>
 	void InitGhost();
 	bool Start();
 	void Update();
@@ -46,7 +54,7 @@ private:
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
-	EnemyGenerator* m_enemyGen;
+	//EnemyGenerator* m_enemyGen;
 	Game* m_game;
 	BackGround* m_backGro;
 	Rifle* m_rifle;

@@ -4,10 +4,11 @@
 
 ItemGenerator::ItemGenerator()
 {
+	//テクスチャをロード。
 	m_itemTex.Init(L"Resource/sprite/item2.dds", 320.0f, 180.0f);
 	m_danyakuTex.Init(L"Resource/sprite/item_danyaku.dds", 320.0f, 180.0f);
 	m_kaihukuyakuTex.Init(L"Resource/sprite/item_kaihuku.dds", 320.0f, 180.0f);
-	m_position = { 0.0f, -250.0f, 0.0f };
+	//アイテムのインスタンスを作成。
 	m_kaihuku = new Kaihuku;
 	m_danyaku = new Danyaku;
 }
@@ -15,6 +16,7 @@ ItemGenerator::ItemGenerator()
 
 ItemGenerator::~ItemGenerator()
 {
+	//アイテムのインスタンスを削除する。
 	delete m_kaihuku;
 	delete m_danyaku;
 }
@@ -50,7 +52,7 @@ void ItemGenerator::GetItem(bool* flug, IItemObject* item)
 void ItemGenerator::SelectItem()
 {
 	//LB2ボタン。
-	if (g_pad->IsPress(enButtonLB2)) {
+	if (g_pad->IsTrigger(enButtonLB2)) {
 		//LB2ボタンを押した。
 		if (m_pushLB2Flug != true) {
 			//1回押したら、1度離して押さないと反応しないようにする。
@@ -87,7 +89,7 @@ void ItemGenerator::SelectItem()
 	}
 
 	//RB2ボタン。
-	if (g_pad->IsPress(enButtonRB2)) {
+	if (g_pad->IsTrigger(enButtonRB2)) {
 		//RB2ボタンを押した。
 		if (m_pushRB2Flug != true) {
 			//1回押したら、1度離して押さないと反応しないようにする。
@@ -124,10 +126,8 @@ void ItemGenerator::SelectItem()
 }
 void ItemGenerator::UseItem()
 {
-	if (g_pad->IsPress(enButtonA)) {
+	if (g_pad->IsTrigger(enButtonA)) {
 		//Aボタンを押した。
-		if (m_pushAFlug != true) {
-			m_pushAFlug = true;
 			if (m_getItemList[m_stateNumber] != nullptr) {
 				//m_getItemList[m_stateNumber]にアイテムが入っている。
 				//アイテム効果。
@@ -145,10 +145,6 @@ void ItemGenerator::UseItem()
 					m_getItemList[m_stateNumber] = nullptr;
 				}
 			}
-		}
-	}
-	else {
-		m_pushAFlug = false;
 	}
 }
 void ItemGenerator::Update()
@@ -187,7 +183,7 @@ void ItemGenerator::PostRender()
 			//表示されているアイテムの個数を表示する。
 			wchar_t text[256];
 			swprintf_s(text, L"%d", m_stateNum);
-			m_font.Draw(text, { 628.0f, 653.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, 0.7f);
+			m_itemNumFont.Draw(text, m_fontPos, m_fontColor, m_fontSize);
 		}
 		else if (m_stateNumber == m_kaihuku->GetmItemNumber()) {
 			//回復薬を表示。
@@ -202,6 +198,6 @@ void ItemGenerator::PostRender()
 			//表示されているアイテムの個数を表示する。
 			wchar_t text[256];
 			swprintf_s(text, L"%d", m_stateNum);
-			m_font.Draw(text, { 628.0f, 653.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, 0.7f);
+			m_itemNumFont.Draw(text, m_fontPos, m_fontColor, m_fontSize);
 		}
 }
