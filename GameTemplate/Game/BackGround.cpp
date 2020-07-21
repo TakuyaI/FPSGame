@@ -6,7 +6,7 @@ ID3D11ShaderResourceView* specMapSRV = nullptr;//スペキュラマップ。
 BackGround::BackGround()
 {
 	//モデルのロード。
-	m_model.Init(L"Assets/modelData/stage_02.cmo");
+	m_model.Init(L"Assets/modelData/stage.cmo");
 	//シャドウレシーバーのフラグを設定する。
 	m_model.SetShadowReciever(true);
 	//コライダー作成。

@@ -14,7 +14,7 @@
     <ProjectGuid>{9CB90C92-58AF-482A-B34C-AC02496110F6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Lesson_00</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -226,7 +226,12 @@
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\Arifle.fbx" />
+    <MeshContentTask Include="Assets\modelData\Arifle.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
     <MeshContentTask Include="Assets\modelData\dogEnemy.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
@@ -239,11 +244,6 @@
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
     <MeshContentTask Include="Assets\modelData\stage.fbx" />
-    <MeshContentTask Include="Assets\modelData\stage_02.fbx" />
-    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
-      <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
-    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gage.png" />
@@ -266,6 +266,21 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
+    <Image Include="Assets\modelData\texture\AGRAGATE.JPG" />
+    <Image Include="Assets\modelData\texture\blue.png" />
+    <Image Include="Assets\modelData\texture\dangan.png" />
+    <Image Include="Assets\modelData\texture\GOLDWOOD.JPG" />
+    <Image Include="Assets\modelData\texture\green.png" />
+    <Image Include="Assets\modelData\texture\hai.png" />
+    <Image Include="Assets\modelData\texture\kaihuku.png" />
+    <Image Include="Assets\modelData\texture\kiro.png" />
+    <Image Include="Assets\modelData\texture\kuro.png" />
+    <Image Include="Assets\modelData\texture\midori.png" />
+    <Image Include="Assets\modelData\texture\rad.png" />
+    <Image Include="Assets\modelData\texture\siro.png" />
+    <Image Include="Assets\modelData\texture\sky.JPG" />
+    <Image Include="Assets\modelData\texture\tya.png" />
+    <Image Include="Assets\modelData\utc_all2.tga" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_01_AlbedoTransparency.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_03_AlbedoTransparency.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Light_AlbedoTransparency.png" />
@@ -297,6 +312,22 @@
     <ImageContentTask Include="Assets\sprite\gameclear.png" />
     <ImageContentTask Include="Assets\sprite\gameover.png" />
     <ImageContentTask Include="Assets\sprite\orengi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\shader\model.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+    <FxCompile Include="Assets\shader\sprite.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\modelData\Arifle.tks" />
+    <None Include="Assets\modelData\dogEnemy.tks" />
+    <None Include="Assets\modelData\enemy.tks" />
+    <None Include="Assets\modelData\shotGun.tks" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

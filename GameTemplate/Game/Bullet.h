@@ -54,7 +54,6 @@ private:
 	Enemy* m_enemy;
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
-	//EnemyGenerator* m_enemyGen;
 	Game* m_game;
 	BackGround* m_backGro;
 	Rifle* m_rifle;

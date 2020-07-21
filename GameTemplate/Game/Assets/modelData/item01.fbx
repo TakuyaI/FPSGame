@@ -7,12 +7,12 @@ FBXHeaderExtension:  {
 	CreationTimeStamp:  {
 		Version: 1000
 		Year: 2020
-		Month: 1
+		Month: 7
 		Day: 21
-		Hour: 14
-		Minute: 36
-		Second: 40
-		Millisecond: 458
+		Hour: 17
+		Minute: 55
+		Second: 24
+		Millisecond: 482
 	}
 	Creator: "FBX SDK/FBX Plugins version 2018.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -34,13 +34,13 @@ FBXHeaderExtension:  {
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "3ds Max"
 			P: "Original|ApplicationVersion", "KString", "", "", "2018"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "21/01/2020 05:36:40.456"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "21/07/2020 08:55:24.480"
 			P: "Original|FileName", "KString", "", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\item01.fbx"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "3ds Max"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2018"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "21/01/2020 05:36:40.456"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "21/07/2020 08:55:24.480"
 			P: "Original|ApplicationActiveProject", "KString", "", "", "C:\Users\GC1804\Documents\3dsMax"
 			P: "Original|ApplicationNativeFile", "KString", "", "", "C:\Users\GC1804\Documents\3dsMax\scenes\item.max"
 		}
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2205815266416, "", "Scene" {
+	Document: 2155625138464, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -97,7 +97,7 @@ References:  {
 
 Definitions:  {
 	Version: 100
-	Count: 14
+	Count: 20
 	ObjectType: "GlobalSettings" {
 		Count: 1
 	}
@@ -208,7 +208,7 @@ Definitions:  {
 		}
 	}
 	ObjectType: "Material" {
-		Count: 3
+		Count: 5
 		PropertyTemplate: "FbxSurfacePhong" {
 			Properties70:  {
 				P: "ShadingModel", "KString", "", "", "Phong"
@@ -237,7 +237,7 @@ Definitions:  {
 		}
 	}
 	ObjectType: "Texture" {
-		Count: 3
+		Count: 5
 		PropertyTemplate: "FbxFileTexture" {
 			Properties70:  {
 				P: "TextureTypeUse", "enum", "", "",0
@@ -273,7 +273,7 @@ Definitions:  {
 		}
 	}
 	ObjectType: "Video" {
-		Count: 3
+		Count: 5
 		PropertyTemplate: "FbxVideo" {
 			Properties70:  {
 				P: "Path", "KString", "XRefUrl", "", ""
@@ -305,7 +305,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2205854070048, "Geometry::", "Mesh" {
+	Geometry: 2155373222432, "Geometry::", "Mesh" {
 		Properties70:  {
 			P: "Color", "ColorRGB", "Color", "",0.0313725490196078,0.431372549019608,0.529411764705882
 		}
@@ -416,7 +416,7 @@ Objects:  {
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			Materials: *476 {
-				a: 0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1
+				a: 0,0,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2
 			} 
 		}
 		Layer: 0 {
@@ -443,7 +443,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2205855016736, "Model::Box001", "Mesh" {
+	Model: 2155552539552, "Model::Box001", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "InheritType", "enum", "", "",1
@@ -457,160 +457,253 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 2205808200528, "Material::02 - Default", "" {
+	Material: 2155624611408, "Material::Material #170", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "ShadingModel", "KString", "", "", "phong"
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "AmbientColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "DiffuseColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "AmbientColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "DiffuseColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "TransparentColor", "Color", "", "A",1,1,1
 			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
 			P: "SpecularFactor", "Number", "", "A",0
-			P: "ShininessExponent", "Number", "", "A",1.99999988079071
-			P: "有効", "Bool", "", "AU",0
+			P: "ShininessExponent", "Number", "", "A",2
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "Diffuse", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "Ambient", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Diffuse", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "Specular", "Vector3D", "Vector", "",0,0,0
-			P: "Shininess", "double", "Number", "",1.99999988079071
+			P: "Shininess", "double", "Number", "",2
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2205808201968, "Material::01 - Default", "" {
+	Material: 2155624601808, "Material::Material #171", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "ShadingModel", "KString", "", "", "phong"
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "AmbientColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "DiffuseColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "AmbientColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "DiffuseColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "TransparentColor", "Color", "", "A",1,1,1
 			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
 			P: "SpecularFactor", "Number", "", "A",0
-			P: "ShininessExponent", "Number", "", "A",1.99999988079071
-			P: "有効", "Bool", "", "AU",0
+			P: "ShininessExponent", "Number", "", "A",2
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "Diffuse", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "Ambient", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Diffuse", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "Specular", "Vector3D", "Vector", "",0,0,0
-			P: "Shininess", "double", "Number", "",1.99999988079071
+			P: "Shininess", "double", "Number", "",2
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 2205808202448, "Material::03 - Default", "" {
+	Material: 2155624602288, "Material::Material #183", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "ShadingModel", "KString", "", "", "phong"
 			P: "EmissiveFactor", "Number", "", "A",0
-			P: "AmbientColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "DiffuseColor", "Color", "", "A",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "AmbientColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "DiffuseColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "TransparentColor", "Color", "", "A",1,1,1
 			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
 			P: "SpecularFactor", "Number", "", "A",0
-			P: "ShininessExponent", "Number", "", "A",1.99999988079071
-			P: "有効", "Bool", "", "AU",0
+			P: "ShininessExponent", "Number", "", "A",2
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
-			P: "Diffuse", "Vector3D", "Vector", "",0.588235318660736,0.588235318660736,0.588235318660736
+			P: "Ambient", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Diffuse", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
 			P: "Specular", "Vector3D", "Vector", "",0,0,0
-			P: "Shininess", "double", "Number", "",1.99999988079071
+			P: "Shininess", "double", "Number", "",2
 			P: "Opacity", "double", "Number", "",1
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Video: 2205808202928, "Video::マップ #2", "Clip" {
+	Material: 2155624613808, "Material::Material #196", "" {
+		Version: 102
+		ShadingModel: "phong"
+		MultiLayer: 0
+		Properties70:  {
+			P: "ShadingModel", "KString", "", "", "phong"
+			P: "EmissiveFactor", "Number", "", "A",0
+			P: "AmbientColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "DiffuseColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "TransparentColor", "Color", "", "A",1,1,1
+			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
+			P: "SpecularFactor", "Number", "", "A",0
+			P: "ShininessExponent", "Number", "", "A",2
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Diffuse", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
+			P: "Shininess", "double", "Number", "",2
+			P: "Opacity", "double", "Number", "",1
+			P: "Reflectivity", "double", "Number", "",0
+		}
+	}
+	Material: 2155624608528, "Material::Material #209", "" {
+		Version: 102
+		ShadingModel: "phong"
+		MultiLayer: 0
+		Properties70:  {
+			P: "ShadingModel", "KString", "", "", "phong"
+			P: "EmissiveFactor", "Number", "", "A",0
+			P: "AmbientColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "DiffuseColor", "Color", "", "A",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "TransparentColor", "Color", "", "A",1,1,1
+			P: "SpecularColor", "Color", "", "A",0.899999976158142,0.899999976158142,0.899999976158142
+			P: "SpecularFactor", "Number", "", "A",0
+			P: "ShininessExponent", "Number", "", "A",2
+			P: "Emissive", "Vector3D", "Vector", "",0,0,0
+			P: "Ambient", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Diffuse", "Vector3D", "Vector", "",0.587999999523163,0.587999999523163,0.587999999523163
+			P: "Specular", "Vector3D", "Vector", "",0,0,0
+			P: "Shininess", "double", "Number", "",2
+			P: "Opacity", "double", "Number", "",1
+			P: "Reflectivity", "double", "Number", "",0
+		}
+	}
+	Video: 2155624609488, "Video::マップ #6", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\midori.png"
-			P: "RelPath", "KString", "XRefUrl", "", "midori.png"
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\midori.png"
+			P: "RelPath", "KString", "XRefUrl", "", "texture\midori.png"
 		}
 		UseMipMap: 0
-		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\midori.png"
-		RelativeFilename: "midori.png"
+		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\midori.png"
+		RelativeFilename: "texture\midori.png"
 	}
-	Video: 2205853286816, "Video::マップ #1", "Clip" {
+	Video: 2155624615728, "Video::マップ #7", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\kuro.png"
-			P: "RelPath", "KString", "XRefUrl", "", "kuro.png"
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+			P: "RelPath", "KString", "XRefUrl", "", "texture\kuro.png"
 		}
 		UseMipMap: 0
-		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\kuro.png"
-		RelativeFilename: "kuro.png"
+		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+		RelativeFilename: "texture\kuro.png"
 	}
-	Video: 2205853286336, "Video::マップ #3", "Clip" {
+	Video: 2155624604208, "Video::マップ #8", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\siro.png"
-			P: "RelPath", "KString", "XRefUrl", "", "siro.png"
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+			P: "RelPath", "KString", "XRefUrl", "", "texture\kuro.png"
 		}
 		UseMipMap: 0
-		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\siro.png"
-		RelativeFilename: "siro.png"
+		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+		RelativeFilename: "texture\kuro.png"
 	}
-	Texture: 2205808201008, "Texture::マップ #2", "" {
+	Video: 2155624604688, "Video::マップ #9", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+			P: "RelPath", "KString", "XRefUrl", "", "texture\siro.png"
+		}
+		UseMipMap: 0
+		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+		RelativeFilename: "texture\siro.png"
+	}
+	Video: 2155624605168, "Video::マップ #10", "Clip" {
+		Type: "Clip"
+		Properties70:  {
+			P: "Path", "KString", "XRefUrl", "", "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+			P: "RelPath", "KString", "XRefUrl", "", "texture\siro.png"
+		}
+		UseMipMap: 0
+		Filename: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+		RelativeFilename: "texture\siro.png"
+	}
+	Texture: 2155624606608, "Texture::マップ #6", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::マップ #2"
+		TextureName: "Texture::マップ #6"
 		Properties70:  {
 			P: "UVSet", "KString", "", "", "UVChannel_1"
 			P: "UseMaterial", "bool", "", "",1
 		}
-		Media: "Video::マップ #2"
-		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\midori.png"
-		RelativeFilename: "midori.png"
+		Media: "Video::マップ #6"
+		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\midori.png"
+		RelativeFilename: "texture\midori.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
-		Texture_Alpha_Source: "None"
+		Texture_Alpha_Source: "Alpha_Black"
 		Cropping: 0,0,0,0
 	}
-	Texture: 2205808201488, "Texture::マップ #1", "" {
+	Texture: 2155624614768, "Texture::マップ #7", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::マップ #1"
+		TextureName: "Texture::マップ #7"
 		Properties70:  {
 			P: "UVSet", "KString", "", "", "UVChannel_1"
 			P: "UseMaterial", "bool", "", "",1
 		}
-		Media: "Video::マップ #1"
-		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\kuro.png"
-		RelativeFilename: "kuro.png"
+		Media: "Video::マップ #7"
+		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+		RelativeFilename: "texture\kuro.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
-		Texture_Alpha_Source: "None"
+		Texture_Alpha_Source: "Alpha_Black"
 		Cropping: 0,0,0,0
 	}
-	Texture: 2205808199568, "Texture::マップ #3", "" {
+	Texture: 2155624603248, "Texture::マップ #8", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::マップ #3"
+		TextureName: "Texture::マップ #8"
 		Properties70:  {
 			P: "UVSet", "KString", "", "", "UVChannel_1"
 			P: "UseMaterial", "bool", "", "",1
 		}
-		Media: "Video::マップ #3"
-		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\siro.png"
-		RelativeFilename: "siro.png"
+		Media: "Video::マップ #8"
+		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\kuro.png"
+		RelativeFilename: "texture\kuro.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
-		Texture_Alpha_Source: "None"
+		Texture_Alpha_Source: "Alpha_Black"
 		Cropping: 0,0,0,0
 	}
-	AnimationStack: 2205572642400, "AnimStack::Take 001", "" {
+	Texture: 2155624602768, "Texture::マップ #9", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::マップ #9"
+		Properties70:  {
+			P: "UVSet", "KString", "", "", "UVChannel_1"
+			P: "UseMaterial", "bool", "", "",1
+		}
+		Media: "Video::マップ #9"
+		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+		RelativeFilename: "texture\siro.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "Alpha_Black"
+		Cropping: 0,0,0,0
+	}
+	Texture: 2155624615248, "Texture::マップ #10", "" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::マップ #10"
+		Properties70:  {
+			P: "UVSet", "KString", "", "", "UVChannel_1"
+			P: "UseMaterial", "bool", "", "",1
+		}
+		Media: "Video::マップ #10"
+		FileName: "C:\Users\GC1804\Desktop\ゲーム制作\エンジン\FPSGame\GameTemplate\Game\Assets\modelData\texture\siro.png"
+		RelativeFilename: "texture\siro.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "Alpha_Black"
+		Cropping: 0,0,0,0
+	}
+	AnimationStack: 2155388295040, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStop", "KTime", "Time", "",153953860000
 			P: "ReferenceStop", "KTime", "Time", "",153953860000
 		}
 	}
-	AnimationLayer: 2205847764272, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 2155359036544, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -620,40 +713,58 @@ Objects:  {
 Connections:  {
 	
 	;Model::Box001, Model::RootNode
-	C: "OO",2205855016736,0
+	C: "OO",2155552539552,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",2205847764272,2205572642400
+	C: "OO",2155359036544,2155388295040
 	
-	;Material::02 - Default, Model::Box001
-	C: "OO",2205808200528,2205855016736
+	;Material::Material #170, Model::Box001
+	C: "OO",2155624611408,2155552539552
 	
-	;Material::01 - Default, Model::Box001
-	C: "OO",2205808201968,2205855016736
+	;Material::Material #171, Model::Box001
+	C: "OO",2155624601808,2155552539552
 	
-	;Material::03 - Default, Model::Box001
-	C: "OO",2205808202448,2205855016736
+	;Material::Material #183, Model::Box001
+	C: "OO",2155624602288,2155552539552
+	
+	;Material::Material #196, Model::Box001
+	C: "OO",2155624613808,2155552539552
+	
+	;Material::Material #209, Model::Box001
+	C: "OO",2155624608528,2155552539552
 	
 	;Geometry::, Model::Box001
-	C: "OO",2205854070048,2205855016736
+	C: "OO",2155373222432,2155552539552
 	
-	;Texture::マップ #2, Material::02 - Default
-	C: "OP",2205808201008,2205808200528, "DiffuseColor"
+	;Texture::マップ #6, Material::Material #170
+	C: "OP",2155624606608,2155624611408, "DiffuseColor"
 	
-	;Video::マップ #2, Texture::マップ #2
-	C: "OO",2205808202928,2205808201008
+	;Video::マップ #6, Texture::マップ #6
+	C: "OO",2155624609488,2155624606608
 	
-	;Texture::マップ #1, Material::01 - Default
-	C: "OP",2205808201488,2205808201968, "DiffuseColor"
+	;Texture::マップ #7, Material::Material #171
+	C: "OP",2155624614768,2155624601808, "DiffuseColor"
 	
-	;Video::マップ #1, Texture::マップ #1
-	C: "OO",2205853286816,2205808201488
+	;Video::マップ #7, Texture::マップ #7
+	C: "OO",2155624615728,2155624614768
 	
-	;Texture::マップ #3, Material::03 - Default
-	C: "OP",2205808199568,2205808202448, "DiffuseColor"
+	;Texture::マップ #8, Material::Material #183
+	C: "OP",2155624603248,2155624602288, "DiffuseColor"
 	
-	;Video::マップ #3, Texture::マップ #3
-	C: "OO",2205853286336,2205808199568
+	;Video::マップ #8, Texture::マップ #8
+	C: "OO",2155624604208,2155624603248
+	
+	;Texture::マップ #9, Material::Material #196
+	C: "OP",2155624602768,2155624613808, "DiffuseColor"
+	
+	;Video::マップ #9, Texture::マップ #9
+	C: "OO",2155624604688,2155624602768
+	
+	;Texture::マップ #10, Material::Material #209
+	C: "OP",2155624615248,2155624608528, "DiffuseColor"
+	
+	;Video::マップ #10, Texture::マップ #10
+	C: "OO",2155624605168,2155624615248
 }
 ;Takes section
 ;----------------------------------------------------

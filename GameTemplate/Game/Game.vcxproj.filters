@@ -399,9 +399,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -439,9 +436,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\item_dangan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\stage_02.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -565,5 +559,30 @@
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
       <Filter>Assets\sprite</Filter>
     </Image>
+    <Image Include="Assets\modelData\utc_all2.tga" />
+    <Image Include="Assets\modelData\texture\AGRAGATE.JPG" />
+    <Image Include="Assets\modelData\texture\blue.png" />
+    <Image Include="Assets\modelData\texture\dangan.png" />
+    <Image Include="Assets\modelData\texture\GOLDWOOD.JPG" />
+    <Image Include="Assets\modelData\texture\green.png" />
+    <Image Include="Assets\modelData\texture\hai.png" />
+    <Image Include="Assets\modelData\texture\kaihuku.png" />
+    <Image Include="Assets\modelData\texture\kiro.png" />
+    <Image Include="Assets\modelData\texture\kuro.png" />
+    <Image Include="Assets\modelData\texture\midori.png" />
+    <Image Include="Assets\modelData\texture\rad.png" />
+    <Image Include="Assets\modelData\texture\siro.png" />
+    <Image Include="Assets\modelData\texture\sky.JPG" />
+    <Image Include="Assets\modelData\texture\tya.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Assets\shader\model.fx" />
+    <FxCompile Include="Assets\shader\sprite.fx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\modelData\shotGun.tks" />
+    <None Include="Assets\modelData\Arifle.tks" />
+    <None Include="Assets\modelData\dogEnemy.tks" />
+    <None Include="Assets\modelData\enemy.tks" />
   </ItemGroup>
 </Project>
