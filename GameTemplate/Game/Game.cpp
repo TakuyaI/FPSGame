@@ -20,7 +20,6 @@ Game::Game()
 				m_dogEnemy = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
 				m_dogEnemy->SetPosition(object.position);
 				m_dogEnemy->SetRotation(object.rotation);
-				m_dogEnemyList.push_back(m_dogEnemy);
 				m_knockDownEnemyNum++;
 				return true;
 			}
@@ -28,7 +27,6 @@ Game::Game()
 				m_enemy = g_goMgr.NewGameObject<Enemy>(enemy);
 				m_enemy->SetPosition(object.position);
 				m_enemy->SetRotation(object.rotation);
-				m_enemyList.push_back(m_enemy);
 				m_knockDownEnemyNum++;
 				return true;
 			}

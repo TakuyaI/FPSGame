@@ -175,7 +175,6 @@ void IEnemyObject::EnemyUpdate(CVector3* position, CVector3* initPos, CQuaternio
 		//ダメージを受ける。
 		ReceiveDamage(position);
 	}
-
 	if (m_state == ENEMY_STAY) {
 		//待機。
 		Saty(position, initPos);

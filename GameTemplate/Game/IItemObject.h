@@ -1,5 +1,5 @@
 #pragma once
-class IItemObject
+class IItemObject : public IGameObject
 {
 public:
 	/// <summary>

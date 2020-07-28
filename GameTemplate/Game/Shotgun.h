@@ -11,18 +11,34 @@ public:
 	void Render();
 	void PostRender();
 
+	/// <summary>
+	/// 弾数を設定する。
+	/// </summary>
+	/// <param name="ammo"></param>
+	void SetGunAmmo(int ammo)
+	{
+		m_ammo = ammo;
+	}
+	/// <summary>
+	/// 弾数を返す。
+	/// </summary>
+	/// <returns></returns>
 	int GetAmmo()
 	{
 		return m_ammo;
 	}
-	int GetBlaze()
-	{
-		return m_loading;
-	}
+	/// <summary>
+	/// 回転を返す。
+	/// </summary>
+	/// <returns></returns>
 	CQuaternion GetRotation()
 	{
 		return m_rotation;
 	}
+	/// <summary>
+	/// 弾の当たり判定の範囲を返す。
+	/// </summary>
+	/// <returns></returns>
 	CVector3 GetHitJudgmentRange()
 	{
 		return m_hitJudgmentRange;
@@ -37,7 +53,7 @@ private:
 	CVector3 m_scale = CVector3::One();               //サイズ。
 	int m_ammo = 0;                                   //弾数。
 	int m_loading = 0;                                //装填弾数。
-	int m_maxLoading = 10;                            //最大装填弾数。
+	int m_maxLoading = 2;                            //最大装填弾数。
 	int m_bulletIntervalTime = 20;                     //弾のインターバル。
 	float m_bulletMoveSpeed = 300.0f;                 //弾の速度。
 	float m_reaction = 10.0f;                          //銃の反動。

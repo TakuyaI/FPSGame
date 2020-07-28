@@ -7,9 +7,10 @@ const float WIDTH_UPPER_LIMIT = 50.0f; //リコイルの横幅の上限。
 const float RECOIL_RIGHT_AND_LEFT = 0.3f;//リコイルの左右の移動量。
 GameCamera::GameCamera()
 {
+	//近平面を設定。
 	g_camera3D.SetNear(1.0f);
+	//遠平面を設定。
 	g_camera3D.SetFar(10000.0f);
-	m_toTargetPos = { 0.0f, 0.0f, 1000.0f };
 }
 
 
@@ -49,7 +50,6 @@ void GameCamera::Recoil()
 			}
 
 		}
-
 		//少し上を向く。
 		m_angle2 += RECOIL_UP;
 		m_shotCount += fabsf(RECOIL_UP);

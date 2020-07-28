@@ -55,6 +55,9 @@
     <Filter Include="stage">
       <UniqueIdentifier>{0fb1fd75-2ec8-424f-91ba-ead40f196f85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\shader">
+      <UniqueIdentifier>{c548f521-e133-4eee-9a2d-147872a102fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -559,30 +562,57 @@
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
       <Filter>Assets\sprite</Filter>
     </Image>
-    <Image Include="Assets\modelData\utc_all2.tga" />
-    <Image Include="Assets\modelData\texture\AGRAGATE.JPG" />
-    <Image Include="Assets\modelData\texture\blue.png" />
-    <Image Include="Assets\modelData\texture\dangan.png" />
-    <Image Include="Assets\modelData\texture\GOLDWOOD.JPG" />
-    <Image Include="Assets\modelData\texture\green.png" />
-    <Image Include="Assets\modelData\texture\hai.png" />
-    <Image Include="Assets\modelData\texture\kaihuku.png" />
-    <Image Include="Assets\modelData\texture\kiro.png" />
-    <Image Include="Assets\modelData\texture\kuro.png" />
-    <Image Include="Assets\modelData\texture\midori.png" />
-    <Image Include="Assets\modelData\texture\rad.png" />
-    <Image Include="Assets\modelData\texture\siro.png" />
-    <Image Include="Assets\modelData\texture\sky.JPG" />
-    <Image Include="Assets\modelData\texture\tya.png" />
+    <Image Include="Assets\modelData\texture\siro.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\rad.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\midori.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\kuro.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\kiro.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\kaihuku.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\hai.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\green.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\dangan.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\blue.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\modelData\texture\tya.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+    <Image Include="Assets\sprite\damage.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Assets\shader\model.fx" />
-    <FxCompile Include="Assets\shader\sprite.fx" />
+    <FxCompile Include="Assets\shader\model.fx">
+      <Filter>Assets\shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Assets\shader\sprite.fx">
+      <Filter>Assets\shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\modelData\shotGun.tks" />
-    <None Include="Assets\modelData\Arifle.tks" />
-    <None Include="Assets\modelData\dogEnemy.tks" />
-    <None Include="Assets\modelData\enemy.tks" />
+    <None Include="Assets\modelData\dogEnemy.tks">
+      <Filter>Assets\modelData</Filter>
+    </None>
+    <None Include="Assets\modelData\enemy.tks">
+      <Filter>Assets\modelData</Filter>
+    </None>
   </ItemGroup>
 </Project>

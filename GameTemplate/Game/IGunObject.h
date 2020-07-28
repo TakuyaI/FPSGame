@@ -64,7 +64,7 @@ protected:
 	GameCamera* m_gameCam;
 	GunGenerator* m_gunGen;
 
-	float m_rotSpeed = 5.0f;
+	float m_rotSpeed = 3.0f;
 	int m_bulletIntervalTimer = 0;
 	const float DIVIDE_NUM = 4.0f; //m_aimMoveSpeed‚ğŠ„‚é”’lB
 	CVector3 m_gunLocalPosition = CVector3::Zero();

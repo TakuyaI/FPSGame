@@ -10,18 +10,34 @@ public:
 	void Render();
 	void PostRender();
 
+	/// <summary>
+	/// ’e”‚ğİ’è‚·‚éB
+	/// </summary>
+	/// <param name="ammo"></param>
+	void SetGunAmmo(int ammo)
+	{
+		m_ammo = ammo;
+	}
+	/// <summary>
+	/// ’e”‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
 	int GetAmmo()
 	{
 		return m_ammo;
 	}
-	int GetBlaze()
-	{
-		return m_loading;
-	}
+	/// <summary>
+	/// ‰ñ“]‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
 	CQuaternion GetRotation()
 	{
 		return m_rotation;
 	}
+	/// <summary>
+	/// ’e‚Ì“–‚½‚è”»’è‚Ì”ÍˆÍ‚ğ•Ô‚·B
+	/// </summary>
+	/// <returns></returns>
 	CVector3 GetHitJudgmentRange()
 	{
 		return m_hitJudgmentRange;

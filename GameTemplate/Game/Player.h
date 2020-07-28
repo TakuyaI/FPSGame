@@ -63,6 +63,10 @@ public:
 	{
 		return m_damage;
 	}
+	void SetHpChanges(float hpChanges)
+	{
+		m_hpChanges = hpChanges;
+	}
 	void SetDamageFlug(bool damageFlug) 
 	{
 		m_damageFlug = damageFlug;
@@ -108,8 +112,9 @@ private:
 	float m_playerSpeed = 20.0f;            //Playerのスピード。
 	float m_playerHp = 100.0f; //プレイヤーのHP。
 	float m_pushAwayNum = 0; 
+	float m_hpChanges = 0;//HPの変化量。
 	float m_damage = 0.0f; //プレイヤーが受けるダメージ量。
-
+	Sprite m_damageSprite;
 	Sprite m_greenSprite;
 	Sprite m_hpBlackSprite;
 	CVector3 m_greenScale = CVector3::One();

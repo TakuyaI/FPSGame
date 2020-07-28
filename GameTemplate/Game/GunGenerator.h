@@ -110,10 +110,10 @@ private:
 	int m_gunNum = 0;                     //銃の番号。
 	int m_beforeGunNum = 0;               //前の銃の番号。
 	int  m_rifleAmmo = 200;               //ライフルの弾数。
-	int  m_shotgunAmmo = 60;              //ショットガンの弾数。
+	int  m_shotgunAmmo = 30;              //ショットガンの弾数。
 	int  m_sniperAmmo = 20;               //スナイパーの弾数。
 	int m_rifulLoading = 50;              //ライフルの装填弾数。
-	int m_shotgunLoading = 10;            //ショットガンの装填弾数。  
+	int m_shotgunLoading = 2;            //ショットガンの装填弾数。  
 	int m_sniperLoading = 4;              //スナイパーの装填弾数。
 	bool m_reloadFlug = false;            //リロードしたかどうか。
 	bool m_shootingBulletFlug = false;    //銃を撃っているかどうか。

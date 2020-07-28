@@ -121,8 +121,8 @@ void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, 
 		//エイムしていないときの銃のローカル座標から、
 		//エイムしているときの銃のローカル座標に向かうベクトルを求める。
 		m_aimMoveSpeed = aimPos - notaimPos;
+		//m_aimMoveSpeedを足す回数分だけ割る。
 		m_aimMoveSpeed /= DIVIDE_NUM;
-
 		if (m_count < (int)DIVIDE_NUM) {
 			//m_countがDIVIDE_NUMより少ないなら移動する。
 			m_gunLocalPosition += m_aimMoveSpeed;

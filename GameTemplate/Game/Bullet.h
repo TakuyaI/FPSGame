@@ -19,27 +19,50 @@ public:
 	/// </summary>
 	~Bullet();
 	/// <summary>
-	/// 
+	/// ゴースト初期化。
 	/// </summary>
 	void InitGhost();
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
+	//シャドウキャスター。
 	void SetRegistShadowCaster();
+	//3D描画。
 	void Render();
-
+	/// <summary>
+	/// 座標を設定する。
+	/// </summary>
+	/// <param name="pos"></param>
 	void SetPosition(CVector3 pos)
 	{
 		m_position = pos;
 	}
+	/// <summary>
+	/// 座標を返す。
+	/// </summary>
+	/// <returns></returns>
 	CVector3 GetPosition()
 	{
 		return m_position;
 	}
-	
+	/// <summary>
+	/// 移動速度を設定する。
+	/// </summary>
+	/// <param name="moveSpeed"></param>
 	void SetMoveSpeed(CVector3 moveSpeed)
 	{
 		m_moveSpeed = moveSpeed;
 	}
+	/// <summary>
+	/// キャラコンを返す。
+	/// </summary>
+	/// <returns></returns>
 	CharacterController* GetCharaCon()
 	{
 		return &m_charaCon;
@@ -51,25 +74,20 @@ private:
 	void CollisionBulletToEnemy();
 	void CollisionBulletToDogEnemy();
 private:
-	Enemy* m_enemy;
-	GameCamera* m_gameCam;
-	GunGenerator* m_gunGen;
-	Game* m_game;
-	BackGround* m_backGro;
-	Rifle* m_rifle;
-	Shotgun* m_shotgun;
-	Sniper* m_sniper;
-
-	SkinModel m_model;
-	CVector3 m_position = CVector3::Zero();
-	CVector3 m_moveSpeed = CVector3::Zero();
-	int m_timer = 0;
-	bool m_deleteEenmyFlug = false;
-	int m_bulletPower = 0;
-	int m_knockDownEnemyNum = 0; //倒す敵の数。
-	CQuaternion m_rotation = CQuaternion::Identity();
-	PhysicsGhostObject m_GhostObject;
-	CharacterController m_charaCon;
-	CVector3 m_hitJudgmentRange = CVector3::Zero(); //弾の当たり判定の範囲。
+	GunGenerator* m_gunGen;                            //GunGeneratorのインスタンス。
+	Game* m_game;                                      //Gameのインスタンス。
+	Rifle* m_rifle;                                    //Rifleのインスタンス。
+	Shotgun* m_shotgun;                                //Shotgunのインスタンス。
+	Sniper* m_sniper;                                  //Sniperのインスタンス。
+	SkinModel m_model;                                 //スキンモデル。
+	CVector3 m_position = CVector3::Zero();            //座標。
+	CVector3 m_moveSpeed = CVector3::Zero();           //移動速度。
+	int m_lifeTimer = 0;                           //弾の生存時間のタイマー。
+	const int m_lifeTime = 10;                    //弾の生存時間。 
+	int m_bulletPower = 0;                             //弾の攻撃力。
+	CQuaternion m_rotation = CQuaternion::Identity();  //回転。
+	PhysicsGhostObject m_GhostObject;                  //ゴースト。
+	CharacterController m_charaCon;                    //キャラコン。
+	CVector3 m_hitJudgmentRange = CVector3::Zero();    //弾の当たり判定の範囲。
 };
 

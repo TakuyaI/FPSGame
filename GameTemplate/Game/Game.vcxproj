@@ -266,10 +266,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
-    <Image Include="Assets\modelData\texture\AGRAGATE.JPG" />
     <Image Include="Assets\modelData\texture\blue.png" />
     <Image Include="Assets\modelData\texture\dangan.png" />
-    <Image Include="Assets\modelData\texture\GOLDWOOD.JPG" />
     <Image Include="Assets\modelData\texture\green.png" />
     <Image Include="Assets\modelData\texture\hai.png" />
     <Image Include="Assets\modelData\texture\kaihuku.png" />
@@ -278,9 +276,8 @@
     <Image Include="Assets\modelData\texture\midori.png" />
     <Image Include="Assets\modelData\texture\rad.png" />
     <Image Include="Assets\modelData\texture\siro.png" />
-    <Image Include="Assets\modelData\texture\sky.JPG" />
     <Image Include="Assets\modelData\texture\tya.png" />
-    <Image Include="Assets\modelData\utc_all2.tga" />
+    <ImageContentTask Include="Assets\sprite\damage.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_01_AlbedoTransparency.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_03_AlbedoTransparency.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Light_AlbedoTransparency.png" />
@@ -324,10 +321,8 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\modelData\Arifle.tks" />
     <None Include="Assets\modelData\dogEnemy.tks" />
     <None Include="Assets\modelData\enemy.tks" />
-    <None Include="Assets\modelData\shotGun.tks" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

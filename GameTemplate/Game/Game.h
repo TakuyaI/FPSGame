@@ -1,6 +1,5 @@
 #pragma once
 class GameCamera;
-//class EnemyGenerator;
 class Sprite;
 class GunGenerator;
 #include "IGameObject.h"
@@ -46,7 +45,6 @@ private:
 	BackGround* m_backGro;
 	GameCamera* m_gameCam;
 	Enemy* m_enemy;
-	//EnemyGenerator* m_enemyGen;
 	GunGenerator* m_gunGen;
 	ItemGenerator* m_itemGen;
 	DogEnemy* m_dogEnemy;
@@ -61,9 +59,6 @@ private:
 
 
 	Level m_level;
-	std::vector<Enemy*> m_enemyList;
-	std::vector<DogEnemy*> m_dogEnemyList;
-	std::vector<PointLightObject*> m_PointLightObjList;
 	int i = 1;
 };
 

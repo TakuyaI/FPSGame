@@ -82,7 +82,7 @@ public:
 private:
 	Player* m_player;
 
-	CVector3 m_toTargetPos = CVector3::Zero();
+	CVector3 m_toTargetPos = { 0.0f, 0.0f, 1000.0f };
 	CVector3 m_position = CVector3::Zero();     //視点。
 	CVector3 m_target = CVector3::Zero();       //注視点。
 	CVector3 m_toTarget = CVector3::Zero();
@@ -95,6 +95,6 @@ private:
 	float m_shotCount = 0.0f;//弾を撃った時にカウントする。
 	float m_width = 0.0f;//リコイルの横幅。
 	float m_widthUpperLimit = 50.0f; //リコイルの横幅の上限。
-	float m_recoilRightAndLeft = 0.3f;//リコイルの左右の移動量。
+	float m_recoilRightAndLeft = 10.0f;//リコイルの左右の移動量。
 };
 

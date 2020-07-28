@@ -1,6 +1,8 @@
 #pragma once
-#include "IItemObject.h"
 #include "ItemObject.h"
+#include "GunGenerator.h"
+
+
 class Danyaku : public IItemObject
 {
 public:
@@ -17,6 +19,9 @@ public:
 	/// </summary>
 	void ItemEffects();
 private:
-
+	GunGenerator * m_gunGen;                            //GunGeneratorのインスタンス。
+	Rifle* m_rifle;                                    //Rifleのインスタンス。
+	Shotgun* m_shotGun;                                //Shotgunのインスタンス。
+	Sniper* m_sniper;                                  //Sniperのインスタンス。
 };
 

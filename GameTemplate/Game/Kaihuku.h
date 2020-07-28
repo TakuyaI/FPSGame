@@ -1,6 +1,7 @@
 #pragma once
 #include "IItemObject.h"
 #include "ItemObject.h"
+#include "Player.h"
 class Kaihuku : public IItemObject
 {
 public:
@@ -17,5 +18,7 @@ public:
 	/// </summary>
 	void ItemEffects();
 private:
+	Player* m_player;                //プレイヤーのインスタンス。
+	const float m_kaihukuryou = 0.2f; //回復量。プレイヤーのHPを1を100%としたときの数値。
 };
 
