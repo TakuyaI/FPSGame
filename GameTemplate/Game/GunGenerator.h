@@ -4,6 +4,7 @@ class Rifle;
 class Shotgun;
 class Sniper;
 class IGunObject;
+class Game;
 #include "Sprite.h"
 #include "IGameObject.h"
 #include "Game.h"
@@ -67,14 +68,7 @@ public:
 	{
 		m_reloadFlug = flug;
 	}
-	/// <summary>
-	/// 銃を撃っているかどうかのフラグを設定する。
-	/// </summary>
-	/// <param name="flug">フラグ。</param>
-	void SetShootingBulletFlug(bool flug)
-	{
-		m_shootingBulletFlug = flug;
-	}
+	
 	/// <summary>
 	/// エイム中かどうかのフラグを設定する。
 	/// </summary>
@@ -116,8 +110,7 @@ private:
 	int m_shotgunLoading = 2;            //ショットガンの装填弾数。  
 	int m_sniperLoading = 4;              //スナイパーの装填弾数。
 	bool m_reloadFlug = false;            //リロードしたかどうか。
-	bool m_shootingBulletFlug = false;    //銃を撃っているかどうか。
 	bool m_aimFlug = false;               //エイム中かどうか。
-	Sprite m_sprite;                      //
+	Sprite m_sprite;                      //銃の照準の画像。
 };
 

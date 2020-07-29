@@ -10,9 +10,22 @@ class GameCamera;
 class Player:public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	Player();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~Player();
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
 	void SetRegistShadowCaster();
 	void Render();

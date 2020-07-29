@@ -23,7 +23,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetNear(0.1f);
 	g_camera2D.SetFar(1000.0f);
 	g_camera2D.SetUpdateProjMatrixFunc(Camera::enUpdateProjMatrixFunc_Ortho);
-	/*g_camera2D.Update();*/
 	CSoundEngine soundEngine;
 	soundEngine.Init();
 	g_goMgr.NewGameObject<Title>(100);

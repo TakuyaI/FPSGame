@@ -1,18 +1,15 @@
 #include "stdafx.h"
 #include "Title.h"
-//#include "GameManager.h"
 #include "Game.h"
 
 Title::Title()
 {
-	//m_soundEngine.Init();
 	m_bgm.Init(L"Assets/sound/op.wav");
 	m_cio.Init(L"Assets/sound/gamestart.wav");
 	m_bgm.Play(true);
-
 	
-	m_haikei.Init(L"Resource/sprite/orengi.dds", 1280.0f, 720.0f);
-	m_start.Init(L"Resource/sprite/st.dds", 1280.0f, 720.0f);
+	m_haikei.Init(L"Resource/sprite/orengi.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	m_start.Init(L"Resource/sprite/st.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 }
 
 

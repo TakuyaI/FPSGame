@@ -4,26 +4,34 @@
 
 Rifle::Rifle()
 {
+	//モデルをロード。
 	m_model.Init(L"Assets/modelData/Arifle.cmo");
+	//撃った時の音をロード。
 	m_gunShot.Init(L"Assets/sound/raifulS.wav");
+	//撃った時のエフェクトをロード。
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/gunShot.efk"
 	);
-	
+	//弾数を取得。
 	m_ammo = m_gunGen->GetGunAmmo();
+	//装填弾数を取得。
 	m_loading = m_gunGen->GetGunLoading();
+	//最初は銃のインターバルタイマーはm_bulletIntervalTimeにしておく。
 	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
 Rifle::~Rifle()
 {
+	//GunGeneratorに弾数を保存。
 	m_gunGen->SetGunAmmo(m_ammo);
+	//GunGeneratorに装填弾数を保存。
 	m_gunGen->SetGunLoading(m_loading);
 }
 void Rifle::Update()
 {
+	//銃の更新処理。
 	GunUpdate(
 		&m_positon,
 		&m_rotation,
@@ -42,11 +50,12 @@ void Rifle::Update()
 
 void Rifle::SetRegistShadowCaster()
 {
-	
+	//シャドウキャスターにセット。
 	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Rifle::Render()
 {
+	//3D描画。
 	m_model.Draw(
 		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(),
@@ -55,7 +64,7 @@ void Rifle::Render()
 }
 void Rifle::PostRender()
 {
-	
+	//2D描画。
 	GunPostRender(
 		&m_reloadTime,
 		&m_ammo,
@@ -134,7 +143,6 @@ void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, 
 		else {
 			m_gunLocalPosition = *aimingPos;
 			PosRot.Multiply(m_gunLocalPosition);
-
 		}
 	}
 	else {//エイムしていない。

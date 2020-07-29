@@ -67,9 +67,6 @@ void SkinModel::InitDirectionLight()
 
 	m_light.envPow = 1.0f;
 
-	m_pointLightList.color[0] = { 5.0f, 5.0f, 5.0f, 1.0f };
-	m_pointLightList.attn[0].x = 1000.0f;
-
 	for (int i = 1; i < NUM_POINT_LIGHT; i++) {
 		m_pointLightList.color[i] = { 5.0f, 3.0f, 3.0f, 1.0f };
 		m_pointLightList.attn[i].x = 500.0f;
@@ -214,13 +211,9 @@ void SkinModel::Draw(EnRenderMode renderMode, CMatrix viewMatrix, CMatrix projMa
 	pos.z = pointLigPos.z;
 	pos.w = 1.0f;
 	m_pointLightList.position[0] = pos;
-	//if (g_goMgr.GetShotFlug() != false) {
-		m_pointLightList.attn[0].x = 1000.0f;
-		m_pointLightList.color[0].Set(1.5f, 1.5f, 1.5f, 2.0f);
-	//}
-	/*else {
-		m_pointLightList.attn[0].x = 0.0f;
-	}*/
+	m_pointLightList.attn[0].x = 1000.0f;
+	m_pointLightList.color[0].Set(1.5f, 1.5f, 1.5f, 2.0f);
+
 	for (int i = 1; i < NUM_POINT_LIGHT; i++) {
 		m_pointLightList.position[i] = g_goMgr.GetPointLightPos(i);
 	}

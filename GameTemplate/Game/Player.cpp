@@ -51,15 +51,6 @@ void Player::Update()
 		//離したら戻る。
 		m_playerSpeed = 20.0f;
 	}
-	if (g_pad->GetLStickXF() >= 0.5f || g_pad->GetLStickYF() >= 0.5f) {
-		//移動中はリコイルのブレが大きくなる。
-		m_gameCamera->SetWidthUpperLimit(100.0f);
-		m_gameCamera->SetRecoilRightAndLeft(1.0f);
-	}
-	else {
-		m_gameCamera->SetWidthUpperLimit(50.0f);
-		m_gameCamera->SetRecoilRightAndLeft(0.3f);
-	}
 	m_moveSpeed = CVector3::Zero();
 	m_moveSpeed += cameraDirX * g_pad->GetLStickXF()* -m_playerSpeed;
 	m_moveSpeed += cameraDir * g_pad->GetLStickYF()* m_playerSpeed;

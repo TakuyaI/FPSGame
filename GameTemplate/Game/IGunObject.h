@@ -13,9 +13,14 @@ class Enemy;
 class IGunObject : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	IGunObject();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~IGunObject();
-
 	/// <summary>
 	/// 銃の更新
 	/// </summary>
@@ -61,37 +66,32 @@ private:
 
 protected:
 	Effekseer::Handle m_playEffectHandle = -1;
-	GameCamera* m_gameCam;
-	GunGenerator* m_gunGen;
-
-	float m_rotSpeed = 3.0f;
-	int m_bulletIntervalTimer = 0;
-	const float DIVIDE_NUM = 4.0f; //m_aimMoveSpeedを割る数値。
-	CVector3 m_gunLocalPosition = CVector3::Zero();
-	CVector3 m_aimMoveSpeed = CVector3::Zero();
-	int m_count = 0;
-
+	GameCamera* m_gameCam;                              //GameCameraのインスタンス。
+	GunGenerator* m_gunGen;                             //GunGeneratorのインスタンス。
+	float m_rotSpeed = 3.0f;                            //カメラの回転スピード。
+	int m_bulletIntervalTimer = 0;                      //弾を撃つまでのインターバルのタイマー。
+	const float DIVIDE_NUM = 4.0f;                      //m_aimMoveSpeedを割る数値。割った後のm_aimMoveSpeedをm_gunLocalPositionに足していく回数。
+	CVector3 m_gunLocalPosition = CVector3::Zero();     //カメラを原点とした銃のローカル座標。
+	CVector3 m_aimMoveSpeed = CVector3::Zero();         //エイムするときのスピード。
+	int m_count = 0;                                    //エイムに上限を持たせるためのカウント。
 private:
-	Player* m_player;
-	Enemy* m_enemy;
-	Bullet* m_bullet;
-	FontRender m_font;
-
-	CVector3 m_bulletPos = CVector3::Zero();
-	float m_angle = 0.0f;
-	float m_angle2 = 0.0f;
-	int m_usedBullet = 0; //使い終えた弾。
-	int m_reloadTimer = 0;  //リロードタイマー。
-	bool m_reloadFlug = false; //リロードしているかどうか。
-
-	Sprite m_sprite;
-	CVector3 m_reloadGagePos = {-24.0f, -30.0f, 0.0f};
-	CVector3 scale = { 0.6f, 0.1f, 1.0f };
-
-	float m_red = 0.0f;
-	float m_green = 0.0f;
-	float m_blue = 0.0f;
-
-	bool m_recoiledFlug = false;//反動を受けたかどうか。
+	Player* m_player;                                   //プレイヤーのインスタンス。
+	Bullet* m_bullet;                                   //弾のインスタンス。
+	FontRender m_font;                                  //装填弾数と弾数を表示している文字。
+	CVector3 m_bulletPos = CVector3::Zero();            //弾の座標。
+	float m_angle = 0.0f;                               //横の回転角度。
+	float m_angle2 = 0.0f;                              //縦の回転角度。
+	int m_usedBullet = 0;                               //使い終えた弾。
+	int m_reloadTimer = 0;                              //リロードタイマー。
+	bool m_reloadFlug = false;                          //リロードしているかどうか。
+	Sprite m_sprite;                                    //リロードゲージのスプライト。
+	CVector3 m_reloadGagePos = {-24.0f, -30.0f, 0.0f};  //リロードゲージのスプライトの座標。
+	CVector3 m_reloadGageScale = { 0.6f, 0.1f, 1.0f };  //リロードゲージのスプライトの大きさ。
+	DirectX::XMFLOAT2 m_fontPos = { 100.0f, 600.0f };   //文字の座標。
+	float m_fontRed = 0.0f;                             //文字の赤の成分。
+	float m_fontGreen = 0.0f;                           //文字の緑の成分。
+	float m_fontBlue = 0.0f;                            //文字の青の成分。
+	float m_fontScale = 1.0f;                           //文字の大きさ。
+	bool m_recoiledFlug = false;                        //反動を受けたかどうか。
 };
 

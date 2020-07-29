@@ -6,6 +6,7 @@
 
 GunGenerator::GunGenerator()
 {
+	//銃の照準の画像をロード。
 	m_sprite.Init(L"Resource/sprite/zyuzi.dds", 256.0f, 144.0f);
 }
 GunGenerator::~GunGenerator()
@@ -89,7 +90,7 @@ void GunGenerator::Update()
 		if (g_pad->IsTrigger(enButtonY)) {
 			//Yボタンで銃を切り替える。
 			if (
-				m_shootingBulletFlug != true &&  //弾を発射していない。
+				g_goMgr.GetShotFlug() != true && //弾を発射していない。
 				m_aimFlug != true &&             //エイムしていない。
 				m_reloadFlug != true             //リロードしていない。
 				) {

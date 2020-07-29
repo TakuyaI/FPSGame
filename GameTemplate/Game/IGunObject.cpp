@@ -6,15 +6,19 @@
 
 IGunObject::IGunObject()
 {
+	//GameCameraのインスタンスを探す。
 	m_gameCam = g_goMgr.FindGameObject<GameCamera>(gamecamera);
+	//GunGeneratorのインスタンスを探す。
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
+	//Playerのインスタンスを探す。
 	m_player = g_goMgr.FindGameObject<Player>(player);
-
+	//リロードゲージのスプライトをロード。
 	m_sprite.Init(L"Resource/sprite/gage.dds", 100.0f, 70.0f);
 }
 
 IGunObject::~IGunObject()
 {
+	//弾を探して削除する。
 	g_goMgr.QueryGameObject<Bullet>(bullet, [](Bullet * bul)->bool
 		{
 			g_goMgr.DeleteGameObject(bul);
@@ -27,15 +31,16 @@ void IGunObject::GunRotation(CQuaternion* rotation)
 	//カメラのターゲットを代入。
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.y = 0.0f;
-
+	//横の回転角度を計算。
 	m_angle = CMath::RadToDeg(atan2(pos.x, pos.z));
-
+	//カメラのターゲットを代入。
 	pos = m_gameCam->GetToTargetPos();
 	float y = pos.y;
 	pos.y = 0.0f;
 	float x = pos.Length();
+	//縦の回転角度を計算。
 	m_angle2 = CMath::RadToDeg(atan2(-y, x));
-
+	//銃の回転させる。
 	CQuaternion YRot;
 	YRot.SetRotationDeg(CVector3::AxisY(), m_angle);
 	CQuaternion XRot;
@@ -49,17 +54,23 @@ void IGunObject::GunUpdate(
 	float* bulletMoveSpeed, float* reaction, int* reloadTime,
 	CVector3* aimingPos, CVector3* notAimPos
 ){
+	//銃の回転。
 	GunRotation(rotation);
 	m_gunGen->SetmAimFlug(false);
+	//エイム。
 	Aim(position, rotation, aimingPos, notAimPos);
+	//弾のインターバルタイマーを加算していく。
 	m_bulletIntervalTimer++;
 	if (m_bulletIntervalTimer >= *bulletIntervalTime) {
+		//弾のインターバルタイマーが銃に設定されているインターバルタイムになったら、
+		///弾のインターバルタイマーに銃に設定されているインターバルタイムを代入する。
 		m_bulletIntervalTimer = *bulletIntervalTime;
 	}
 	//弾を発射。
-	if (m_reloadFlug != true && m_player->GetDeathFlug() != true) {
-		//リロード中は発射できないかつ、Playerが死んでいない。
-		//発射。
+	if (
+		m_reloadFlug != true &&//リロード中でない。
+		m_player->GetDeathFlug() != true//Playerが死んでいない。
+		) {
 		if (g_pad->IsPress(enButtonRB1)) {
 			//RB1を押した。
 			float camearaViewAngle = m_gameCam->GetGameCameraViewAngle();
@@ -67,7 +78,6 @@ void IGunObject::GunUpdate(
 				//弾数が残っている。
 				if (m_bulletIntervalTimer >= *bulletIntervalTime) {
 					//一定間隔で弾を発射する。
-					m_gunGen->SetShootingBulletFlug(true);
 					m_bullet = g_goMgr.NewGameObject<Bullet>(bullet);
 					m_bullet->SetPosition(*position);
 					//弾のスピードを設定する。
@@ -85,6 +95,7 @@ void IGunObject::GunUpdate(
 					m_bulletIntervalTimer = 0;
 					//弾を撃った時のイベント関数を呼び出す
 					OnShot(position, rotation);
+					//銃の発砲フラグをtrueにする。
 					g_goMgr.SetShotFlug(true);
 				}
 				else {
@@ -96,15 +107,15 @@ void IGunObject::GunUpdate(
 						//フラグをfalseにする。
 						m_recoiledFlug = false;
 					}
-					g_goMgr.SetShotFlug(false);
 				}
 			}
 			else {
+				//銃の発砲フラグをfalseにする。
 				g_goMgr.SetShotFlug(false);
 			}
 		}
 		else {
-			m_gunGen->SetShootingBulletFlug(false);
+			//銃の発砲フラグをfalseにする。
 			g_goMgr.SetShotFlug(false);
 		}
 	}
@@ -152,34 +163,46 @@ void IGunObject::GunUpdate(
 void IGunObject::GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading)
 {
 	if (m_reloadFlug != false) {
+		//リロードした。
 		if (m_reloadTimer < *reloadTime) {
-			scale.x += 0.5f / *reloadTime;
+			//リロード中。
+			//m_reloadGageScale.xを少しづつ大ききする。
+			m_reloadGageScale.x += 0.5f / *reloadTime;
 			m_sprite.Update(
 				m_reloadGagePos,
 				CQuaternion::Identity(),
-				scale,
+				m_reloadGageScale,
 				{ 0.0f, 0.0f }
 			);
+			//描画。
 			m_sprite.Draw();
 		}
 	}
 	else {
-		scale.x = 0.0f;
+		//リロードしていない場合、m_reloadGageScale.x を0にする。
+		m_reloadGageScale.x = 0.0f;
 	}
 
 	if (ammo < 0) {
-		m_red = 1.0f;
-		m_green = 0.0f;
-		m_blue = 0.0f;
+		//弾数が無くなると、文字の色を赤くする。
+		m_fontRed = 1.0f;
+		m_fontGreen = 0.0f;
+		m_fontBlue = 0.0f;
 	}
 	else {
-		m_red = 1.0f;
-		m_green = 1.0f;
-		m_blue = 1.0f;
+		//文字の色を白にする。
+		m_fontRed = 1.0f;
+		m_fontGreen = 1.0f;
+		m_fontBlue = 1.0f;
 	}
 
-
+	//文字描画。
 	wchar_t text[256];
 	swprintf_s(text, L"%d  /  %d ", *loading, *ammo);
-	m_font.Draw(text, { 100.0f, 600.0f }, { m_red, m_green, m_blue, 1.0f }, 1.0f);
+	m_font.Draw(
+		text,
+		m_fontPos,
+		{ m_fontRed, m_fontGreen, m_fontBlue, 1.0f }, 
+		m_fontScale
+	);
 }

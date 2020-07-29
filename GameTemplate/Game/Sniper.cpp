@@ -4,28 +4,39 @@
 
 Sniper::Sniper()
 {
+	//モデルをロード。
 	m_model.Init(L"Assets/modelData/sniper_rifle.cmo");
+	//撃った時の音をロード。
 	m_gunShot.Init(L"Assets/sound/sniperS.wav");
+	//撃った時のエフェクトをロード。
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/happou.efk"
 	);
+	//スコープの画像をロード。
 	m_aim.Init(L"Resource/sprite/SR_scope.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	//2D描画を優先して行う。
 	SetPostRenderPriority(true);
+	//弾数を取得。
 	m_ammo = m_gunGen->GetGunAmmo();
+	//装填弾数を取得。
 	m_loading = m_gunGen->GetGunLoading();
+	//最初は銃のインターバルタイマーはm_bulletIntervalTimeにしておく。
 	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
 Sniper::~Sniper()
 {
+	//GunGeneratorに弾数を保存。
 	m_gunGen->SetGunAmmo(m_ammo);
+	//GunGeneratorに装填弾数を保存。
 	m_gunGen->SetGunLoading(m_loading);
 }
 
 void Sniper::Update()
 {
+	//銃の更新処理。
 	GunUpdate(
 		&m_positon,
 		&m_rotation,
@@ -43,11 +54,14 @@ void Sniper::Update()
 }
 void Sniper::SetRegistShadowCaster()
 {
+	//シャドウキャスターにセット。
 	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Sniper::Render()
 {
-	if (m_flug != true) {
+	if (m_aimFlug != true) {
+		//エイムした。
+		//3D描画。
 		m_model.Draw(
 			enRenderMode_Normal,
 			g_camera3D.GetViewMatrix(),
@@ -57,7 +71,8 @@ void Sniper::Render()
 }
 void Sniper::PostRender()
 {
-	if (m_flug != false) {
+	//2D描画。
+	if (m_aimFlug != false) {
 		m_aim.Draw();
 	}
 	GunPostRender(
@@ -112,7 +127,7 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 {
 	*position = m_gameCam->GetPosition();
 	CQuaternion PosRot = *rotation;
-	m_flug = false;
+	m_aimFlug = false;
 	//エイムしているときの銃のローカル座標。
 	CVector3 aimPos = *aimingPos;
 	//エイムしていないときの銃のローカル座標。
@@ -141,7 +156,7 @@ void Sniper::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos,
 			m_gunLocalPosition = *aimingPos;
 			PosRot.Multiply(m_gunLocalPosition);
 			m_gameCam->SetGameCameraViewAngle(10.0f);
-			m_flug = true;
+			m_aimFlug = true;
 		}
 	}
 	else {//エイムしていない。

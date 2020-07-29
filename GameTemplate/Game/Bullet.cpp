@@ -106,6 +106,7 @@ void Bullet::CollisionBulletToEnemy()
 			}
 		});
 		if (isContact) {
+			//弾のインスタンスを削除。
 			g_goMgr.DeleteGameObject(this);
 		}
 		return true;
@@ -138,6 +139,7 @@ void Bullet::CollisionBulletToDogEnemy()
 				}
 				});
 			if (isContact) {
+				//弾のインスタンスを削除。
 				g_goMgr.DeleteGameObject(this);
 			}
 			return true;
@@ -164,11 +166,6 @@ void Bullet::Update()
 	//ゴーストの回転を設定。
 	m_GhostObject.SetRotation(m_rotation);
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
-}
-void Bullet::SetRegistShadowCaster()
-{
-	//シャドウキャスターにセット。
-	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Bullet::Render()
 {

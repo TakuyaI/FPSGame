@@ -15,14 +15,32 @@ class GunGenerator;
 class Game : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	Game();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~Game();
-
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
+	/// <summary>
+	/// 3D描画。
+	/// </summary>
 	void Render();
+	/// <summary>
+	/// 2D描画。
+	/// </summary>
 	void PostRender();
-	 
+	//
 	void SetEndFlug(bool flug)
 	{
 		m_endFlug = flug;

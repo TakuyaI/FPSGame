@@ -4,26 +4,35 @@
 
 Shotgun::Shotgun()
 {
+	//モデルをロード。
 	m_model.Init(L"Assets/modelData/shotGun.cmo");
+	//撃った時の音をロード。
 	m_gunShot.Init(L"Assets/sound/shotgunS.wav");
+	//撃った時のエフェクトをロード。
 	m_sampleEffect = Effekseer::Effect::Create(
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/happou.efk"
 	);
+	//弾数を取得。
 	m_ammo = m_gunGen->GetGunAmmo();
+	//装填弾数を取得。
 	m_loading = m_gunGen->GetGunLoading();
+	//最初は銃のインターバルタイマーはm_bulletIntervalTimeにしておく。
 	m_bulletIntervalTimer = m_bulletIntervalTime;
 }
 
 
 Shotgun::~Shotgun()
 {
+	//GunGeneratorに弾数を保存。
 	m_gunGen->SetGunAmmo(m_ammo);
+	//GunGeneratorに装填弾数を保存。
 	m_gunGen->SetGunLoading(m_loading);
 }
 
 void Shotgun::Update()
 {
+	//銃の更新処理。
 	GunUpdate(
 		&m_positon,
 		&m_rotation,
@@ -41,10 +50,12 @@ void Shotgun::Update()
 }
 void Shotgun::SetRegistShadowCaster()
 {
+	//シャドウキャスターにセット。
 	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Shotgun::Render()
 {
+	//3D描画。
 	m_model.Draw(
 		enRenderMode_Normal,
 		g_camera3D.GetViewMatrix(),
@@ -53,6 +64,7 @@ void Shotgun::Render()
 }
 void Shotgun::PostRender()
 {
+	//2D描画。
 	GunPostRender(
 		&m_reloadTime,
 		&m_ammo,

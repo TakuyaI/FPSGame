@@ -4,9 +4,22 @@
 class Title : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	Title();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~Title();
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
 	void PostRender();
 

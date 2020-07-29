@@ -2,9 +2,10 @@
 #include "GameCamera.h"
 
 const float MAX_SHOT_COUNT = 10.0f;//m_shotCountの最大値。
-const float RECOIL_UP = -0.5f;//リコイルの上の移動量。
+const float RECOIL_UP = -0.1f;//リコイルの上の移動量。
 const float WIDTH_UPPER_LIMIT = 50.0f; //リコイルの横幅の上限。
-const float RECOIL_RIGHT_AND_LEFT = 0.3f;//リコイルの左右の移動量。
+const float NOAIM_RECOIL_RIGHT_AND_LEFT = 0.3f;//エイムしていないときのリコイルの左右の移動量。
+const float AIM_RECOIL_RIGHT_AND_LEFT = 0.1f;//エイム中のリコイルの左右の移動量。
 GameCamera::GameCamera()
 {
 	//近平面を設定。
@@ -22,31 +23,39 @@ void GameCamera::Recoil()
 {
 	if (g_goMgr.GetShotFlug() != false) {
 		//弾を撃った。
+		if (m_gunGen->GetAimFlug() != false) {
+			//エイム中はリコイルの左右の移動量を減らす。
+			m_recoilRightAndLeft = AIM_RECOIL_RIGHT_AND_LEFT;
+		}
+		else {
+			//エイムしていないときはリコイルの左右の移動量を。
+			m_recoilRightAndLeft = NOAIM_RECOIL_RIGHT_AND_LEFT;
+		}
 		//randomにランダムで、0か１が入る。
-		int random =g_goMgr.Rand(1);
+		int random = g_goMgr.Rand(1);
 		if (random != 0) {
 			//randomが１だった。
 			if (m_width >= m_widthUpperLimit) {
 				//m_widthがプラスの上限に達したので、マイナスする。
 				m_angle -= m_recoilRightAndLeft;
-				m_width--;
+				m_width -= m_recoilRightAndLeft;
 			}
 			else {
 				//m_widthをプラスする。
 				m_angle += m_recoilRightAndLeft;
-				m_width++;
+				m_width += m_recoilRightAndLeft;
 			}
 		}
 		else{//randomが0だった。
 			if (m_width <= -m_widthUpperLimit) {
 				//m_widthがマイナスの上限に達したので、プラスする。
 				m_angle += m_recoilRightAndLeft;
-				m_width++;
+				m_width =+m_recoilRightAndLeft;
 			}
 			else {
 				//m_widthをマイナスする。
 				m_angle -= m_recoilRightAndLeft;
-				m_width--;
+				m_width =-m_recoilRightAndLeft;
 			}
 
 		}
@@ -70,6 +79,7 @@ void GameCamera::Recoil()
 bool GameCamera::Start()
 {
 	m_player = g_goMgr.FindGameObject<Player>(player);
+	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	CQuaternion pRot = m_player->GetRotation();
 	pRot.Multiply(m_toTargetPos);
 	return true;

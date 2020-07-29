@@ -2,16 +2,30 @@
 class Player;
 #include "IGameObject.h"
 #include "Player.h"
+#include "GunGenerator.h"
 class GameCamera : public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	GameCamera();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~GameCamera();
 	/// <summary>
 	/// リコイル。
 	/// </summary>
 	void Recoil();
+	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
 	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
 	void Update();
 	/// <summary>
 	/// 注視点の座標を取得。
@@ -81,7 +95,7 @@ public:
 	}
 private:
 	Player* m_player;
-
+	GunGenerator* m_gunGen;
 	CVector3 m_toTargetPos = { 0.0f, 0.0f, 1000.0f };
 	CVector3 m_position = CVector3::Zero();     //視点。
 	CVector3 m_target = CVector3::Zero();       //注視点。
@@ -94,7 +108,7 @@ private:
 	float m_viewAngle = 60.0f;//画角。
 	float m_shotCount = 0.0f;//弾を撃った時にカウントする。
 	float m_width = 0.0f;//リコイルの横幅。
-	float m_widthUpperLimit = 50.0f; //リコイルの横幅の上限。
-	float m_recoilRightAndLeft = 10.0f;//リコイルの左右の移動量。
+	float m_widthUpperLimit = 20.0f; //リコイルの横幅の上限。
+	float m_recoilRightAndLeft = 0.3f;//リコイルの左右の移動量。
 };
 

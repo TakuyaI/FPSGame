@@ -31,8 +31,6 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update();
-	//シャドウキャスター。
-	void SetRegistShadowCaster();
 	//3D描画。
 	void Render();
 	/// <summary>
@@ -82,8 +80,8 @@ private:
 	SkinModel m_model;                                 //スキンモデル。
 	CVector3 m_position = CVector3::Zero();            //座標。
 	CVector3 m_moveSpeed = CVector3::Zero();           //移動速度。
-	int m_lifeTimer = 0;                           //弾の生存時間のタイマー。
-	const int m_lifeTime = 10;                    //弾の生存時間。 
+	int m_lifeTimer = 0;                               //弾の生存時間のタイマー。
+	const int m_lifeTime = 10;                         //弾の生存時間。 
 	int m_bulletPower = 0;                             //弾の攻撃力。
 	CQuaternion m_rotation = CQuaternion::Identity();  //回転。
 	PhysicsGhostObject m_GhostObject;                  //ゴースト。
