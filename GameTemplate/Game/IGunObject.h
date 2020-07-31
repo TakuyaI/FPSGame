@@ -74,6 +74,12 @@ protected:
 	CVector3 m_gunLocalPosition = CVector3::Zero();     //カメラを原点とした銃のローカル座標。
 	CVector3 m_aimMoveSpeed = CVector3::Zero();         //エイムするときのスピード。
 	int m_count = 0;                                    //エイムに上限を持たせるためのカウント。
+	const enum {
+		enAnimationCrip_nothing,   //何もしない。
+		enAnimationCrip_reload,    //リロード。
+		enAnimationCrip_num        //アニメーションクリップの数。
+	};
+	int m_animationFlug = 0;                            //アニメーションを決めるフラグ。
 private:
 	Player* m_player;                                   //プレイヤーのインスタンス。
 	Bullet* m_bullet;                                   //弾のインスタンス。

@@ -120,7 +120,7 @@ protected:
 		enAnimationCrip_death,  //死亡。
 		enAnimationCrip_Num     //アニメーションクリップの数。
 	};
-	int m_animationFlug = 0;                       //アニメーションフラグ。
+	int m_animationFlug = 0;                       //アニメーションを決めるフラグ。
 	int m_AttackTimer = 0;                         //攻撃タイマー。
 	float m_damage = 0.0f;                         //ダメージ。
 	const float ENEMY_CONTROLLER_RADIUS = 50.0f;   //キャラコンの半径。

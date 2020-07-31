@@ -50,7 +50,7 @@ void DogEnemy::Update()
 		&m_attackPow,
 		&m_speed
 	);
-	//アニメーションを決定。
+	//アニメーションを再生。
 	m_animation.Play(m_animationFlug);
 	//アニメーションを更新。
 	m_animation.Update(1.0f / 30.0f);

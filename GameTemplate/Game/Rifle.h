@@ -84,11 +84,13 @@ private:
 	int m_bulletIntervalTime = 3;                                      //弾のインターバル。
 	float m_bulletMoveSpeed =400.0f;                                   //弾の速度。
 	float m_reaction = 1.0f;                                           //銃の反動。
-	int m_reloadTime = 80;                                             //リロード時間。
+	int m_reloadTime = 60;                                             //リロード時間。
 	CSoundSource m_gunShot;                                            //銃声の音。
 	CVector3 m_aimingPos = { 0.0f, -13.0f, 10.0f };                    //エイムしているときの座標。
 	CVector3 m_notAimPos = { 8.0f, -15.0f, 0.0f };                     //エイムしていないときの座標。
 	CVector3 m_hitJudgmentRange = { 50.0f, 50.0f, m_bulletMoveSpeed }; //弾の当たり判定の範囲。
+	AnimationClip m_animationClip[enAnimationCrip_num];                //アニメーションクリップ。
+	Animation m_animation;                                             //アニメーション。
 	Effekseer::Effect* m_sampleEffect = nullptr;
 };
 

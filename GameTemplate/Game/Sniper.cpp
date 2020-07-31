@@ -13,6 +13,14 @@ Sniper::Sniper()
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/happou.efk"
 	);
+	//アニメーションクリップをロード。
+	m_animationClip[enAnimationCrip_nothing].Load(L"Assets/animData/nothingAnim_Sniper.tka");
+	m_animationClip[enAnimationCrip_reload].Load(L"Assets/animData/reload_Sniper.tka");
+	//ループフラグを設定。
+	m_animationClip[enAnimationCrip_nothing].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_reload].SetLoopFlag(true);
+	//アニメーションの初期化。
+	m_animation.Init(m_model, m_animationClip, enAnimationCrip_num);
 	//スコープの画像をロード。
 	m_aim.Init(L"Resource/sprite/SR_scope.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 	//2D描画を優先して行う。
@@ -50,6 +58,10 @@ void Sniper::Update()
 		&m_aimingPos,
 		&m_notAimPos
 	);
+	//アニメーションを再生。
+	m_animation.Play(m_animationFlug);
+	//アニメーションを更新。
+	m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_positon, m_rotation, m_scale);
 }
 void Sniper::SetRegistShadowCaster()

@@ -13,6 +13,14 @@ Rifle::Rifle()
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/gunShot.efk"
 	);
+	//アニメーションクリップをロード。
+	m_animationClip[enAnimationCrip_nothing].Load(L"Assets/animData/nothingAnim_Rifule.tka");
+	m_animationClip[enAnimationCrip_reload].Load(L"Assets/animData/reload_Rifle.tka");
+	//ループフラグを設定。
+	m_animationClip[enAnimationCrip_nothing].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_reload].SetLoopFlag(true);
+	//アニメーションの初期化。
+	m_animation.Init(m_model, m_animationClip, enAnimationCrip_num);
 	//弾数を取得。
 	m_ammo = m_gunGen->GetGunAmmo();
 	//装填弾数を取得。
@@ -31,6 +39,8 @@ Rifle::~Rifle()
 }
 void Rifle::Update()
 {
+	//毎フレーム、GunUpdateの処理の前に、アニメーションは何もしないように設定しておく。
+	//m_animationFlug = enAnimationCrip_nothing;
 	//銃の更新処理。
 	GunUpdate(
 		&m_positon,
@@ -45,6 +55,10 @@ void Rifle::Update()
 		&m_aimingPos,
 		&m_notAimPos
 	);
+	//アニメーションを再生。
+	m_animation.Play(m_animationFlug);
+	//アニメーションを更新。
+	m_animation.Update(1.0f / 30.0f);
 	m_model.UpdateWorldMatrix(m_positon, m_rotation, m_scale);
 }
 

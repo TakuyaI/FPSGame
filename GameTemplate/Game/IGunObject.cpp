@@ -54,6 +54,8 @@ void IGunObject::GunUpdate(
 	float* bulletMoveSpeed, float* reaction, int* reloadTime,
 	CVector3* aimingPos, CVector3* notAimPos
 ){
+	//毎フレーム、GunUpdateの処理の前に、アニメーションは何もしないように設定しておく。
+	m_animationFlug = enAnimationCrip_nothing;
 	//銃の回転。
 	GunRotation(rotation);
 	m_gunGen->SetmAimFlug(false);
@@ -136,6 +138,8 @@ void IGunObject::GunUpdate(
 	}
 	if (m_reloadFlug != false) {
 		//リロードのフラグが立った。
+		//アニメーションを設定。
+		m_animationFlug = enAnimationCrip_reload;
 		//タイマーを加算していく。
 		m_reloadTimer++;
 		if (m_reloadTimer > *reloadTime) {

@@ -557,6 +557,7 @@
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_AlbedoTransparency.png">
       <Filter>Assets\modelData</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\damage.png" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">
@@ -593,9 +594,6 @@
       <Filter>Assets\sprite</Filter>
     </Image>
     <Image Include="Assets\modelData\texture\tya.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
-    <Image Include="Assets\sprite\damage.png">
       <Filter>Assets\sprite</Filter>
     </Image>
   </ItemGroup>
