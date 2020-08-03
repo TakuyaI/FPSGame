@@ -67,7 +67,6 @@ private:
 	ItemGenerator* m_itemGen;
 	DogEnemy* m_dogEnemy;
 	PointLightObject* m_pointLightObj;
-
 	int m_gameOverTime = 0; //ゲームオーバーになってから、タイトル画面にもどるまでの時間。
 	int m_gameClearTime = 0;
 	bool m_endFlug = false; //ゲームが終わったかどうか。

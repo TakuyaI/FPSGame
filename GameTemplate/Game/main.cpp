@@ -26,7 +26,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	CSoundEngine soundEngine;
 	soundEngine.Init();
 	g_goMgr.NewGameObject<Title>(100);
-
+	bool debugFlug = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -41,12 +41,20 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		soundEngine.Update();
 		//物理エンジンの更新。
 		g_physics.Update();
-
 		g_goMgr.Render();
 
 		//カメラの更新。
 		g_camera3D.Update();
 		g_camera2D.Update();
+		if (g_pad->IsPress(enButtonA)) {
+			debugFlug = true;
+		}
+		else {
+			debugFlug = false;
+		}
+		if (debugFlug != false) {
+			g_physics.DebugDraw();
+		}
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}

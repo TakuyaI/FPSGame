@@ -225,6 +225,9 @@
     <ClCompile Include="IItemObject.cpp">
       <Filter>item</Filter>
     </ClCompile>
+    <ClCompile Include="DebugWireframe.cpp">
+      <Filter>myEngine\physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -400,6 +403,9 @@
     <ClInclude Include="IItemObject.h">
       <Filter>item</Filter>
     </ClInclude>
+    <ClInclude Include="DebugWireframe.h">
+      <Filter>myEngine\physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx">
@@ -557,7 +563,9 @@
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_AlbedoTransparency.png">
       <Filter>Assets\modelData</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\damage.png" />
+    <ImageContentTask Include="Assets\sprite\damage.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png">

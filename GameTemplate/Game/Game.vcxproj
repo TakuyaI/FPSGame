@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Danyaku.cpp" />
+    <ClCompile Include="DebugWireframe.cpp" />
     <ClCompile Include="DogEnemy.cpp" />
     <ClCompile Include="IEnemyObject.cpp" />
     <ClCompile Include="IGunObject.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Danyaku.h" />
+    <ClInclude Include="DebugWireframe.h" />
     <ClInclude Include="DogEnemy.h" />
     <ClInclude Include="IEnemyObject.h" />
     <ClInclude Include="IGunObject.h" />

@@ -1,5 +1,5 @@
 #pragma once
-//#include <character\CharacterController.h>
+
 class RigidBody;
 class CharacterController;
 
@@ -15,6 +15,7 @@ public:
 	void Init();
 	void Update();
 	void Release();
+
 	/*!
 	* @brief	ダイナミックワールドを取得。
 	*/
@@ -87,6 +88,7 @@ public:
 		CharacterController& charaCon,
 		std::function<void(const btCollisionObject& contactCollisionObject)> cb
 	);
+	void DebugDraw();
 };
 
 extern PhysicsWorld g_physics;

@@ -98,8 +98,6 @@ namespace {
 		}
 	};
 }
-
-
 void CharacterController::Init(float radius, float height, const CVector3& position)
 {
 	m_position = position;
@@ -122,6 +120,7 @@ void CharacterController::Init(float radius, float height, const CVector3& posit
 	g_physics.AddRigidBody(m_rigidBody);
 
 }
+
 const CVector3& CharacterController::Execute(float deltaTime, int i, CVector3& moveSpeed)
 {
 	if (moveSpeed.y > 0.0f) {

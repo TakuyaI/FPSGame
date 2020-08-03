@@ -3,9 +3,10 @@
 #include "Physics/RigidBody.h"
 #include<character\CharacterController.h>
 #include <functional>;
+#include <DebugWireframe.h>
 PhysicsWorld g_physics;
 using namespace std;
-
+DebugWireframe dw;
 struct MyContactResultCallback : public btCollisionWorld::ContactResultCallback {
 	using ContantTestCallback = function<void(const btCollisionObject& contactCollisionObject)>;
 	ContantTestCallback  m_cb;
@@ -40,6 +41,10 @@ void PhysicsWorld::Release()
 void PhysicsWorld::Init()
 {
 	Release();
+
+	//デバッグワイヤーフレームの準備
+	dw.Prepare();
+
 	//物理エンジンを初期化。
 	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
 	collisionConfig = new btDefaultCollisionConfiguration();
@@ -61,6 +66,10 @@ void PhysicsWorld::Init()
 		);
 
 	dynamicWorld->setGravity(btVector3(0, -10, 0));
+
+	//デバッグワイヤーフレームをダイナミックワールドに設定
+	//ここでdrawLineを勝手に呼んでくれる
+	dynamicWorld->setDebugDrawer(&dw);
 }
 void PhysicsWorld::Update()
 {
@@ -98,4 +107,9 @@ void PhysicsWorld::ContactTest(
 {
 	ContactTest(*charaCon.GetRigidBody(), cb);
 }
-
+void PhysicsWorld::DebugDraw()
+{
+	dw.Context();
+	//実際にdrawLineを呼んでます。
+	dynamicWorld->debugDrawWorld();
+}
