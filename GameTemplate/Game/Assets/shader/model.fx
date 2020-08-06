@@ -49,7 +49,7 @@ cbuffer LightCb : register(b1) {
 	float4 specPow[NUM_DIRECTION_LIGHT];
 	float envPow;
 };
-static const int NUM_POINT_LIGHT = 5;
+static const int NUM_POINT_LIGHT = 13;
 
 struct SPointLight {
 	float4	position[NUM_POINT_LIGHT];		//à íuÅB

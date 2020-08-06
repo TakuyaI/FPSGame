@@ -11,7 +11,7 @@ GameCamera::GameCamera()
 	//‹ß•½–Ê‚ğİ’èB
 	g_camera3D.SetNear(1.0f);
 	//‰“•½–Ê‚ğİ’èB
-	g_camera3D.SetFar(10000.0f);
+	g_camera3D.SetFar(20000.0f);
 }
 
 
