@@ -94,8 +94,10 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 	//再生。
 	CVector3 effectPos = *position;
+
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.Normalize();
+	
 	effectPos += pos * 100.0f;
 	g_goMgr.SetPointLightPos(effectPos, 0);
 
@@ -110,7 +112,7 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	CMatrix mCameraRot;
 	//カメラ行列の逆行列はカメラのワールド行列。
 	mCameraRot.Inverse(g_camera3D.GetViewMatrix());
-	//
+	
 	mCameraRot.m[3][0] = effectPos.x;
 	mCameraRot.m[3][1] = effectPos.y;
 	mCameraRot.m[3][2] = effectPos.z;

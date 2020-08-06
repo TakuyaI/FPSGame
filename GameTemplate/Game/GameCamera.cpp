@@ -78,7 +78,9 @@ void GameCamera::Recoil()
 
 bool GameCamera::Start()
 {
+	//プレイヤーのインスタンスを探す。
 	m_player = g_goMgr.FindGameObject<Player>(player);
+	//GunGeneratorのインスタンスを探す。
 	m_gunGen = g_goMgr.FindGameObject<GunGenerator>(gungenerator);
 	CQuaternion pRot = m_player->GetRotation();
 	pRot.Multiply(m_toTargetPos);
@@ -86,7 +88,9 @@ bool GameCamera::Start()
 }
 void GameCamera::Update()
 {
+	//座標にプレイヤーの座標を代入。
 	m_position = m_player->GetPosition();
+	//カメラの上下の回転の上限を決めるために、m_toTargetPosとm_cameraOffsetを保存しておく。
 	CVector3 toCameraPosOld = m_toTargetPos;
 	CVector3 cameraOffsetOld = m_cameraOffset;
 
@@ -96,28 +100,28 @@ void GameCamera::Update()
 		m_angle = g_pad->GetRStickXF() * m_rotSpeed;
 	}
 	//リコイル。
-	Recoil();
+	//Recoil();
 
 	//Y軸周りの回転。
 	m_rotation.SetRotationDeg(CVector3::AxisY(), m_angle);
 	m_rotation.Multiply(m_toTargetPos);
-
 	m_rotation.Multiply(m_cameraOffset);
 
 	//X軸周りの回転。
 	CVector3 axisX = CVector3::Zero();
+	//Y軸とm_toTargetPosの外積を求めて、X軸を求める。
 	axisX.Cross(CVector3::AxisY(), m_toTargetPos);
 	axisX.Normalize();
 
-	
 	m_rotation.SetRotationDeg(axisX, m_angle2);
 	m_rotation.Multiply(m_toTargetPos);
-
 	m_rotation.Multiply(m_cameraOffset);
 	
 	m_position += m_cameraOffset;
 
+	//プレイヤーからターゲットへ向かうベクトルを求める。
 	CVector3 cameraForward = m_target - m_position;
+	//正規化。
 	cameraForward.Normalize();
 	m_toTarget = cameraForward;
 	

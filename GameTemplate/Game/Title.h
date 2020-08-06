@@ -21,6 +21,9 @@ public:
 	/// 更新関数。
 	/// </summary>
 	void Update();
+	/// <summary>
+	/// 2D描画。
+	/// </summary>
 	void PostRender();
 
 	Sprite m_start;

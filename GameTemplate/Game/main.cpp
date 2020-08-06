@@ -46,13 +46,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//カメラの更新。
 		g_camera3D.Update();
 		g_camera2D.Update();
-		if (g_pad->IsPress(enButtonA)) {
-			debugFlug = true;
-		}
-		else {
-			debugFlug = false;
-		}
-		if (debugFlug != false) {
+		if (g_pad->IsPress(enButtonB)) {
+			//コリジョン表示。
 			g_physics.DebugDraw();
 		}
 		//描画終了。

@@ -148,7 +148,7 @@ void Bullet::CollisionBulletToDogEnemy()
 void Bullet::Update()
 {
 	//タイマーを加算していく。
-	m_lifeTimer++;
+	//m_lifeTimer++;
 	if (
 		m_game->GetEndFlug() != false || //ゲームが終了した。
 		m_lifeTimer >= m_lifeTime            //タイマーが一定時間たった。

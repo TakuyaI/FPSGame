@@ -1,15 +1,21 @@
 #include "stdafx.h"
 #include "Player.h"
 
-const float PLAYER_CONTROLLER_RADIUS = 30.0f;
-const float PLAYER_CONTROLLER_HEIGHT = 200.0f;
+const float PLAYER_CONTROLLER_RADIUS = 30.0f;//プレイヤーのコライダーの半径。
+const float PLAYER_CONTROLLER_HEIGHT = 200.0f;//プレイヤーのコライダーの高さ。
+const CVector2 GREEN_SPRITE_SIZE = { 200.0f, 15.0f };//HPバーのスプライトのサイズ。
+const CVector2 BLACK_SPRITE_SIZE = { 200.0f, 17.0f };//HPバーの後ろのバーのスプライトのサイズ。
 
 Player::Player()
 {
+	//ダメージを受けたときに表示されるスプライトをロード。
 	m_damageSprite.Init(L"Resource/sprite/damage.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	//ダメージを受けていないときは表示しないようにしたいので、
+	//α値を0にしておく。
 	m_damageSprite.DeltaAlpha(-1.0f);
-	m_greenSprite.Init(L"Resource/sprite/oamidori.dds", 200.0f, 15.0f);
-	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", 200.0f, 17.0f);
+	//HPバーとその後ろのバーをロード。
+	m_greenSprite.Init(L"Resource/sprite/oamidori.dds", GREEN_SPRITE_SIZE.x, GREEN_SPRITE_SIZE.y);
+	m_hpBlackSprite.Init(L"Resource/sprite/kuro.dds", BLACK_SPRITE_SIZE.x, BLACK_SPRITE_SIZE.y);
 }
 
 
@@ -18,7 +24,9 @@ Player::~Player()
 }
 bool Player::Start()
 {
+	//モデルをロード。
 	m_model.Init(L"Assets/modelData/player.cmo");
+	//キャラコンを初期化。
 	m_charaCon.Init(
 		PLAYER_CONTROLLER_RADIUS,
 		PLAYER_CONTROLLER_HEIGHT,
@@ -71,43 +79,47 @@ void Player::Update()
 		float stickY = fabsf(g_pad->GetLStickYF());
 		if (m_moveStickFlug != true) {
 			if (stickX >= 0.5f) {
+				//スティックを左右に動かした。
 				m_pushAwayNum += stickX;
 				m_moveStickFlug = true;
 			}
 		}
 		else {
 			if (stickY >= 0.5f) {
-				m_pushAwayNum += fabsf(g_pad->GetLStickYF());
+				//スティックを上下に動かした。
+				m_pushAwayNum += stickY;
 				m_moveStickFlug = false;
 			}
 		}
-		//十字ボタンを連打したら、脱出する。
-			if (m_pushAwayNum >= 10.0f) {
-				//十字ボタンを10回押した。
+		if (m_pushAwayNum >= 10.0f) {
+				//m_pushAwayNumが10以上になった。
 				m_pushAwayFlug = true;
 				m_stopFlug = false;
 				m_pushAwayNum = 0.0f;
-			}
+		}
 	}
-	
-
 	if (m_deathFlug != false) {
+		//死亡したら動かないようにする。
 		m_moveSpeed = CVector3::Zero();
 	}
-
+	//プレイヤーの座標を設定。
 	m_position = m_charaCon.Execute(1.0f,0, m_moveSpeed);
 
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 0.5f);
-	g_goMgr.SetmPlayerPos(m_position);
+	//GameManagerにプレイヤーの座標を送る。
+	g_goMgr.SetPlayerPos(m_position);
+	//プレイヤーを照らすポイントライトの座標を送る。
 	g_goMgr.SetPointLightPos(m_position, 0);
 }
 void Player::SetRegistShadowCaster()
 {
+	//シャドウキャスターにセット。
 	g_goMgr.GetShadowMap()->RegistShadowCaster(&m_model);
 }
 void Player::Render()
 {
+	//描画。
 	m_model.Draw(
 	enRenderMode_Normal,
 	g_camera3D.GetViewMatrix(),
@@ -119,6 +131,7 @@ void Player::PostRender()
 {
 	{//HPバー。
 		if (m_greenScale.x <= 0.0f) {
+			//HPが0になったので死亡。
 			m_deathFlug = true;
 		}
 		if (m_damageFlug != false) {
@@ -143,12 +156,16 @@ void Player::PostRender()
 			m_greenScale,
 			CVector2::Zero()
 		);
+		//描画。
 		m_hpBlackSprite.Draw();
 		m_greenSprite.Draw();
-
+		//ダメージを受けたらα値をプラス、回復したらマイナスする必要がある。
+		//なので、α値を変位させる関数に入れるm_hpChangesに対し、－1を乗算する。
 		m_hpChanges *= -1.0f;
 		m_damageSprite.DeltaAlpha(m_hpChanges);
+		//リセット。
 		m_hpChanges = 0.0f;
+		//描画。
 		m_damageSprite.Draw();
 	}
 }

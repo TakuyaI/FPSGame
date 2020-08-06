@@ -5,18 +5,23 @@
 
 Game::Game()
 {
-	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", 1280.0f, 720.0f);
-	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", 1280.0f, 720.0f);
+	//ゲームオーバーのスプライトをロード。
+	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	//ゲームクリアのスプライトをロード。
+	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	//レベルをロード。
 	m_level.Init(
 		L"Assets/level/stage_01.tkl",
 		[&](const LevelObjectData & object) {
 			if (wcscmp(object.name, L"player") == 0) {
+				//プレイヤー。
 				m_player = g_goMgr.NewGameObject<Player>(player);
 				m_player->SetPosition(object.position);
 				m_player->SetRotation(object.rotation);
 				return true;
 			}
 			else if (wcscmp(object.name, L"dogEnemy") == 0) {
+				//犬の敵。
 				m_dogEnemy = g_goMgr.NewGameObject<DogEnemy>(dogenemy);
 				m_dogEnemy->SetPosition(object.position);
 				m_dogEnemy->SetRotation(object.rotation);
@@ -24,6 +29,7 @@ Game::Game()
 				return true;
 			}
 			else if (wcscmp(object.name, L"enemy") == 0) {
+				//人の敵。
 				m_enemy = g_goMgr.NewGameObject<Enemy>(enemy);
 				m_enemy->SetPosition(object.position);
 				m_enemy->SetRotation(object.rotation);
@@ -31,20 +37,23 @@ Game::Game()
 				return true;
 			}
 			else if (wcscmp(object.name, L"stage") == 0) {
+				//ステージ。
 				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 				m_backGro->SetPosition(object.position);
 				m_backGro->SetRotation(object.rotation);
 				return true;
 			}
 			else if (wcscmp(object.name, L"pointLightObj") == 0) {
+				//ポイントライトのオブジェクト。
 				m_pointLightObj = g_goMgr.NewGameObject<PointLightObject>(pointlight);
 				m_pointLightObj->SetPosition(object.position);
-				g_goMgr.SetPointLightPos(m_pointLightObj->GetPosition(), i);
-				i++;
+				g_goMgr.SetPointLightPos(m_pointLightObj->GetPosition(), pointLightObjNum);
+				pointLightObjNum++;
 				return true;
 			}
 			return false;
 		});
+
 	m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
 	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
 	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);
@@ -53,11 +62,13 @@ Game::Game()
 
 Game::~Game()
 {
+	//インスタンスを削除。
 	g_goMgr.DeleteGameObject(m_player);
 	g_goMgr.DeleteGameObject(m_backGro);
 	g_goMgr.DeleteGameObject(m_gameCam);
 	g_goMgr.DeleteGameObject(m_gunGen);
 	g_goMgr.DeleteGameObject(m_itemGen);
+	//EnemyとDogEnemyはインスタンスがないか探してから、削除する。
 	g_goMgr.QueryGameObject<Enemy>(enemy, [](Enemy * enemy)->bool
 		{
 			g_goMgr.DeleteGameObject(enemy);
@@ -83,18 +94,21 @@ void Game::Update()
 		g_goMgr.NewGameObject<Title>(title);
 		g_goMgr.DeleteGameObject(this);
 	}
-	//プレイヤーが」死亡してから２秒後、タイトルに戻る。
+	//プレイヤーが死亡してから２秒後、タイトルに戻る。
 	if (m_player->GetDeathFlug() != false) {
-		m_gameOverTime++;
-		if (m_gameOverTime >= 120) {
+		//タイマーを加算。
+		m_returnTitleTimer++;
+		if (m_returnTitleTimer >= m_returnTitleTime) {
 			m_endFlug = true;
 			g_goMgr.NewGameObject<Title>(title);
 			g_goMgr.DeleteGameObject(this);
 		}
 	}
+	//敵が0になってから２秒後、タイトルに戻る。
 	if (m_knockDownEnemyNum <= 0) {
-		m_gameClearTime++;
-		if (m_gameClearTime >= 120) {
+		//タイマーを加算。
+		m_returnTitleTimer++;
+		if (m_returnTitleTimer >= m_returnTitleTime) {
 			m_endFlug = true;
 			g_goMgr.NewGameObject<Title>(title);
 			g_goMgr.DeleteGameObject(this);
@@ -103,17 +117,26 @@ void Game::Update()
 }
 void Game::Render()
 {
+	//レベルを描画。
 	m_level.Draw();
 }
 void Game::PostRender()
 {
 	if (m_player->GetDeathFlug() != false) {
+		//ゲームオーバーを表示。
 		m_gameOverSprite.Draw();
 	}
 	if (m_knockDownEnemyNum <= 0) {
+		//ゲームクリアを表示。
 		m_gameClearSprite.Draw();
 	}
+	//文字描画。
 	wchar_t text[256];
 	swprintf_s(text, L" 残り%d体", m_knockDownEnemyNum);
-	m_font.Draw(text, { 100.0f, 100.0f }, { 1.0f, 1.0f, 1.0f, 1.0f }, 1.0f);
+	m_font.Draw(
+		text,
+		m_fontPos,
+		m_fontColor, 
+		m_fontScale
+	);
 }

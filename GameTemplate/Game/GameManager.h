@@ -108,7 +108,7 @@ public:
 	{
 		return lowest + (float)Rand(highest - lowest);
 	}
-	void SetmPlayerPos(CVector3 pos)
+	void SetPlayerPos(CVector3 pos)
 	{
 		m_playerPos = pos;
 	}
