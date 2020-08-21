@@ -55,7 +55,7 @@ void DogEnemy::Update()
 	//アニメーションを更新。
 	m_animation.Update(1.0f / 30.0f);
 	//モデルを更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 1.5f);
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One() * 2.0f);
 }
 
 void DogEnemy::SetRegistShadowCaster()

@@ -13,6 +13,7 @@ MeshCollider::~MeshCollider()
 
 }
 
+
 /*!
  * @brief	CSkinModelからメッシュコライダーを生成。
  *@param[in]	model		スキンモデル。
@@ -65,6 +66,7 @@ void MeshCollider::CreateFromSkinModel( const SkinModel& model, const CMatrix* o
 				IndexBufferPtr indexBuffer = std::make_unique<IndexBuffer>();
 				int stride = 2;
 				int indexCount = bufferDesc.ByteWidth / stride;
+				
 				unsigned short* pIndex = reinterpret_cast<unsigned short*>(subresource.pData);
 				for (int i = 0; i < indexCount; i++) {
 					indexBuffer->push_back(pIndex[i]);

@@ -80,8 +80,10 @@ void IGunObject::GunUpdate(
 				//弾数が残っている。
 				if (m_bulletIntervalTimer >= *bulletIntervalTime) {
 					//一定間隔で弾を発射する。
+					//弾を撃った時のイベント関数を呼び出す
+					OnShot(position, rotation);
 					m_bullet = g_goMgr.NewGameObject<Bullet>(bullet);
-					m_bullet->SetPosition(*position);
+					m_bullet->SetPosition(m_initBulletPos);
 					//弾のスピードを設定する。
 					CVector3 v = m_gameCam->GetToTarget();
 					m_bulletPos = v * *bulletMoveSpeed;
@@ -95,8 +97,6 @@ void IGunObject::GunUpdate(
 					m_recoiledFlug = true;
 
 					m_bulletIntervalTimer = 0;
-					//弾を撃った時のイベント関数を呼び出す
-					OnShot(position, rotation);
 					//銃の発砲フラグをtrueにする。
 					g_goMgr.SetShotFlug(true);
 				}

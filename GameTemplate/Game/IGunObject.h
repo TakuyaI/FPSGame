@@ -73,6 +73,7 @@ protected:
 	const float DIVIDE_NUM = 4.0f;                      //m_aimMoveSpeedを割る数値。割った後のm_aimMoveSpeedをm_gunLocalPositionに足していく回数。
 	CVector3 m_gunLocalPosition = CVector3::Zero();     //カメラを原点とした銃のローカル座標。
 	CVector3 m_aimMoveSpeed = CVector3::Zero();         //エイムするときのスピード。
+	CVector3 m_initBulletPos = CVector3::Zero();        //弾を撃った時の弾の最初の座標。
 	int m_count = 0;                                    //エイムに上限を持たせるためのカウント。
 	const enum {
 		enAnimationCrip_nothing,   //何もしない。

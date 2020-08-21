@@ -26,9 +26,14 @@ public:
 	/// </summary>
 	void PostRender();
 
+private:
 	Sprite m_start;
 	Sprite m_haikei;
+	Sprite m_titleName; //タイトル名のスプライト。
 	CSoundSource m_bgm;
-	CSoundSource m_cio;
+	bool m_gameStartFlug = false;//ゲームスタートしたかどうか。
+	float m_startAlpha = 1.0f; //スタートのα値。
+	float m_startAlphaSpeed = 0.0f;//スタートのα値の変動スピード。
+	float m_Alpha = 0.0f; //黒板のα値。
 };
 

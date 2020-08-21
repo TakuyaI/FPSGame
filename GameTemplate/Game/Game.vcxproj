@@ -247,6 +247,11 @@
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
     <MeshContentTask Include="Assets\modelData\stage.fbx" />
     <MeshContentTask Include="Assets\modelData\stage2.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage3.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage_3_1.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage_3_2.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage_3_3.fbx" />
+    <MeshContentTask Include="Assets\modelData\stage_3_4.fbx" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gage.png" />
@@ -272,10 +277,18 @@
     <Image Include="Assets\modelData\texture\blue.png" />
     <Image Include="Assets\modelData\texture\dangan.png" />
     <Image Include="Assets\modelData\texture\green.png" />
+    <ImageContentTask Include="Assets\sprite\startbutton.png" />
+    <ImageContentTask Include="Assets\sprite\titlename.png" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Body Diffuse.tga" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Iron Sight Diffuse.tga" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Magazine Diffuse.tga" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\rifle_albedo_2048.png" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\scope_albedo.png" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\Shotgun_Albedo.PNG" />
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\T_double_barreled_gun_Albedo.tga" />
     <Image Include="Assets\modelData\texture\hai.png" />
     <Image Include="Assets\modelData\texture\kaihuku.png" />
     <Image Include="Assets\modelData\texture\kiro.png" />
-    <Image Include="Assets\modelData\texture\kuro.png" />
     <Image Include="Assets\modelData\texture\midori.png" />
     <Image Include="Assets\modelData\texture\rad.png" />
     <Image Include="Assets\modelData\texture\siro.png" />

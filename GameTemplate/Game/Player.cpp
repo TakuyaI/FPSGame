@@ -148,7 +148,10 @@ void Player::PostRender()
 			m_blackScale,
 			CVector2::Zero()
 		);
-		
+		//HPがオーバーしないようにする。
+		if (m_greenScale.x >= 1.0f) {
+			m_greenScale.x = 1.0f;
+		}
 		//前の緑ゲージ
 		m_greenSprite.Update(
 			m_gaugePos,

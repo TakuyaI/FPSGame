@@ -21,8 +21,10 @@ GameCamera::~GameCamera()
 
 void GameCamera::Recoil()
 {
-	if (g_goMgr.GetShotFlug() != false) {
-		//弾を撃った。
+	GunNumber gunNum;
+	if (g_goMgr.GetShotFlug() != false &&          //弾を撃った。
+		m_gunGen->GetGunNum() == gunNum.RIFLE_NUMBER //銃がライフル。
+		) {
 		if (m_gunGen->GetAimFlug() != false) {
 			//エイム中はリコイルの左右の移動量を減らす。
 			m_recoilRightAndLeft = AIM_RECOIL_RIGHT_AND_LEFT;

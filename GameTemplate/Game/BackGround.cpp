@@ -3,16 +3,15 @@
 #include "Bullet.h"
 ID3D11ShaderResourceView* normalMapSRV = nullptr; //法線マップ。
 ID3D11ShaderResourceView* specMapSRV = nullptr;//スペキュラマップ。
+
 BackGround::BackGround()
 {
-	//モデルのロード。
-	m_model.Init(L"Assets/modelData/stage2.cmo");
-	//シャドウレシーバーのフラグを設定する。
-	m_model.SetShadowReciever(true);
-	//コライダー作成。
-	m_physicsStaticObject.CreateMeshObject(m_model, m_position, m_rotation);
-	//ゴースト作成。
-	m_GhostObj.CreateMesh(m_position, m_rotation, m_model);
+	static const wchar_t* stageFilePaths[] = {
+		L"Assets/modelData/stage_3_1.cmo",
+		L"Assets/modelData/stage_3_2.cmo",
+		L"Assets/modelData/stage_3_3.cmo",
+		L"Assets/modelData/stage_3_4.cmo",
+	};
 	//法線マップをロード。
 	HRESULT nhr1 = DirectX::CreateDDSTextureFromFileEx(
 		g_graphicsEngine->GetD3DDevice(), L"Resource/sprite/Detail_01_Normal.dds", 0,
@@ -30,7 +29,7 @@ BackGround::BackGround()
 		false, nullptr, &normalMapSRV
 	);
 	HRESULT nhr4 = DirectX::CreateDDSTextureFromFileEx(
-		g_graphicsEngine->GetD3DDevice(), L"Resource/sprite/Plates_Normal.dds",0,
+		g_graphicsEngine->GetD3DDevice(), L"Resource/sprite/Plates_Normal.dds", 0,
 		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
 		false, nullptr, &normalMapSRV
 	);
@@ -49,8 +48,6 @@ BackGround::BackGround()
 		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
 		false, nullptr, &normalMapSRV
 	);
-	//スキンモデルに法線マップを設定する。
-	m_model.SetNormalMap(normalMapSRV);
 
 	//スペキュラマップをロードする。
 	HRESULT shr1 = DirectX::CreateDDSTextureFromFileEx(
@@ -88,8 +85,21 @@ BackGround::BackGround()
 		D3D11_USAGE_DEFAULT, D3D11_BIND_SHADER_RESOURCE, 0, 0,
 		false, nullptr, &specMapSRV
 	);
-	//スキンモデルにスペキュラマップを設定する。
-	m_model.SetSpecularMap(specMapSRV);
+
+	for (int i = 0; i < eStateParts_Num; i++) {
+		//モデルのロード。
+		m_model[i].Init(stageFilePaths[i]);
+		//シャドウレシーバーのフラグを設定する。
+		m_model[i].SetShadowReciever(true);
+		//コライダー作成。
+		m_physicsStaticObject[i].CreateMeshObject(m_model[i], m_position, m_rotation);
+		//ゴースト作成。
+		m_GhostObj[i].CreateMesh(m_position, m_rotation, m_model[i]);
+		//スキンモデルに法線マップを設定する。
+		m_model[i].SetNormalMap(normalMapSRV);
+		//スキンモデルにスペキュラマップを設定する。
+		m_model[i].SetSpecularMap(specMapSRV);
+	}
 }
 
 
@@ -99,6 +109,7 @@ BackGround::~BackGround()
 
 bool BackGround::Start()
 {
+	
 	return true;
 }
 void BackGround::Update()
@@ -108,22 +119,28 @@ void BackGround::Update()
 		{
 			CharacterController& m_chara = *bul->GetCharaCon();
 			g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
-				if (m_GhostObj.IsSelf(contactObject) == true) {
-					//弾がステージに当たったら、弾を削除する。
-					g_goMgr.DeleteGameObject(bul);
+				for (int i = 0; i < eStateParts_Num; i++) {
+					if (m_GhostObj[i].IsSelf(contactObject) == true) {
+						//弾がステージに当たったら、弾を削除する。
+						g_goMgr.DeleteGameObject(bul);
+					}
 				}
 				});
 			return true;
 		});
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	for (auto& model : m_model) {
+		model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	}
 }
 
 void BackGround::Render()
 {
-	//描画。
-	m_model.Draw(
-		enRenderMode_Normal,
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	for (auto& model : m_model) {
+		//描画。
+		model.Draw(
+			enRenderMode_Normal,
+			g_camera3D.GetViewMatrix(),
+			g_camera3D.GetProjectionMatrix()
+		);
+	}
 }

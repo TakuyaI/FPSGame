@@ -5,13 +5,14 @@
 
 Game::Game()
 {
+	m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 	//ゲームオーバーのスプライトをロード。
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 	//ゲームクリアのスプライトをロード。
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 	//レベルをロード。
 	m_level.Init(
-		L"Assets/level/stage_02.tkl",
+		L"Assets/level/stage_03.tkl",
 		[&](const LevelObjectData & object) {
 			if (wcscmp(object.name, L"player") == 0) {
 				//プレイヤー。
@@ -36,7 +37,7 @@ Game::Game()
 				m_knockDownEnemyNum++;
 				return true;
 			}
-			else if (wcscmp(object.name, L"stage2") == 0) {
+			else if (wcscmp(object.name, L"stage3") == 0) {
 				//ステージ。
 				m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 				m_backGro->SetPosition(object.position);

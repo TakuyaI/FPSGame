@@ -58,6 +58,9 @@
     <Filter Include="Assets\shader">
       <UniqueIdentifier>{c548f521-e133-4eee-9a2d-147872a102fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\modelData\texture">
+      <UniqueIdentifier>{46571183-60d0-496b-9787-3e765c71e7c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -450,6 +453,21 @@
     <MeshContentTask Include="Assets\modelData\stage2.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage3.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_3_4.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_3_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_3_2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage_3_3.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\gameclear.png">
@@ -497,76 +515,101 @@
     <ImageContentTask Include="Assets\sprite\SR_scope.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Plates_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_01_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_01_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_03_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_03_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Light_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Light_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Plates_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Platforms_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Platforms_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_02_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_02_Normal.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_MetallicSmoothness.png">
-      <Filter>Assets\modelData</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\item_kaihuku.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\item2.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\damage.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\titlename.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_01_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_01_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_01_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Detail_03_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Detail_03_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Detail_03_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Light_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Light_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Light_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Body Diffuse.tga">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Iron Sight Diffuse.tga">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Magazine Diffuse.tga">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Plates_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Plates_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Plates_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Platforms_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Platforms_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Platforms_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\rifle_albedo_2048.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\scope_albedo.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\Shotgun_Albedo.PNG">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\GunTexture\T_double_barreled_gun_Albedo.tga">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_02_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_02_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_02_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\Walls_AlbedoTransparency.png">
-      <Filter>Assets\modelData</Filter>
+      <Filter>Assets\modelData\texture</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\damage.png">
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\specMap\Walls_MetallicSmoothness.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_Normal.png">
+      <Filter>Assets\modelData\texture</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\startbutton.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
@@ -581,9 +624,6 @@
       <Filter>Assets\sprite</Filter>
     </Image>
     <Image Include="Assets\modelData\texture\midori.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
-    <Image Include="Assets\modelData\texture\kuro.png">
       <Filter>Assets\sprite</Filter>
     </Image>
     <Image Include="Assets\modelData\texture\kiro.png">

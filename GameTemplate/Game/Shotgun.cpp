@@ -13,6 +13,7 @@ Shotgun::Shotgun()
 		g_goMgr.GetEffekseerManager(),
 		(const EFK_CHAR*)L"Assets/effect/happou.efk"
 	);
+	
 	//アニメーションクリップをロード。
 	m_animationClip[enAnimationCrip_nothing].Load(L"Assets/animData/nothingAnim_shotGun.tka");
 	m_animationClip[enAnimationCrip_reload].Load(L"Assets/animData/reload_shotGun.tka");
@@ -91,10 +92,10 @@ void Shotgun::OnShot(CVector3* position, CQuaternion* rotation)
 	m_gunShot.Play(false);
 	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 	//再生。
-	CVector3 effectPos = *position;
+	m_initBulletPos = *position;
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.Normalize();
-	effectPos += pos * 170.0f;
+	m_initBulletPos += pos * 170.0f;
 
 	auto effMgr = g_goMgr.GetEffekseerManager();
 	m_playEffectHandle = effMgr->Play(
@@ -108,9 +109,9 @@ void Shotgun::OnShot(CVector3* position, CQuaternion* rotation)
 	//カメラ行列の逆行列はカメラのワールド行列。
 	mCameraRot.Inverse(g_camera3D.GetViewMatrix());
 	//
-	mCameraRot.m[3][0] = effectPos.x;
-	mCameraRot.m[3][1] = effectPos.y;
-	mCameraRot.m[3][2] = effectPos.z;
+	mCameraRot.m[3][0] = m_initBulletPos.x;
+	mCameraRot.m[3][1] = m_initBulletPos.y;
+	mCameraRot.m[3][2] = m_initBulletPos.z;
 
 	Effekseer::Matrix43 effMat;
 	for (int x = 0; x < 4; x++) {

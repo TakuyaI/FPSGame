@@ -93,13 +93,13 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	m_gunShot.Play(false);
 	g_goMgr.GetEffekseerManager()->StopEffect(m_playEffectHandle);
 	//再生。
-	CVector3 effectPos = *position;
+	m_initBulletPos = *position;
 
 	CVector3 pos = m_gameCam->GetToTargetPos();
 	pos.Normalize();
 	
-	effectPos += pos * 100.0f;
-	g_goMgr.SetPointLightPos(effectPos, 0);
+	m_initBulletPos += pos * 100.0f;
+	g_goMgr.SetPointLightPos(m_initBulletPos, 0);
 
 	auto effMgr = g_goMgr.GetEffekseerManager();
 	m_playEffectHandle = effMgr->Play(
@@ -113,9 +113,9 @@ void Rifle::OnShot(CVector3* position, CQuaternion* rotation)
 	//カメラ行列の逆行列はカメラのワールド行列。
 	mCameraRot.Inverse(g_camera3D.GetViewMatrix());
 	
-	mCameraRot.m[3][0] = effectPos.x;
-	mCameraRot.m[3][1] = effectPos.y;
-	mCameraRot.m[3][2] = effectPos.z;
+	mCameraRot.m[3][0] = m_initBulletPos.x;
+	mCameraRot.m[3][1] = m_initBulletPos.y;
+	mCameraRot.m[3][2] = m_initBulletPos.z;
 	
 	Effekseer::Matrix43 effMat;
 	for (int x = 0; x < 4; x++) {
