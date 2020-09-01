@@ -94,7 +94,7 @@ BackGround::BackGround()
 		//コライダー作成。
 		m_physicsStaticObject[i].CreateMeshObject(m_model[i], m_position, m_rotation);
 		//ゴースト作成。
-		m_GhostObj[i].CreateMesh(m_position, m_rotation, m_model[i]);
+	    m_GhostObj[i].CreateMesh(m_position, m_rotation, m_model[i]);
 		//スキンモデルに法線マップを設定する。
 		m_model[i].SetNormalMap(normalMapSRV);
 		//スキンモデルにスペキュラマップを設定する。

@@ -71,6 +71,6 @@ private:
 	CVector3 m_position = CVector3::Zero();                     //座標。
 	CQuaternion m_rotation = CQuaternion::Identity();           //回転。
 	PhysicsStaticObject m_physicsStaticObject[eStateParts_Num]; //静的物理オブジェクト。
-	PhysicsGhostObject m_GhostObj[eStateParts_Num];                              //ゴーストオブジェクト。
+	PhysicsGhostObject m_GhostObj[eStateParts_Num];             //ゴーストオブジェクト。
 };
 

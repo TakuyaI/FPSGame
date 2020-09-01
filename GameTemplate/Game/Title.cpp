@@ -48,7 +48,7 @@ void Title::Update()
 		//ゲームスタート。
 		m_haikei.DeltaAlpha(-ALPHA_SPEED);
 		m_start.DeltaAlpha(-ALPHA_SPEED);
-		//m_Alpha += ALPHA_SPEED;
+		m_Alpha += ALPHA_SPEED;
 	}
 	if (m_Alpha >= 1.0f) {
 		g_goMgr.NewGameObject<Game>(game);

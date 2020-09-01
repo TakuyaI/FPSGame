@@ -450,9 +450,6 @@
     <MeshContentTask Include="Assets\modelData\item_dangan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\stage2.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\stage3.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -479,9 +476,6 @@
     <ImageContentTask Include="Assets\sprite\gameover.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\item.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\kuro.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
@@ -491,12 +485,6 @@
     <ImageContentTask Include="Assets\sprite\orengi.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\st.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\start.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\zyuzi.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
@@ -504,12 +492,6 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\item_danyaku.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\Arifle.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\sniper.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\SR_scope.png">

@@ -144,6 +144,14 @@ public:
 		m_stopFlug = flug;
 	}
 	/// <summary>
+	/// Playerが止まっているかどうかを返す。
+	/// </summary>
+	/// <returns></returns>
+	bool GetStopFlug()
+	{
+		return m_stopFlug;
+	}
+	/// <summary>
 	/// プレイヤーのHPを返す。
 	/// </summary>
 	/// <returns></returns>

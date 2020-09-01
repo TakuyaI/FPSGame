@@ -246,7 +246,6 @@
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
     <MeshContentTask Include="Assets\modelData\stage.fbx" />
-    <MeshContentTask Include="Assets\modelData\stage2.fbx" />
     <MeshContentTask Include="Assets\modelData\stage3.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_3_1.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_3_2.fbx" />
@@ -265,12 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\zyuzi.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\start.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\st.png" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
@@ -316,12 +309,9 @@
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Walls_Normal.png" />
     <ImageContentTask Include="Assets\modelData\texture\BGTexture\NormalMap\Plates_Normal.png" />
     <ImageContentTask Include="Assets\sprite\item2.png" />
-    <ImageContentTask Include="Assets\sprite\sniper.png" />
-    <ImageContentTask Include="Assets\sprite\Arifle.png" />
     <ImageContentTask Include="Assets\sprite\item_kaihuku.png" />
     <ImageContentTask Include="Assets\sprite\SR_scope.png" />
     <ImageContentTask Include="Assets\sprite\item_danyaku.png" />
-    <ImageContentTask Include="Assets\sprite\item.png" />
     <ImageContentTask Include="Assets\sprite\gameclear.png" />
     <ImageContentTask Include="Assets\sprite\gameover.png" />
     <ImageContentTask Include="Assets\sprite\orengi.png" />

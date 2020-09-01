@@ -24,6 +24,8 @@ IGunObject::~IGunObject()
 			g_goMgr.DeleteGameObject(bul);
 			return true;
 		});
+	//銃を出すタイマーをリセット。
+	m_putOutTimer = 0;
 }
 
 void IGunObject::GunRotation(CQuaternion* rotation)
@@ -65,19 +67,20 @@ void IGunObject::GunUpdate(
 	m_bulletIntervalTimer++;
 	if (m_bulletIntervalTimer >= *bulletIntervalTime) {
 		//弾のインターバルタイマーが銃に設定されているインターバルタイムになったら、
-		///弾のインターバルタイマーに銃に設定されているインターバルタイムを代入する。
+		//弾のインターバルタイマーに銃に設定されているインターバルタイムを代入する。
 		m_bulletIntervalTimer = *bulletIntervalTime;
 	}
 	//弾を発射。
-	if (
-		m_reloadFlug != true &&//リロード中でない。
-		m_player->GetDeathFlug() != true//Playerが死んでいない。
-		) {
-		if (g_pad->IsPress(enButtonRB1)) {
-			//RB1を押した。
+		if (
+			g_pad->IsPress(enButtonRB1) &&         //RB1を押した。
+			m_reloadFlug != true &&                //リロード中でない。
+			m_player->GetDeathFlug() != true &&    //Playerが死んでいない。
+			*loading > 0 &&                        //弾数が残っている。
+			m_player->GetStopFlug() != true &&     //プレイヤーが捕まっていない。
+			m_gunGen->GetPutAwayFlug() != true &&  //銃をしまっている最中でない。
+			m_gunGen->GetPutOutFlug() != true      //銃を出している最中でない。
+			) {
 			float camearaViewAngle = m_gameCam->GetGameCameraViewAngle();
-			if (*loading > 0) {
-				//弾数が残っている。
 				if (m_bulletIntervalTimer >= *bulletIntervalTime) {
 					//一定間隔で弾を発射する。
 					//弾を撃った時のイベント関数を呼び出す
@@ -110,17 +113,11 @@ void IGunObject::GunUpdate(
 						m_recoiledFlug = false;
 					}
 				}
-			}
-			else {
-				//銃の発砲フラグをfalseにする。
-				g_goMgr.SetShotFlug(false);
-			}
 		}
 		else {
 			//銃の発砲フラグをfalseにする。
 			g_goMgr.SetShotFlug(false);
 		}
-	}
 
 
 	//リロード。
@@ -162,6 +159,31 @@ void IGunObject::GunUpdate(
 			//タイマーをリセット。
 			m_reloadTimer = 0;
 		}
+	}
+	if (m_gunGen->GetPutAwayFlug() != false) {
+		//銃をしまっている最中。
+		//アニメーションを設定。
+		m_animationFlug = enAnimationCrip_putAway;
+		//タイマーを加算。
+		m_putAwayTimer++;
+		if (m_putAwayTimer >= m_putOutAndPutAwayTime) {
+			//銃をしまうアニメーションが終わった。
+			//銃をしまっている最中のフラグをfalseにする。
+			m_gunGen->SetPutAwayFlug(false);
+			//銃を出すフラグを立てる。
+			m_gunGen->SetPutOutFlug(true);
+		}
+		//if (m_putOutTimer < m_putOutAndPutAwayTime) {
+		//	//銃を出している。
+		//	m_animationFlug = enAnimationCrip_putOut;
+		//	//タイマーを加算。
+		//	m_putOutTimer++;
+		//	if (m_putOutTimer >= m_putOutAndPutAwayTime) {
+		//		//銃を出し終えた。
+		//		//銃を出している最中のフラグをfalseにする。
+		//		m_gunGen->SetPutOutFlug(false);
+		//	}
+		//}
 	}
 }
 void IGunObject::GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading)

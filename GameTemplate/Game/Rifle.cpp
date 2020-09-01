@@ -19,6 +19,12 @@ Rifle::Rifle()
 	//ループフラグを設定。
 	m_animationClip[enAnimationCrip_nothing].SetLoopFlag(true);
 	m_animationClip[enAnimationCrip_reload].SetLoopFlag(true);
+
+	m_animationClip[enAnimationCrip_putAway].Load(L"Assets/animData/putAwayRifle.tka");
+	m_animationClip[enAnimationCrip_putAway].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_putOut].Load(L"Assets/animData/putOutRifle.tka");
+	m_animationClip[enAnimationCrip_putOut].SetLoopFlag(true);
+
 	//アニメーションの初期化。
 	m_animation.Init(m_model, m_animationClip, enAnimationCrip_num);
 	//弾数を取得。
@@ -27,6 +33,8 @@ Rifle::Rifle()
 	m_loading = m_gunGen->GetGunLoading();
 	//最初は銃のインターバルタイマーはm_bulletIntervalTimeにしておく。
 	m_bulletIntervalTimer = m_bulletIntervalTime;
+
+	
 }
 
 
@@ -39,22 +47,32 @@ Rifle::~Rifle()
 }
 void Rifle::Update()
 {
-	//毎フレーム、GunUpdateの処理の前に、アニメーションは何もしないように設定しておく。
-	//m_animationFlug = enAnimationCrip_nothing;
-	//銃の更新処理。
-	GunUpdate(
-		&m_positon,
-		&m_rotation,
-		&m_ammo,
-		&m_loading,
-		&m_maxLoading,
-		&m_bulletIntervalTime,
-		&m_bulletMoveSpeed,
-		&m_reaction,
-		&m_reloadTime,
-		&m_aimingPos,
-		&m_notAimPos
-	);
+		//銃の更新処理。
+		GunUpdate(
+			&m_positon,
+			&m_rotation,
+			&m_ammo,
+			&m_loading,
+			&m_maxLoading,
+			&m_bulletIntervalTime,
+			&m_bulletMoveSpeed,
+			&m_reaction,
+			&m_reloadTime,
+			&m_aimingPos,
+			&m_notAimPos
+		);
+		if (m_putOutTimer < m_putOutAndPutAwayTime) {
+			//銃を出している。
+			m_animationFlug = enAnimationCrip_putOut;
+			//タイマーを加算。
+			m_putOutTimer++;
+			if (m_putOutTimer >= m_putOutAndPutAwayTime) {
+				//銃を出し終えた。
+				//銃を出している最中のフラグをfalseにする。
+				m_gunGen->SetPutOutFlug(false);
+			}
+		}
+	
 	//アニメーションを再生。
 	m_animation.Play(m_animationFlug);
 	//アニメーションを更新。
@@ -137,7 +155,10 @@ void Rifle::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos, 
 	//エイムしていないときの銃のローカル座標。
 	CVector3 notaimPos = *notAimPos;
 
-	if (g_pad->IsPress(enButtonLB1)) {
+	if (
+		g_pad->IsPress(enButtonLB1) && //LB1ボタンを押している。
+		m_reloadFlug != true           //リロード中ではない。
+		) {
 		//エイムしている。
 		m_gunGen->SetmAimFlug(true);
 		PosRot.Multiply(aimPos);

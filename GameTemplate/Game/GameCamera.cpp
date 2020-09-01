@@ -102,7 +102,7 @@ void GameCamera::Update()
 		m_angle = g_pad->GetRStickXF() * m_rotSpeed;
 	}
 	//リコイル。
-	//Recoil();
+	Recoil();
 
 	//Y軸周りの回転。
 	m_rotation.SetRotationDeg(CVector3::AxisY(), m_angle);

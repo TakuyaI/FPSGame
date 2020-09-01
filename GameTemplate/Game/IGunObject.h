@@ -78,9 +78,15 @@ protected:
 	const enum {
 		enAnimationCrip_nothing,   //何もしない。
 		enAnimationCrip_reload,    //リロード。
+		enAnimationCrip_putOut,    //銃を出す。
+		enAnimationCrip_putAway,   //銃をしまう。
 		enAnimationCrip_num        //アニメーションクリップの数。
 	};
 	int m_animationFlug = 0;                            //アニメーションを決めるフラグ。
+	bool m_reloadFlug = false;                          //リロードしているかどうか。
+	int m_putAwayTimer = 0;                             //銃をしまうまでのタイマー。
+	int m_putOutTimer = 0;                              //銃を出すまでのタイマー。
+	const int m_putOutAndPutAwayTime = 10;              //銃をしまうまでと銃を出すまでのタイム。
 private:
 	Player* m_player;                                   //プレイヤーのインスタンス。
 	Bullet* m_bullet;                                   //弾のインスタンス。
@@ -90,7 +96,6 @@ private:
 	float m_angle2 = 0.0f;                              //縦の回転角度。
 	int m_usedBullet = 0;                               //使い終えた弾。
 	int m_reloadTimer = 0;                              //リロードタイマー。
-	bool m_reloadFlug = false;                          //リロードしているかどうか。
 	Sprite m_sprite;                                    //リロードゲージのスプライト。
 	CVector3 m_reloadGagePos = {-24.0f, -30.0f, 0.0f};  //リロードゲージのスプライトの座標。
 	CVector3 m_reloadGageScale = { 0.6f, 0.1f, 1.0f };  //リロードゲージのスプライトの大きさ。

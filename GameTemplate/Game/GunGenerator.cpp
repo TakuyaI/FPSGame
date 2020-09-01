@@ -87,38 +87,51 @@ bool GunGenerator::Start()
 }
 void GunGenerator::Update()
 {
-		if (g_pad->IsTrigger(enButtonY)) {
-			//Yボタンで銃を切り替える。
-			if (
-				g_goMgr.GetShotFlug() != true && //弾を発射していない。
-				m_aimFlug != true &&             //エイムしていない。
-				m_reloadFlug != true             //リロードしていない。
-				) {
-				//換える前の銃の番号を補完しておく。
-				m_beforeGunNum = m_gunNum;
-				m_gunNum++;
-				GunNumber gunNumber;
-				if (m_gunNum >= gunNumber.END_NUMBER) {
-					//m_nextnumが最後の番号に来たら、
-					//最初の番号に戻す。
-					m_gunNum = gunNumber.RIFLE_NUMBER;
-				}
-				//銃のインスタンスを削除。
-				g_goMgr.DeleteGameObject(m_gun);
-				if (m_gunNum == gunNumber.RIFLE_NUMBER) {
-					//ライフル。
-					m_gun = g_goMgr.NewGameObject<Rifle>(rifle);
-				}
-				else if (m_gunNum == gunNumber.SHOTGUN_NUMBER) {
-					//ショットガン。
-					m_gun = g_goMgr.NewGameObject<Shotgun>(shotgun);
-				}
-				else if (m_gunNum == gunNumber.SNIPER_NUMBER) {
-					//スナイパー。
-					m_gun = g_goMgr.NewGameObject<Sniper>(sniper);
-				}
-			}
+	if (g_pad->IsTrigger(enButtonY)) {
+		//Yボタンで銃を切り替える。
+		if (
+			g_goMgr.GetShotFlug() != true && //弾を発射していない。
+			m_aimFlug != true &&             //エイムしていない。
+			m_reloadFlug != true &&            //リロードしていない。
+			m_PutAwayFlug != true &&
+			m_PutOutFlug != true
+			) {
+			//銃をしまっているフラグを立てる。
+			m_PutAwayFlug = true;
+			m_switchFlug = true;
 		}
+	}
+
+	if (
+		m_switchFlug != false &&   //銃の切り替えフラグが立った。
+		m_PutOutFlug != false      //銃をしまい終えた。
+		) {
+		//換える前の銃の番号を補完しておく。
+		m_beforeGunNum = m_gunNum;
+		m_gunNum++;
+		GunNumber gunNumber;
+		if (m_gunNum >= gunNumber.END_NUMBER) {
+			//m_nextnumが最後の番号に来たら、
+			//最初の番号に戻す。
+			m_gunNum = gunNumber.RIFLE_NUMBER;
+		}
+		//銃のインスタンスを削除。
+		g_goMgr.DeleteGameObject(m_gun);
+		if (m_gunNum == gunNumber.RIFLE_NUMBER) {
+			//ライフル。
+			m_gun = g_goMgr.NewGameObject<Rifle>(rifle);
+		}
+		else if (m_gunNum == gunNumber.SHOTGUN_NUMBER) {
+			//ショットガン。
+			m_gun = g_goMgr.NewGameObject<Shotgun>(shotgun);
+		}
+		else if (m_gunNum == gunNumber.SNIPER_NUMBER) {
+			//スナイパー。
+			m_gun = g_goMgr.NewGameObject<Sniper>(sniper);
+		}
+
+		m_switchFlug = false;
+	 }
 }
 void GunGenerator::PostRender()
 {

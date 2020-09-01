@@ -169,8 +169,6 @@ void GameManager::Update()
 
 void GameManager::Render()
 {
-	//描画開始。
-	//g_graphicsEngine->BegineRender();
 	//フレームバッファののレンダリングターゲットをバックアップしておく。
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 	d3dDeviceContext->OMGetRenderTargets(

@@ -33,6 +33,19 @@ public:
 	/// </summary>
 	~GunGenerator();
 	/// <summary>
+	/// スタート関数。
+	/// </summary>
+	/// <returns></returns>
+	bool Start();
+	/// <summary>
+	/// 更新関数。
+	/// </summary>
+	void Update();
+	/// <summary>
+	/// 2D描画。
+	/// </summary>
+	void PostRender();
+	/// <summary>
 	/// 銃の弾数を返す。
 	/// </summary>
 	/// <returns></returns>
@@ -86,18 +99,53 @@ public:
 		return m_aimFlug;
 	}
 	/// <summary>
-	/// スタート関数。
+	/// 銃を切り替えるかどうかのフラグを設定する。
+	/// </summary>
+	/// <param name="flug">フラグ。</param>
+	void SetSwitchFlug(bool flug)
+	{
+		m_switchFlug = flug;
+	}
+	/// <summary>
+	/// 銃を切り替えるかどうかのフラグを返す。
 	/// </summary>
 	/// <returns></returns>
-	bool Start();
+	bool GetSwitchFlug()
+	{
+		return m_switchFlug;
+	}
 	/// <summary>
-	/// 更新関数。
+	/// 銃をしまっている最中かどうかのフラグを設定する。
 	/// </summary>
-	void Update();
+	/// <param name="flug">フラグ。</param>
+	void SetPutAwayFlug(bool flug)
+	{
+		m_PutAwayFlug = flug;
+	}
 	/// <summary>
-	/// 2D描画。
+	///銃をしまっている最中かどうかのフラグを返す。
 	/// </summary>
-	void PostRender();
+	/// <returns></returns>
+	bool GetPutAwayFlug()
+	{
+		return m_PutAwayFlug;
+	}
+	/// <summary>
+	/// 銃を出している最中かどうかを設定する。
+	/// </summary>
+	/// <param name="flug">フラグ。</param>
+	void SetPutOutFlug(bool flug)
+	{
+		m_PutOutFlug = flug;
+	}
+	/// <summary>
+	/// 銃を出している最中かどうかを返す。
+	/// </summary>
+	/// <returns></returns>
+	bool GetPutOutFlug()
+	{
+		return m_PutOutFlug;
+	}
 private:
 	IGunObject* m_gun;                    //IGunObjectのインスタンス。
 	Game * m_game;                        //Gameのインスタンス。
@@ -107,10 +155,13 @@ private:
 	int  m_shotgunAmmo = 30;              //ショットガンの弾数。
 	int  m_sniperAmmo = 20;               //スナイパーの弾数。
 	int m_rifulLoading = 50;              //ライフルの装填弾数。
-	int m_shotgunLoading = 2;            //ショットガンの装填弾数。  
+	int m_shotgunLoading = 2;             //ショットガンの装填弾数。  
 	int m_sniperLoading = 4;              //スナイパーの装填弾数。
 	bool m_reloadFlug = false;            //リロードしたかどうか。
 	bool m_aimFlug = false;               //エイム中かどうか。
 	Sprite m_sprite;                      //銃の照準の画像。
+	bool m_switchFlug = false;            //銃を切り替えるかどうか。
+	bool m_PutAwayFlug = false;           //銃をしまっている最中かどうか。
+	bool m_PutOutFlug = false;            //銃を出している最中かどうか。
 };
 

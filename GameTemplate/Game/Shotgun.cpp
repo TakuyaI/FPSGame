@@ -20,6 +20,11 @@ Shotgun::Shotgun()
 	//ループフラグを設定。
 	m_animationClip[enAnimationCrip_nothing].SetLoopFlag(true);
 	m_animationClip[enAnimationCrip_reload].SetLoopFlag(true);
+
+	m_animationClip[enAnimationCrip_putAway].Load(L"Assets/animData/putAwayshotGun.tka");
+	m_animationClip[enAnimationCrip_putAway].SetLoopFlag(true);
+	m_animationClip[enAnimationCrip_putOut].Load(L"Assets/animData/putOutshotGun.tka");
+	m_animationClip[enAnimationCrip_putOut].SetLoopFlag(true);
 	//アニメーションの初期化。
 	m_animation.Init(m_model, m_animationClip, enAnimationCrip_num);
 	//弾数を取得。
@@ -55,6 +60,13 @@ void Shotgun::Update()
 		&m_aimingPos,
 		&m_notAimPos
 	);
+	if (m_putOutTimer < m_putOutAndPutAwayTime) {
+		m_animationFlug = enAnimationCrip_putOut;
+		m_putOutTimer++;
+		if (m_putOutTimer >= m_putOutAndPutAwayTime) {
+			m_gunGen->SetPutOutFlug(false);
+		}
+	}
 	//アニメーションを再生。
 	m_animation.Play(m_animationFlug);
 	//アニメーションを更新。
@@ -133,7 +145,10 @@ void Shotgun::Aim(CVector3* position, CQuaternion* rotation, CVector3* aimingPos
 	//エイムしていないときの銃のローカル座標。
 	CVector3 notaimPos = *notAimPos;
 
-	if (g_pad->IsPress(enButtonLB1)) {
+	if (
+		g_pad->IsPress(enButtonLB1) && //LB1ボタンを押している。
+		m_reloadFlug != true           //リロード中ではない。
+		) {
 		//エイムしている。
 		m_gunGen->SetmAimFlug(true);
 		PosRot.Multiply(aimPos);
