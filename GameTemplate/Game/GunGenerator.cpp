@@ -4,10 +4,11 @@
 #include "Shotgun.h"
 #include "Sniper.h"
 
+const CVector2 SCOPE_SPRITE_SIZE = { 256.0f, 144.0f };
 GunGenerator::GunGenerator()
 {
 	//銃の照準の画像をロード。
-	m_sprite.Init(L"Resource/sprite/zyuzi.dds", 256.0f, 144.0f);
+	m_sprite.Init(L"Resource/sprite/zyuzi.dds", SCOPE_SPRITE_SIZE.x, SCOPE_SPRITE_SIZE.y);
 }
 GunGenerator::~GunGenerator()
 {
@@ -92,9 +93,9 @@ void GunGenerator::Update()
 		if (
 			g_goMgr.GetShotFlug() != true && //弾を発射していない。
 			m_aimFlug != true &&             //エイムしていない。
-			m_reloadFlug != true &&            //リロードしていない。
-			m_PutAwayFlug != true &&
-			m_PutOutFlug != true
+			m_reloadFlug != true &&          //リロードしていない。
+			m_PutAwayFlug != true &&         //銃をしまっている最中でない。
+			m_PutOutFlug != true             //銃を出している最中でない。
 			) {
 			//銃をしまっているフラグを立てる。
 			m_PutAwayFlug = true;

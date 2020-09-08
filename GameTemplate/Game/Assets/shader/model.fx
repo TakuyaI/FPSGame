@@ -225,6 +225,7 @@ float4 PSMain(PSInput In) : SV_Target0
 	
 	float3 lig = 0.0f;
 	float affect = 0.0f;
+
 	//ポイントライトを計算。
 	float3 ligDir[NUM_POINT_LIGHT];
 	for (int i = 0; i < NUM_POINT_LIGHT; i++) {
@@ -298,6 +299,7 @@ float4 PSMain(PSInput In) : SV_Target0
 	lig += float4(0.4f, 0.4f, 0.4f, 1.0f);
 	float4 final;
 	final.xyz = albedo.xyz *lig;
+
 	return float4(final.xyz, 1.0f);
 }
 /// <summary>

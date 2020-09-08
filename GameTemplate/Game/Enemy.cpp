@@ -31,8 +31,8 @@ bool Enemy::Start()
 	m_initPos = m_position;
 	//ƒLƒƒƒ‰ƒRƒ“‚Ì‰Šú‰»B
 	m_charaCon.Init(
-		ENEMY_CONTROLLER_RADIUS,
-		ENEMY_CONTROLLER_HEIGHT,
+		m_controllerRadius,
+		m_controllerHeight,
 		m_position
 	);
 	return true;

@@ -65,11 +65,6 @@ void Player::Update()
 
 	//重力を受ける。
 	m_moveSpeed.y -= 1.0f;
-	if (m_position.y <= -5.0f) {
-		//Playerの座標が0以下になったら、
-		//重力を0にする。
-		m_moveSpeed.y = -5.0f;
-	}
 
 	if (m_stopFlug != false) {
 		//Enemyが攻撃してきた。

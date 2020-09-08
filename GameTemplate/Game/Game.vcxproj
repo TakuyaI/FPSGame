@@ -245,8 +245,8 @@
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_bullet.fbx" />
     <MeshContentTask Include="Assets\modelData\sniper_rifle.fbx" />
-    <MeshContentTask Include="Assets\modelData\stage.fbx" />
     <MeshContentTask Include="Assets\modelData\stage3.fbx" />
+    <MeshContentTask Include="Assets\modelData\stageCollider.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_3_1.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_3_2.fbx" />
     <MeshContentTask Include="Assets\modelData\stage_3_3.fbx" />
@@ -266,10 +266,11 @@
     <ImageContentTask Include="Assets\sprite\zyuzi.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\..\Pictures\orengi.png" />
     <Image Include="Assets\modelData\texture\blue.png" />
     <Image Include="Assets\modelData\texture\dangan.png" />
     <Image Include="Assets\modelData\texture\green.png" />
+    <ImageContentTask Include="Assets\sprite\titleBack.png" />
+    <ImageContentTask Include="Assets\sprite\brack.png" />
     <ImageContentTask Include="Assets\sprite\startbutton.png" />
     <ImageContentTask Include="Assets\sprite\titlename.png" />
     <ImageContentTask Include="Assets\modelData\texture\GunTexture\M4A1 Sopmod Body Diffuse.tga" />
@@ -314,7 +315,6 @@
     <ImageContentTask Include="Assets\sprite\item_danyaku.png" />
     <ImageContentTask Include="Assets\sprite\gameclear.png" />
     <ImageContentTask Include="Assets\sprite\gameover.png" />
-    <ImageContentTask Include="Assets\sprite\orengi.png" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Assets\shader\model.fx">

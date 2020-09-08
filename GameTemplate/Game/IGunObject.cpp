@@ -173,17 +173,6 @@ void IGunObject::GunUpdate(
 			//銃を出すフラグを立てる。
 			m_gunGen->SetPutOutFlug(true);
 		}
-		//if (m_putOutTimer < m_putOutAndPutAwayTime) {
-		//	//銃を出している。
-		//	m_animationFlug = enAnimationCrip_putOut;
-		//	//タイマーを加算。
-		//	m_putOutTimer++;
-		//	if (m_putOutTimer >= m_putOutAndPutAwayTime) {
-		//		//銃を出し終えた。
-		//		//銃を出している最中のフラグをfalseにする。
-		//		m_gunGen->SetPutOutFlug(false);
-		//	}
-		//}
 	}
 }
 void IGunObject::GunPostRender(int* reloadTime, int* ammo, int* loading, int* maxLoading)

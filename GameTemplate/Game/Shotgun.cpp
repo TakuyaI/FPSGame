@@ -61,9 +61,13 @@ void Shotgun::Update()
 		&m_notAimPos
 	);
 	if (m_putOutTimer < m_putOutAndPutAwayTime) {
+		//銃を出している。
 		m_animationFlug = enAnimationCrip_putOut;
+		//タイマーを加算。
 		m_putOutTimer++;
 		if (m_putOutTimer >= m_putOutAndPutAwayTime) {
+			//銃を出し終えた。
+			//銃を出している最中のフラグをfalseにする。
 			m_gunGen->SetPutOutFlug(false);
 		}
 	}

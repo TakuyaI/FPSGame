@@ -28,7 +28,6 @@ public:
 	/// 3D描画関数。
 	/// </summary>
 	void Render();
-
 	/// <summary>
 	/// 待機中。
 	/// </summary>
@@ -83,7 +82,8 @@ private:
 	AnimationClip m_animationClip[enAnimationCrip_Num]; //アニメーションクリップ。
 	Animation m_animation;                              //アニメーション。
 	int m_deathAnimTime = 10;                           //死亡時のアニメーションの時間。
-
+	const float m_controllerRadius = 50.0f;             //キャラコンの半径。
+	const float m_controllerHeight = 150.0f;            //キャラコンの高さ。
 	const float m_lockOnRange = 1500.0f;                //ロックオン範囲。
 	const float m_initPosRange = 15.0f;                 //初期座標範囲。
 	const int m_AttackTime = 20;                        //攻撃するまでの間隔。

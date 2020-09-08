@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "ItemGenerator.h"
 
-
+const CVector2 ITEM_SPRITE_SIZE = { 320.0f, 180.0f }; //アイテムのスプライトのサイズ。
 ItemGenerator::ItemGenerator()
 {
 	//テクスチャをロード。
-	m_itemTex.Init(L"Resource/sprite/item2.dds", 320.0f, 180.0f);
-	m_danyakuTex.Init(L"Resource/sprite/item_danyaku.dds", 320.0f, 180.0f);
-	m_kaihukuyakuTex.Init(L"Resource/sprite/item_kaihuku.dds", 320.0f, 180.0f);
+	m_itemTex.Init(L"Resource/sprite/item2.dds", ITEM_SPRITE_SIZE.x, ITEM_SPRITE_SIZE.y);
+	m_danyakuTex.Init(L"Resource/sprite/item_danyaku.dds", ITEM_SPRITE_SIZE.x, ITEM_SPRITE_SIZE.y);
+	m_kaihukuyakuTex.Init(L"Resource/sprite/item_kaihuku.dds", ITEM_SPRITE_SIZE.x, ITEM_SPRITE_SIZE.y);
 	//アイテムのインスタンスを作成。
 	m_kaihuku = new Kaihuku;
 	m_danyaku = new Danyaku;

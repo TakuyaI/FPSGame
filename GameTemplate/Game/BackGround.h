@@ -68,9 +68,10 @@ private:
 		eStateParts_Num,
 	};
 	SkinModel m_model[eStateParts_Num];                         //スキンモデル。
+	SkinModel m_modelCollider;                                  //コライダーのスキンモデル。
 	CVector3 m_position = CVector3::Zero();                     //座標。
 	CQuaternion m_rotation = CQuaternion::Identity();           //回転。
-	PhysicsStaticObject m_physicsStaticObject[eStateParts_Num]; //静的物理オブジェクト。
-	PhysicsGhostObject m_GhostObj[eStateParts_Num];             //ゴーストオブジェクト。
+	PhysicsStaticObject m_physicsStaticObject; //静的物理オブジェクト。
+	PhysicsGhostObject m_GhostObj;             //ゴーストオブジェクト。
 };
 

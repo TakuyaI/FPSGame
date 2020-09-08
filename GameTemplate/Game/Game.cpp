@@ -5,14 +5,13 @@
 
 Game::Game()
 {
-	m_backGro = g_goMgr.NewGameObject<BackGround>(background);
 	//ゲームオーバーのスプライトをロード。
 	m_gameOverSprite.Init(L"Resource/sprite/gameover.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 	//ゲームクリアのスプライトをロード。
 	m_gameClearSprite.Init(L"Resource/sprite/gameclear.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 	//レベルをロード。
 	m_level.Init(
-		L"Assets/level/stage_03.tkl",
+		L"Assets/level/stage_04.tkl",
 		[&](const LevelObjectData & object) {
 			if (wcscmp(object.name, L"player") == 0) {
 				//プレイヤー。
@@ -54,9 +53,11 @@ Game::Game()
 			}
 			return false;
 		});
-
+	//GameCameraのインスタンスを作成。
 	m_gameCam = g_goMgr.NewGameObject<GameCamera>(gamecamera);
+	//GunGeneratorのインスタンスを作成。
 	m_gunGen = g_goMgr.NewGameObject<GunGenerator>(gungenerator);
+	//ItemGeneratorのインスタンスを作成。
 	m_itemGen = g_goMgr.NewGameObject<ItemGenerator>(itemgenerator);
 }
 
@@ -89,12 +90,14 @@ bool Game::Start()
 
 void Game::Update()
 {
+#if 0
 	//セレクトボタンを押したら、タイトルに戻る。
 	if (g_pad->IsTrigger(enButtonSelect)) {
 		m_endFlug = true;
 		g_goMgr.NewGameObject<Title>(title);
 		g_goMgr.DeleteGameObject(this);
 	}
+#endif
 	//プレイヤーが死亡してから２秒後、タイトルに戻る。
 	if (m_player->GetDeathFlug() != false) {
 		//タイマーを加算。

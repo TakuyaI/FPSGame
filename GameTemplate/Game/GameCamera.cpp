@@ -143,9 +143,13 @@ void GameCamera::Update()
 	}
 
 	m_target = m_position + m_toTargetPos;
+	//カメラのターゲットを設定。
 	g_camera3D.SetTarget(m_target);
+	//カメラの座標を設定。
 	g_camera3D.SetPosition(m_position);
+	//カメラの画角を設定
 	g_camera3D.SetViewAngle(CMath::DegToRad(m_viewAngle));
+	//更新。
 	g_camera3D.Update();
 
 }

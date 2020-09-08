@@ -19,6 +19,6 @@ public:
 	void ItemEffects();
 private:
 	Player* m_player;                //プレイヤーのインスタンス。
-	const float m_kaihukuryou = 0.2f; //回復量。プレイヤーのHPを1を100%としたときの数値。
+	const float m_kaihukuryou = 0.2f; //回復量。プレイヤーのHPが1を100%としたときの数値。
 };
 

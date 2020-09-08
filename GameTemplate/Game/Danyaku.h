@@ -23,5 +23,6 @@ private:
 	Rifle* m_rifle;                                    //Rifleのインスタンス。
 	Shotgun* m_shotGun;                                //Shotgunのインスタンス。
 	Sniper* m_sniper;                                  //Sniperのインスタンス。
+	const int m_addBullet = 20;                        //加算する弾数。
 };
 

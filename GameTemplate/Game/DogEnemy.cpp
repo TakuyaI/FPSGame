@@ -30,10 +30,11 @@ bool DogEnemy::Start()
 {
 	//初期座標を設定。
 	m_initPos = m_position;
+	
 	//キャラコンの初期化。
 	m_charaCon.Init(
-		ENEMY_CONTROLLER_RADIUS,
-		ENEMY_CONTROLLER_HEIGHT,
+		m_controllerRadius,
+		m_controllerHeight,
 		m_position
 	);
 	return true;

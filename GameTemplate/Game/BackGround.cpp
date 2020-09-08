@@ -91,15 +91,18 @@ BackGround::BackGround()
 		m_model[i].Init(stageFilePaths[i]);
 		//シャドウレシーバーのフラグを設定する。
 		m_model[i].SetShadowReciever(true);
-		//コライダー作成。
-		m_physicsStaticObject[i].CreateMeshObject(m_model[i], m_position, m_rotation);
-		//ゴースト作成。
-	    m_GhostObj[i].CreateMesh(m_position, m_rotation, m_model[i]);
 		//スキンモデルに法線マップを設定する。
 		m_model[i].SetNormalMap(normalMapSRV);
 		//スキンモデルにスペキュラマップを設定する。
 		m_model[i].SetSpecularMap(specMapSRV);
 	}
+
+	//コライダーのモデルのロード。
+	m_modelCollider.Init(L"Assets/modelData/stageCollider.cmo");
+	//コライダー作成。
+	m_physicsStaticObject.CreateMeshObject(m_modelCollider, m_position, m_rotation);
+	//ゴースト作成。
+	m_GhostObj.CreateMesh(m_position, m_rotation, m_modelCollider);
 }
 
 
@@ -119,12 +122,10 @@ void BackGround::Update()
 		{
 			CharacterController& m_chara = *bul->GetCharaCon();
 			g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
-				for (int i = 0; i < eStateParts_Num; i++) {
-					if (m_GhostObj[i].IsSelf(contactObject) == true) {
+					if (m_GhostObj.IsSelf(contactObject) == true) {
 						//弾がステージに当たったら、弾を削除する。
 						g_goMgr.DeleteGameObject(bul);
 					}
-				}
 				});
 			return true;
 		});
