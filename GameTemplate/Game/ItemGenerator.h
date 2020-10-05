@@ -83,18 +83,15 @@ private:
 	CVector2 m_itemNumFontPos = { 628.0f, 653.0f };               //文字の座標。
 	CVector4 m_fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };            //文字の色。
 	float m_fontSize = 0.7f;                                      //文字のサイズ。
-
-
-	static const int m_maxFontItemNum = 10;
-	FontRender m_getFontItem[m_maxFontItemNum];
-	CVector2 m_initFontPos = { -200.0f, 500.0f };
-	CVector2 m_fontPos[m_maxFontItemNum];
-	int m_DisplayingNum = 0; //アイテムゲットのフォントを表示している数。
-	int m_timerY[m_maxFontItemNum] = { 0 };//アイテムゲットのフォントのY方向へ移動するときに使うタイマー。
-	int m_timerX[m_maxFontItemNum] = { 0 };//アイテムゲットのフォントのX方向へ移動するときに使うタイマー。
-	wchar_t* m_itemName[m_maxFontItemNum];
-	bool m_getItemFlug = false;
-
-	
+	static const int m_maxFontItemNum = 10;                       //アイテムゲットのフォントを表示できる最大値。
+	FontRender m_getFontItem[m_maxFontItemNum];                   //アイテムゲットのフォント。
+	CVector2 m_initFontPos = { -200.0f, 500.0f };                 //アイテムゲットのフォントの初期値。
+	CVector2 m_fontPos[m_maxFontItemNum];                         //アイテムゲットのフォントの座標。
+	int m_DisplayingNum = 0;                                      //アイテムゲットのフォントを表示している数。
+	int m_timerY[m_maxFontItemNum] = { 0 };                       //アイテムゲットのフォントのY方向へ移動するときに使うタイマー。
+	int m_timerX[m_maxFontItemNum] = { 0 };                       //アイテムゲットのフォントのX方向へ移動するときに使うタイマー。
+	wchar_t* m_itemName[m_maxFontItemNum];                        //ゲットしたアイテムの名前。
+	CVector4 m_getItemaFontColor = { 1.0f, 1.0f, 1.0f , 1.0f };   //アイテムゲットのフォントの色。
+	float m_getItemaFontScale = 0.5f;                             //アイテムゲットのフォントのサイズ。
 };
 
