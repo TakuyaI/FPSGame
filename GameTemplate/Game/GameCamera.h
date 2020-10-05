@@ -114,6 +114,8 @@ private:
 	CVector3 m_toTarget = CVector3::Zero();             //プレイヤーからターゲットに向かうベクトルを正規化したもの。
 	CVector3 m_cameraOffset = { 0.0f, 150.0f, 0.0f };   //プレイヤーの座標を軸としたときの、カメラのローカル座標。
 	CQuaternion m_rotation;                             //回転。
+	float m_cameraNear = 1.0f;                          //近平面。
+	float m_cameraFar = 20000.0f;                       //遠平面。
 	float m_angle = 0.0f;                               //横の回転角度。
 	float m_angle2 = 0.0f;                              //縦の回転角度。
 	float m_rotSpeed = 5.0f;                            //カメラが回転するスピード。

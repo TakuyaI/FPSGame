@@ -40,9 +40,6 @@
     <Filter Include="myEngine\math">
       <UniqueIdentifier>{39e7f303-3dac-4bde-bedf-33a5497f262e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="myEngine\goMgr">
-      <UniqueIdentifier>{791975b5-0ac9-4d9e-90f7-e6b78def83c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="myEngine\sound">
       <UniqueIdentifier>{749b1197-8436-410c-8ebf-53b05d310dc4}</UniqueIdentifier>
     </Filter>
@@ -60,6 +57,9 @@
     </Filter>
     <Filter Include="Assets\modelData\texture">
       <UniqueIdentifier>{46571183-60d0-496b-9787-3e765c71e7c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="myEngine\goMgr">
+      <UniqueIdentifier>{791975b5-0ac9-4d9e-90f7-e6b78def83c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -417,9 +417,6 @@
     <MeshContentTask Include="Assets\modelData\enemy.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\item01.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\shotgun_bullet.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -444,9 +441,6 @@
     <MeshContentTask Include="Assets\modelData\shotGun.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\item_dangan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\stage3.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -463,6 +457,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\stageCollider.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\item.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

@@ -32,7 +32,7 @@ public:
 	/// </summary>
 	/// <param name="flug">フラグ</param>
 	/// <param name="item">アイテム</param>
-	void GetItem(bool* flug, IItemObject* item);
+	void GetItem(bool* flug, IItemObject* item, wchar_t* name);
 	/// <summary>
 	/// 表示するアイテムを選ぶ関数。
 	/// </summary>
@@ -41,6 +41,12 @@ public:
 	/// アイテムを使うかどうか。
 	/// </summary>
 	void UseItem();
+	/// <summary>
+	/// アイテムを表示する関数。
+	/// </summary>
+	/// <param name="sprite">表示するアイテムのスプライト。</param>
+	/// <param name="item">表示するアイテムのインスタンス。</param>
+	void FontItem(Sprite& sprite, IItemObject* item);
 	/// <summary>
 	/// 回復薬を取得したかどうかのフラグを設定する。
 	/// </summary>
@@ -57,9 +63,9 @@ public:
 	{
 		m_getDanyakuFlug = flug;
 	}
-	
+
 private:
-	Danyaku* m_danyaku;                                           //弾薬のインスタンス。
+	Danyaku * m_danyaku;                                           //弾薬のインスタンス。
 	Kaihuku* m_kaihuku;                                           //回復薬のインスタンス。
 	static const int m_maxHaveNum = 30;                           //所持できるアイテムの最大数。
 	IItemObject* m_getItemList[m_maxHaveNum] = { nullptr };       //IItemObjectの配列。
@@ -74,8 +80,21 @@ private:
 	bool m_pushLB2Flug = false;                                   //LB2ボタンを押しているかどうか。
 	bool m_pushRB2Flug = false;                                   //RB2ボタンを押しているかどうか。
 	FontRender m_itemNumFont;                                     //アイテムの個数を表示する文字。
-	DirectX::XMFLOAT2 m_fontPos = { 628.0f, 653.0f };             //文字の座標。
-	DirectX::FXMVECTOR m_fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };  //文字の色。
+	CVector2 m_itemNumFontPos = { 628.0f, 653.0f };               //文字の座標。
+	CVector4 m_fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };            //文字の色。
 	float m_fontSize = 0.7f;                                      //文字のサイズ。
+
+
+	static const int m_maxFontItemNum = 10;
+	FontRender m_getFontItem[m_maxFontItemNum];
+	CVector2 m_initFontPos = { -200.0f, 500.0f };
+	CVector2 m_fontPos[m_maxFontItemNum];
+	int m_DisplayingNum = 0; //アイテムゲットのフォントを表示している数。
+	int m_timerY[m_maxFontItemNum] = { 0 };//アイテムゲットのフォントのY方向へ移動するときに使うタイマー。
+	int m_timerX[m_maxFontItemNum] = { 0 };//アイテムゲットのフォントのX方向へ移動するときに使うタイマー。
+	wchar_t* m_itemName[m_maxFontItemNum];
+	bool m_getItemFlug = false;
+
+	
 };
 

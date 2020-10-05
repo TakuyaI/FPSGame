@@ -15,11 +15,11 @@ ItemObject::ItemObject()
 	m_itemNumber = g_goMgr.Rand(--itemNum);
 	if (m_itemNumber == danyaku) {
 		//’e–òB
-		m_model.Init(L"Assets/modelData/item01.cmo");
+		m_model.Init(L"Assets/modelData/item.cmo");
 	}
 	else if (m_itemNumber == kaihuku) {
 		//‰ñ•œ–òB
-		m_model.Init(L"Assets/modelData/item01.cmo");
+		m_model.Init(L"Assets/modelData/item.cmo");
 	}
 }
 

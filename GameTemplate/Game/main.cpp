@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
-#include "Game.h"
+//#include "Game.h"
+#include "IGameObject.h"
 #include "Title.h"
 #include "level/Level.h"
 
@@ -46,7 +47,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//カメラの更新。
 		g_camera3D.Update();
 		g_camera2D.Update();
-#if 1
+#if 0
 		if (g_pad->IsPress(enButtonB)) {
 			//コリジョン表示。
 			g_physics.DebugDraw();

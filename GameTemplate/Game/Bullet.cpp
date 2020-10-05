@@ -76,7 +76,11 @@ bool Bullet::Start()
 	//ゴースト初期化。
 	InitGhost();
 	//キャラコン初期化。
-	m_charaCon.Init(50.0f, 50.0f, m_position);
+	m_charaCon.Init(
+		m_controllerRadius, //半径。
+		m_controllerHeight, //高さ。
+		m_position          //座標。
+	);
 	return true;
 }
 void Bullet::CollisionBulletToEnemy()

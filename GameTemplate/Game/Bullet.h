@@ -87,5 +87,7 @@ private:
 	PhysicsGhostObject m_GhostObject;                  //ゴースト。
 	CharacterController m_charaCon;                    //キャラコン。
 	CVector3 m_hitJudgmentRange = CVector3::Zero();    //弾の当たり判定の範囲。
+	const float m_controllerRadius = 5.0f;             //キャラコンの半径。
+	const float m_controllerHeight = 5.0f;            //キャラコンの高さ。
 };
 

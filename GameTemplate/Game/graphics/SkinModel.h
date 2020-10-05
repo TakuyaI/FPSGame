@@ -165,7 +165,6 @@ private:
 	SPointLight m_pointLightList;
 	ID3D11Buffer* m_pointLightCb = nullptr;
 	bool m_isShadowReciever = false;						//シャドウレシーバーのフラグ。
-	int d = 0;
 	ID3D11ShaderResourceView* m_normalMapSRV = nullptr; //法線マップのSRV。
 	ID3D11ShaderResourceView* m_specularMapSRV = nullptr;	//スペキュラマップのSRV
 };

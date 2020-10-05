@@ -99,7 +99,7 @@ private:
 	Sprite m_sprite;                                    //リロードゲージのスプライト。
 	CVector3 m_reloadGagePos = {-24.0f, -30.0f, 0.0f};  //リロードゲージのスプライトの座標。
 	CVector3 m_reloadGageScale = { 0.6f, 0.1f, 1.0f };  //リロードゲージのスプライトの大きさ。
-	DirectX::XMFLOAT2 m_fontPos = { 100.0f, 600.0f };   //文字の座標。
+	CVector2 m_fontPos = { 100.0f, 600.0f };   //文字の座標。
 	float m_fontRed = 0.0f;                             //文字の赤の成分。
 	float m_fontGreen = 0.0f;                           //文字の緑の成分。
 	float m_fontBlue = 0.0f;                            //文字の青の成分。

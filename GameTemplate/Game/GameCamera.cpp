@@ -9,9 +9,9 @@ const float AIM_RECOIL_RIGHT_AND_LEFT = 0.1f;//ƒGƒCƒ€’†‚ÌƒŠƒRƒCƒ‹‚Ì¶‰E‚ÌˆÚ“®—Ê
 GameCamera::GameCamera()
 {
 	//‹ß•½–Ê‚ğİ’èB
-	g_camera3D.SetNear(1.0f);
+	g_camera3D.SetNear(m_cameraNear);
 	//‰“•½–Ê‚ğİ’èB
-	g_camera3D.SetFar(20000.0f);
+	g_camera3D.SetFar(m_cameraFar);
 }
 
 

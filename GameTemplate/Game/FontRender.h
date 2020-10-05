@@ -12,7 +12,7 @@ public:
 	/// <param name="position">座標</param>
 	/// <param name="color">色</param>
 	/// <param name="scale">サイズ</param>
-	void Draw(wchar_t const* text, DirectX::XMFLOAT2 const& position, DirectX::FXMVECTOR color, float scale);
+	void Draw(wchar_t const* text, CVector2 & position, CVector4 color, float scale);
 
 	std::unique_ptr<DirectX::SpriteBatch> spriteBatch;
 	std::unique_ptr<DirectX::SpriteFont> spriteFont;

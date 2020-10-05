@@ -120,6 +120,7 @@ void BackGround::Update()
 	//弾と当たり判定を取る。
 	g_goMgr.QueryGameObject<Bullet>(bullet, [&](Bullet * bul)->bool
 		{
+			//弾のキャラコン。
 			CharacterController& m_chara = *bul->GetCharaCon();
 			g_physics.ContactTest(m_chara, [&](const btCollisionObject& contactObject) {
 					if (m_GhostObj.IsSelf(contactObject) == true) {

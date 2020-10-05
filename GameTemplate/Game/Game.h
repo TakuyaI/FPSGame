@@ -12,6 +12,8 @@ class GunGenerator;
 #include "Sprite.h"
 #include "FontRender.h"
 #include "ItemGenerator.h"
+
+#include "ItemObject.h"
 class Game : public IGameObject
 {
 public:
@@ -82,8 +84,11 @@ private:
 	int m_returnTitleTime = 120;                                  //タイトル画面にもどるまでの時間。
 	int m_returnTitleTimer = 0;                                   //タイトルに戻るまでのタイマー。
 	bool m_endFlug = false;                                       //ゲームが終わったかどうか。
-	DirectX::XMFLOAT2 m_fontPos = { 100.0f, 100.0f };             //文字の座標。
-	DirectX::FXMVECTOR m_fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };  //文字の色。
+	CVector2 m_fontPos = { 100.0f, 100.0f };                      //文字の座標。
+	CVector4 m_fontColor = { 1.0f, 1.0f, 1.0f, 1.0f };            //文字の色。
 	float m_fontScale = 1.0f;                                     //文字のサイズ。
+
+	ItemObject* item[5];
+	CVector3 m_pos = CVector3::Zero();
 };
 

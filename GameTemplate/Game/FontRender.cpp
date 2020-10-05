@@ -15,12 +15,14 @@ FontRender::~FontRender()
 
 void FontRender::Draw(
 	wchar_t const* text,
-	DirectX::XMFLOAT2 const& position,
-	DirectX::FXMVECTOR color,
+	CVector2 & position,
+	CVector4 color,
 	float scale
 )
 {
+	DirectX::XMFLOAT2 pos = { position.x , position.y };
+	DirectX::FXMVECTOR fontColor = { color.x, color.y , color.z ,color.w };
 	spriteBatch->Begin();
-	spriteFont->DrawString(spriteBatch.get(), text, position, color, 0.0f, {1.0f, 1.0f}, scale);
+	spriteFont->DrawString(spriteBatch.get(), text, pos, fontColor, 0.0f, {1.0f, 1.0f}, scale);
 	spriteBatch->End();
 }

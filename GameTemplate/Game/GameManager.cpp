@@ -13,7 +13,7 @@ GameManager::~GameManager()
 
 void GameManager::Init()
 {
-	if (m_flug != true) {
+	if (m_initFlug != true) {
 		//メインとなるレンダリングターゲットを作成する。
 		m_mainRenderTarget.Create(
 			FRAME_BUFFER_W,
@@ -32,7 +32,7 @@ void GameManager::Init()
 		InitEffekseer();
 		m_shadowMap.SetShadowMapRT(2048, 2048);
 
-		m_flug = true;
+		m_initFlug = true;
 	}
 }
 void GameManager::InitTranslucentBlendState()
@@ -216,11 +216,13 @@ void GameManager::Render()
 		//2D
 		for (auto go : m_goList) {
 			if (go->GetPostRenderPriority() != false) {
+				//優先して描画。
 				go->PostRender();
 			}
 		}
 		for (auto go : m_goList) {
 			if (go->GetPostRenderPriority() != true) {
+				//後で描画。
 				go->PostRender();
 			}
 		}

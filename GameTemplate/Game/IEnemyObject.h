@@ -123,8 +123,6 @@ protected:
 	int m_animationFlug = 0;                       //アニメーションを決めるフラグ。
 	int m_AttackTimer = 0;                         //攻撃タイマー。
 	float m_damage = 0.0f;                         //ダメージ。
-	float ENEMY_CONTROLLER_RADIUS = 0.0f;   //キャラコンの半径。
-	float ENEMY_CONTROLLER_HEIGHT = 0.0f;  //キャラコンの高さ。
 private:
 	Game* m_game;                                  //Gameのインスタンス。
 	ItemObject* m_itemObj;                         //ItemObjectのインスタンス。

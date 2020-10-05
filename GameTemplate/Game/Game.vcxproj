@@ -237,8 +237,7 @@
     <MeshContentTask Include="Assets\modelData\bullet_test.fbx" />
     <MeshContentTask Include="Assets\modelData\dogEnemy.fbx" />
     <MeshContentTask Include="Assets\modelData\enemy.fbx" />
-    <MeshContentTask Include="Assets\modelData\item01.fbx" />
-    <MeshContentTask Include="Assets\modelData\item_dangan.fbx" />
+    <MeshContentTask Include="Assets\modelData\item.fbx" />
     <MeshContentTask Include="Assets\modelData\player.fbx" />
     <MeshContentTask Include="Assets\modelData\pointLightObj.fbx" />
     <MeshContentTask Include="Assets\modelData\shotGun.fbx" />

@@ -63,8 +63,8 @@ public:
 		return m_itemNumber;
 	}
 private:
-	bool m_haveFlug = false;   //アイテムを所持しているかどうか。
-	int m_haveNum = 0;         //アイテムの所持数。
-	int m_itemNumber = 1000;   //アイテムの番号。初期化で0～29以外の数値を入れておく。
+	bool m_haveFlug = false;     //アイテムを所持しているかどうか。
+	int m_haveNum = 0;           //アイテムの所持数。
+	int m_itemNumber = 1000;     //アイテムの番号。初期化で0～29以外の数値を入れておく。
 };
 

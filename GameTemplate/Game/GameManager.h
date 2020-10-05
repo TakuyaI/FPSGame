@@ -46,7 +46,9 @@ public:
 		newObj->SetObjectNum(num);
 		return newObj;
 	}
-
+	/// <summary>
+	/// ゲームオブジェクトの検索。
+	/// </summary>
 	template<class T>
 	T* FindGameObject(const int num)
 	{
@@ -57,21 +59,9 @@ public:
 			}
 		}
 	}
-
-	void DeleteGameObject(IGameObject* go)
-	{
-		//リストから探して、見つかったら削除する。
-		for (auto it = m_goList.begin();
-			it != m_goList.end();
-			it++
-			) {
-			if ((*it) == go) {
-				//削除のリクエストを送る。
-				go->RequestDelete();
-				return;
-			}
-		}
-	}
+	/// <summary>
+	/// ゲームオブジェクトの検索。
+	/// </summary>
 	template<class T>
 	void QueryGameObject(const int num, std::function<bool(T* go)> func)
 	{
@@ -86,13 +76,30 @@ public:
 		}
 	}
 	/// <summary>
+	/// ゲームオブジェクトを削除。
+	/// </summary>
+	/// <param name="go">ゲームオブジェクト。</param>
+	void DeleteGameObject(IGameObject* go)
+	{
+		//リストから探して、見つかったら削除する。
+		for (auto it = m_goList.begin();
+			it != m_goList.end();
+			it++
+			) {
+			if ((*it) == go) {
+				//削除のリクエストを送る。
+				go->RequestDelete();
+				return;
+			}
+		}
+	}
+	/// <summary>
 	/// ランダムで数値を返す。
 	/// </summary>
 	///<param name="num"> 0からnum番目までの数値を出す。</param>
 	/// <returns></returns>
 	int Rand(int num) 
 	{
-		//srand((unsigned int)time(nullptr));
 		rand(); rand(); rand(); rand();
 		int ran = rand();
 		int rand1 = ran % (num + 1);
@@ -108,47 +115,72 @@ public:
 	{
 		return lowest + (float)Rand(highest - lowest);
 	}
+	/// <summary>
+	/// プレイヤーの座標を設定する。
+	/// </summary>
+	/// <param name="pos"></param>
 	void SetPlayerPos(CVector3 pos)
 	{
 		m_playerPos = pos;
 	}
+	/// <summary>
+	/// プレイヤーの座標を返す。
+	/// </summary>
+	/// <returns></returns>
 	CVector3 GetPlayerPos()
 	{
 		return m_playerPos;
 	}
+	/// <summary>
+	/// ポイントライトの座標を設定する。
+	/// </summary>
+	/// <param name="pos">座標。</param>
+	/// <param name="i">配列の番号。</param>
 	void SetPointLightPos(CVector3 pos , int i)
 	{
 		m_pointLightPos[i] = pos;
 	}
+	/// <summary>
+	/// ポイントライトの座標を返す。
+	/// </summary>
+	/// <param name="i"></param>
+	/// <returns></returns>
 	CVector3 GetPointLightPos(int i)
 	{
 		return m_pointLightPos[i];
 	}
+	/// <summary>
+	/// 弾を撃ったかどうかのフラグを設定する。
+	/// </summary>
+	/// <param name="flug">フラグ。</param>
 	void SetShotFlug(bool flug)
 	{
 		m_shotFlug = flug;
 	}
+	/// <summary>
+	/// 弾を撃ったかどうかのフラグを返す。
+	/// </summary>
+	/// <returns></returns>
 	bool GetShotFlug()
 	{
 		return m_shotFlug;
 	}
 	
 private:
-	std::list <IGameObject*> m_goList; //可変長配列。
-
-	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
-	RenderTarget m_mainRenderTarget;   //メインレンダリングターゲット。
+	std::list <IGameObject*> m_goList;                                  //可変長配列。
+	D3D11_VIEWPORT m_frameBufferViewports;	                    		//フレームバッファのビューポート。
+	RenderTarget m_mainRenderTarget;                                    //メインレンダリングターゲット。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
-	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
-	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
-	bool m_flug = false;
-	ShadowMap m_shadowMap; //シャドウマップ。
-	CVector3 m_playerPos = CVector3::Zero(); //プレイヤーの座標。
+	Sprite m_copyMainRtToFrameBufferSprite;			                    //メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	ID3D11BlendState* m_translucentBlendState = nullptr;	            //半透明合成用のブレンドステート。
+	bool m_initFlug = false;                                            //Init関数を1回しか通さないためのフラグ。
+	ShadowMap m_shadowMap;                                              //シャドウマップ。
+	CVector3 m_playerPos = CVector3::Zero();                            //プレイヤーの座標。
 	Effekseer::Manager*	m_effekseerManager = nullptr;
 	EffekseerRenderer::Renderer* m_effekseerRenderer = nullptr;
-	CVector3 m_pointLightPos[13]; //ポイントライトの座標。
-	bool m_shotFlug = false; //弾を撃ったかどうか。
+	CVector3 m_pointLightPos[13];                                       //ポイントライトの座標。
+	bool m_shotFlug = false;                                            //弾を撃ったかどうか。
 };
 //外部からアクセスするので、extern宣言も必要。
 extern GameManager g_goMgr;
